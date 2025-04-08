@@ -28,7 +28,7 @@ export const bannerOne = {
   socials: [
     {
       id: 1,
-      href: "https://www.instagram.com.tech",
+      href: "https://www.instagram.com/sytis.tech/",
       title: "Instagram",
     },
     {
