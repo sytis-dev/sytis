@@ -1,5 +1,5 @@
 const cache = new Map();
-const CACHE_TTL = 60 * 1000; // 1 minute in milliseconds
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
