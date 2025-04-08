@@ -30,7 +30,7 @@ const AboutSectionTwo = () => {
                     <CounterBlock key={counter.id} counter={counter} />
                   ))}
                   <div className="link-box">
-                    <Link href={`/sytis/blog`}>
+                    <Link href={`/blog`}>
                       <a className="theme-btn btn-style-two">
                         <i className="btn-curve"></i>
                         <span className="btn-title">{ctaTitle}</span>

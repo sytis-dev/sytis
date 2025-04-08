@@ -68,7 +68,7 @@ const LoginWrapper = ({ register = false, forgot = false }) => {
                 {forgot ? (
                   <TextSplit text={forgotText} />
                 ) : (
-                  <Link href="/sytis/forgot-password">
+                  <Link href="/forgot-password">
                     Forgot your password?
                   </Link>
                 )}

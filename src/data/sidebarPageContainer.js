@@ -10,32 +10,32 @@ export const sidebar = {
     {
       id: 1,
       title: "Substation Monitoring",
-      href: "/sytis/applications/substation-monitoring",
+      href: "/applications/substation-monitoring",
     },
     {
       id: 2,
       title: "Electrical Panel",
-      href: "/sytis/applications/electrical-panel",
+      href: "/applications/electrical-panel",
     },
     {
       id: 3,
       title: "flame and fire Detection",
-      href: "/sytis/applications/fire-detection",
+      href: "/applications/fire-detection",
     },
     {
       id: 4,
       title: "Renewable Energy ",
-      href: "/sytis/applications/renewable-energy",
+      href: "/applications/renewable-energy",
     },
     {
       id: 5,
       title: "Security",
-      href: "/sytis/applications/security",
+      href: "/applications/security",
     },
     {
       id: 6,
       title: "Transportation",
-      href: "/sytis/applications/transportation",
+      href: "/applications/transportation",
     },
   ],
 };

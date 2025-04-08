@@ -13,7 +13,7 @@ const featuredSection = {
     },
     {
       id: 2,
-      href:"/sytis/about", 
+      href:"/about", 
       title: "Learn More",
       text: "",
     },

@@ -119,7 +119,7 @@ const MainFooter = ({ normalPadding = true }) => {
                   <h6>Newsletter</h6>
                   <div className="newsletter-form">
                     <div className="link-box">
-                      <Link href="/sytis/newsletter">
+                      <Link href="/newsletter">
                         <a className="theme-btn btn-style-two">
                           <i className="btn-curve"></i>
                           <span className="btn-title">Sign Up Now!</span>

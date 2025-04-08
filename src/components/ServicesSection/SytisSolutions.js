@@ -49,7 +49,7 @@ const SYTISSolutions = () => {
             sol.category_id.toString() +
             "-" +
             slugify(sol.name, { lower: true }),
-          href: `/sytis/solutions/${slugify(sol.name, { lower: true })}`,
+          href: `/solutions/${slugify(sol.name, { lower: true })}`,
           image: sol.image_url,
           title: sol.name,
           icon: sol.icon || "flaticon-computer",

@@ -137,7 +137,7 @@ const ProductDetailsPage = ({ product }) => {
             <div>
               <Link
                 className="theme-btn btn-style-one demo-purchase-btn"
-                href="/sytis/contact"
+                href="/contact"
               >
                 <a
                   className="theme-btn btn-style-one demo-purchase-btn"

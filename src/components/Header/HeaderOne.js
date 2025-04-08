@@ -173,7 +173,7 @@ const HeaderOne = ({
             {links && (
               <div className="other-links clearfix">
                 <div className="login-btn" style={{ marginRight: "30px" }}>
-                  <Link href="/sytis/login">
+                  <Link href="/login">
                     <a className="theme-btn login-toggler">
                       <span className="flaticon-user"></span>
                     </a>
@@ -192,7 +192,7 @@ const HeaderOne = ({
                   <div>
                     <Link
                       className="theme-btn btn-style-one demo-purchase-btn"
-                      href="/sytis/contact"
+                      href="/contact"
                     >
                       <a
                         className="theme-btn btn-style-one demo-purchase-btn"

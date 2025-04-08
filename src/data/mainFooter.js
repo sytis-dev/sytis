@@ -63,47 +63,47 @@ export const mainFooter = {
   links: [
     {
       id: 1,
-      href: "/sytis /solutions",
+      href: " /solutions",
       title: "Solutions",
     },
     {
       id: 2,
-      href: "/sytis/applications",
+      href: "/applications",
       title: "Applications",
     },
     {
       id: 3,
-      href: "/sytis/about",
+      href: "/about",
       title: "About",
     },
     {
       id: 4,
-      href: "/sytis/blog",
+      href: "/blog",
       title: "Blog",
     },
     {
       id: 5,
-      href: "/sytis/faq",
+      href: "/faq",
       title: "FAQ",
     },
     {
       id: 6,
-      href: "/sytis/solution-inquiry",
+      href: "/solution-inquiry",
       title: "Solution Inquiry",
     },
     {
       id: 7,
-      href: "/sytis/privacy-policy",
+      href: "/privacy-policy",
       title: "Privacy Policy",
     },
     {
       id: 8,
-      href: "/sytis/shipping",
+      href: "/shipping",
       title: "Shipping",
     },
     {
       id: 9,
-      href: "/sytis/terms-of-use",
+      href: "/terms-of-use",
       title: "Terms of Use ",
     },
   ],

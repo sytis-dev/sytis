@@ -10,7 +10,6 @@ import SidebarPageContainer from "@/components/SidebarPageContainer/SidebarPageC
 import SYTISApplicationContainer from "@/components/SytisApplicationContainer/SytisApplicationContainer";
 import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
-import ShopPage from "@/components/ShopPage/ShopPage";
 
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
@@ -35,25 +34,25 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
-  let solutions = [];
+  let applications = [];
 
   try {
     const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
+      `${process.env.API_URL}/api/applications`,
       5,
       2000
     ); // Retries 5 times with 2-second delay
-    solutions = json.data;
-    console.log(solutions);
+    applications = json.data;
+    console.log(applications);
   } catch (error) {
-    console.error("Error fetching solutions:", error);
+    console.error("Error fetching applications:", error);
     return {
       paths: [],
       fallback: "blocking",
     };
   }
 
-  const paths = solutions.map((app) => ({
+  const paths = applications.map((app) => ({
     params: {
       slug: app.name
         .toLowerCase()
@@ -72,26 +71,26 @@ export async function getStaticPaths() {
 
 // getStaticProps with retry logic
 export async function getStaticProps({ params }) {
-  let solutions = [];
+  let applications = [];
 
   try {
     const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
+      `${process.env.API_URL}/api/applications`,
       5,
       2000
     ); // Retries 5 times with 2-second delay
-    solutions = json.data;
+    applications = json.data;
 
     // Check if json.data is defined and is an array
-    if (!Array.isArray(solutions)) {
+    if (!Array.isArray(applications)) {
       return { notFound: true };
     }
   } catch (error) {
-    console.error("Error fetching solution data:", error);
+    console.error("Error fetching application data:", error);
     return { notFound: true };
   }
 
-  const solution = solutions.find(
+  const application = applications.find(
     (a) =>
       a.name
         .toLowerCase()
@@ -101,33 +100,36 @@ export async function getStaticProps({ params }) {
         .trim() === params.slug
   );
 
-  if (!solution) {
+  if (!application) {
     return { notFound: true };
   }
 
   return {
-    props: { solution },
+    props: { application },
     revalidate: 60, // Revalidates every 60 seconds
   };
 }
 
-const Solution = ({ solution }) => {
+const Application = ({ application }) => {
   return (
-    <Layout pageTitle={solution.name}>
+    <Layout pageTitle={application.name}>
       <Style />
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
       <PageBanner
-        title={solution.name}
-        parent="Solutions"
-        parentHref="/sytis/solutions"
+        title={application.name}
+        parent="Applications"
+        parentHref="/applications"
       />
-      <ShopPage products={solution.products} />
+      <SYTISApplicationContainer
+        application={application}
+        service={webDevelopment}
+      />
       <CallToSectionTwo className="alternate" />
       <MainFooter />
     </Layout>
   );
 };
 
-export default Solution;
+export default Application;

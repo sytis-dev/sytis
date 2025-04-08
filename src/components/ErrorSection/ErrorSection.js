@@ -42,7 +42,7 @@ const ErrorSection = () => {
             </form>
           </div> */}
           <div className="link-box">
-            <Link href="/sytis">
+            <Link href="">
               <a className="theme-btn btn-style-one">
                 <i className="btn-curve"></i>
                 <span className="btn-title">Back to home</span>

@@ -28,17 +28,17 @@ export const bannerOne = {
   socials: [
     {
       id: 1,
-      href: "https://www.instagram.com/sytis.tech",
+      href: "https://www.instagram.com.tech",
       title: "Instagram",
     },
     {
       id: 2,
-      href: "https://www.facebook.com/sytistech",
+      href: "https://www.facebook.comtech",
       title: "Facebook",
     },
     {
       id: 3,
-      href: "https://www.linkedin.com/company/sytis",
+      href: "https://www.linkedin.com/company",
       title: "LinkedIn",
     },
   ],
@@ -50,7 +50,7 @@ export const bannerOne = {
       title: "INNOVATIVE\nTHERMAL\nTECHNOLOGY",
       text: "Introducing continuous remote detection monitoring systems for mission-critical electrical assets and perimeter surveillance.",
       button_text: "Browse Applications", 
-      button_link: "/sytis/applications",
+      button_link: "/applications",
     },
     {
       id: 2,
@@ -58,7 +58,7 @@ export const bannerOne = {
       title: "PREDICT\nPREVENT\nPROTECT",
       text: "We are committed to providing our customers with exceptional service while offering our employees the best training.",
       button_text: "Browse Solutions", 
-      button_link: "/sytis/solutions",
+      button_link: "/solutions",
     },
     {
       id: 3,
@@ -66,7 +66,7 @@ export const bannerOne = {
       title: "VITAL VISIBILITY WHERE IT MATTERS MOST",
       text: "We are committed to providing our customers with exceptional service while offering our employees the best training.",
       button_text: "Browse Applications", 
-      button_link: "/sytis/applications",
+      button_link: "/applications",
     },
   ],
 };

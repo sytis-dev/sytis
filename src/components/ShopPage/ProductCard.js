@@ -15,7 +15,7 @@ const ProductCard = ({ product = {} }) => {
           {imageUrl && <Image src={imageUrl} alt={productTitle} />}
 
           <div className="product-card__buttons">
-            <Link href={`/sytis/products${slug}`}>
+            <Link href={`/products${slug}`}>
               <a className="theme-btn btn-style-one">
                 <i className="btn-curve"></i>
                 <span className="btn-title">View</span>
@@ -25,7 +25,7 @@ const ProductCard = ({ product = {} }) => {
         </div>
         <div className="product-card__content">
           <h3 className="product-card__title">
-            <Link href={`/sytis/products${slug}`}>{productTitle}</Link>
+            <Link href={`/products${slug}`}>{productTitle}</Link>
           </h3>
           {/* <p className="product-card__price">${price}</p> */}
         </div>

@@ -9,7 +9,7 @@ const services = [
   {
     id: 1,
     image: substationImage,
-    href: "/sytis/applications/substation-monitoring",
+    href: "/applications/substation-monitoring",
     icon: "flaticon-vector",
     title: "Substation\nMonitoring",
     text: "Substation monitoring is the process of observing and analyzing the performance of electrical substations to ensure their efficient operation and reliability.",
@@ -17,7 +17,7 @@ const services = [
   {
     id: 2,
     image: electricPanelImage,
-    href: "/sytis/applications/electrical-panel",
+    href: "/applications/electrical-panel",
     icon: "flaticon-digital",
     title: "Electrical\nPanel",
     text: "Electrical panels are crucial components in electrical systems, serving as the central point for distributing electricity to various circuits and devices within a building or facility.",
@@ -25,7 +25,7 @@ const services = [
   {
     id: 3,
     image: flameImage,
-    href: "/sytis/applications/fire-detection",
+    href: "/applications/fire-detection",
     icon: "flaticon-instant-camera",
     title: "flame\nfire Protection",
     text: "Effective flame and fire protection systems are essential for safeguarding lives and property from the devastating effects of fire, ensuring early detection and suppression.",
@@ -33,7 +33,7 @@ const services = [
   {
     id: 4,
     image: renewableImage,
-    href: "/sytis/applications/renewable-energy",
+    href: "/applications/renewable-energy",
     icon: "flaticon-monitor",
     title: "Renewable \nEnergy",
     text: "Renewable energy refers to energy derived from natural sources that are replenished at a faster rate than they are consumed, such as solar, wind, hydro, and geothermal energy.",
@@ -41,7 +41,7 @@ const services = [
   {
     id: 5,
     image: securityImage,
-    href: "/sytis/applications/security",
+    href: "/applications/security",
     icon: "flaticon-instant-camera",
     title: "Security",
     text: "Security systems are designed to protect people, property, and assets from unauthorized access, theft, vandalism, and other potential threats through various technologies and measures.",
@@ -49,7 +49,7 @@ const services = [
   {
     id: 6,
     image: transportationImage,
-    href: "/sytis/applications/transportation",
+    href: "/applications/transportation",
     icon: "flaticon-monitor",
     title: "Transportation",
     text: "Transportation systems encompass the infrastructure, vehicles, and services that facilitate the movement of people and goods from one location to another, including roads, railways, airways, and waterways.",
@@ -73,37 +73,37 @@ export const serviceSectionThree = [
   {
     id: 1,
     icon: "flaticon-responsive",
-    href: "/sytis/applications/substation-monitoring",
+    href: "/applications/substation-monitoring",
     title: "Substation\nMonitoring",
   },
   {
     id: 2,
     icon: "flaticon-computer",
-    href: "/sytis/applications/electrical-maintenance",
+    href: "/applications/electrical-maintenance",
     title: "Electrical\nMaintenance",
   },
   {
     id: 3,
     icon: "flaticon-digital-marketing",
-    href: "/sytis/applications/",
+    href: "/applications/",
     title: "digital\nmarketing",
   },
   {
     id: 4,
     icon: "flaticon-development",
-    href: "/sytis/applications/",
+    href: "/applications/",
     title: "seo & content\nwriting",
   },
   {
     id: 5,
     icon: "flaticon-app-development",
-    href: "/sytis/applications/",
+    href: "/applications/",
     title: "App\nDevelopment",
   },
   {
     id: 6,
     icon: "flaticon-ui",
-    href: "/sytis/applications/",
+    href: "/applications/",
     title: "Ui/UX\ndesigning",
   },
 ];

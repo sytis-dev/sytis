@@ -46,7 +46,7 @@ const MobileMenu = ({ onePage = false }) => {
         <div className="side-menu__content">
           <p>{text}</p>
           <p>
-          <a href={`/sytis/contact`}>Contact Us</a> <br />{" "}
+          <a href={`/contact`}>Contact Us</a> <br />{" "}
             <a href={`mailto:${email}`}>{email}</a> <br />{" "}
             <a href={`tel:${phone.split(" ").join("")}`}>{phone}</a>
           </p>

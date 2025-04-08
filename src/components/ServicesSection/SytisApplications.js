@@ -49,7 +49,7 @@ const SytisApplications = () => {
             app.category_id.toString() +
             "-" +
             slugify(app.name, { lower: true }),
-          href: `/sytis/applications/${slugify(app.name, { lower: true })}`,
+          href: `/applications/${slugify(app.name, { lower: true })}`,
           image: app.image_url,
           title: app.name,
           icon: app.iconUrl || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
@@ -88,22 +88,35 @@ const SytisApplications = () => {
         <Row>
           {applications.map(({ id, icon, title, href, image, description }) => (
             <Col key={id} md={6} lg={4}>
-              <div className="service-nine__card">
-                <div className="service-nine__card__inner">
-                  <div className="service-nine__image">
-                    <Image src={image} alt={title} width={500} height={300} />
-                  </div>
-                  <div className="service-nine__content">
-                    <div className="service-nine__icon" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                      <img src={icon} alt={title} style={{ width: "80px", height: "80px" }} />
+              <Link href={href}>
+                <div className="service-nine__card">
+                  <div className="service-nine__card__inner">
+                    <div className="service-nine__image">
+                      <Image src={image} alt={title} width={500} height={300} />
                     </div>
-                    <h4 style={{ textAlign: "center" }}>
-                      <Link href={href}>{title}</Link>
-                    </h4>
-                    {/* <p dangerouslySetInnerHTML={{ __html: description }} /> */}
+                    <div className="service-nine__content">
+                      <div
+                        className="service-nine__icon"
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={icon}
+                          alt={title}
+                          style={{ width: "80px", height: "80px" }}
+                        />
+                      </div>
+                      <h4 style={{ textAlign: "center" }}>
+                        <Link href={href}>{title}</Link>
+                      </h4>
+                      {/* <p dangerouslySetInnerHTML={{ __html: description }} /> */}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </Col>
           ))}
         </Row>

@@ -10,7 +10,7 @@ const SYTISBlogPost = ({ post = {} }) => {
     <Col lg={4} md={6} sm={12} className="news-block animated fadeInUp">
       <div className="inner-box">
         <div className="image-box">
-          <Link href={`/sytis${href}`}>
+          <Link href={`${href}`}>
             <a>
               {image && (
                 <Image width={500} height={500} src={image} alt={title} />
@@ -30,13 +30,13 @@ const SYTISBlogPost = ({ post = {} }) => {
             </ul>
           </div>
           <h5>
-            <Link href={`/sytis${href}`} style={{ fontSize: "30%" }}>
+            <Link href={`${href}`} style={{ fontSize: "30%" }}>
               {title}
             </Link>{" "}
           </h5>
           {/* <div className="summary">{summary}</div> */}
           <div className="link-box">
-            <Link href={`/sytis${href}`}>
+            <Link href={`${href}`}>
               <a className="theme-btn">
                 <span className="flaticon-next-1"></span>
               </a>
