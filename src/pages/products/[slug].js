@@ -80,7 +80,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { product },
-    revalidate: 60, // Revalidates every 60 seconds
+    revalidate: 60 * 60, // Revalidates every 60 minutes
   };
 }
 
