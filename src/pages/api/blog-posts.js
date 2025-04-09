@@ -58,3 +58,17 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
+
+// Helper functions for caching
+function getCache(key) {
+  const cached = cache.get(key);
+  if (cached && cached.expiry > Date.now()) {
+    return cached.value;
+  }
+  cache.delete(key); // Expired, remove from cache
+  return null;
+}
+
+function setCache(key, value) {
+  cache.set(key, { value, expiry: Date.now() + CACHE_TTL });
+}
