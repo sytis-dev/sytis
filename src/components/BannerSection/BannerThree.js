@@ -20,6 +20,8 @@ const settings = {
   gutter: 0,
   autoplayButton: false,
   autoplayButtonOutput: false,
+  autoplayTimeout: 15000,
+  speed: 600,
 };
 
 const { dayRange, timeRange, socials, bg, bannersTwo } = bannerOne;
