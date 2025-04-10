@@ -76,6 +76,30 @@ export const contactSection = {
       phone: "",
     }
   ],
+  canadaTitle: "Canadian Partner - PowerNet MCL",
+  canadaContacts:[
+    {
+      id: 1,
+      name: "PHONE",
+      address: "",
+      email: "",
+      phone: "403-571-4735",
+    },
+    {
+      id: 2,
+      name: "EMAIL",
+      address: "",
+      email: "Powernet@Powernet-mcl.com",
+      phone: "",
+    },
+    {
+      id: 3,
+      name: "LOCATION",
+      address: "Calgary, Alberta",
+      email: "",
+      phone: "",
+    }
+  ]
 };
 
 export const contactSectionTwo = {
