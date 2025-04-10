@@ -27,7 +27,7 @@ export const weWorkSection = {
       id: "tab-2",
       image: "sytis-vision.jpg",
       text1:
-        "To set the global standard in predictive maintenance and safety through AI-driven thermal monitoring, enabling industries worldwide to operate more safely, sustainably, and efficiently",
+        "To set the global standard in predictive maintenance and safety through AI-driven thermal monitoring, enabling industries worldwide to operate more safely, sustainably, and efficiently.",
       text2: "",
       lists: [],
     },
