@@ -41,8 +41,8 @@ export async function getStaticPaths() {
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/solutions`,
       5,
-      2000
-    ); // Retries 5 times with 2-second delay
+      1000 * 30
+    ); // Retries 5 times with 30-second delay
     solutions = json.data;
     console.log(solutions);
   } catch (error) {
@@ -78,8 +78,8 @@ export async function getStaticProps({ params }) {
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/solutions`,
       5,
-      2000
-    ); // Retries 5 times with 2-second delay
+      1000 * 60
+    ); // Retries 5 times with 60-second delay
     solutions = json.data;
 
     // Check if json.data is defined and is an array

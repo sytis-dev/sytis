@@ -35,23 +35,27 @@ export async function getStaticPaths() {
   let products = [];
 
   try {
-    const json = await fetchWithRetry(`${process.env.API_URL}/api/products`, 5, 2000); // Retries 5 times with 2-second delay
+    const json = await fetchWithRetry(
+      `${process.env.API_URL}/api/products`,
+      5,
+      1000 * 30
+    ); // Retries 5 times with 30-second delay
     products = json.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
     return {
       paths: [],
-      fallback: 'blocking', // fallback blocking if fetching fails
+      fallback: "blocking", // fallback blocking if fetching fails
     };
   }
 
   const paths = products.map((product) => ({
-    params: { slug: product.custom_url.url.replace(/\//g, '') }, // Generate slugs from custom URLs
+    params: { slug: product.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
   }));
 
   return {
     paths,
-    fallback: 'blocking', // Ensures new pages are generated on request
+    fallback: "blocking", // Ensures new pages are generated on request
   };
 }
 
@@ -60,7 +64,11 @@ export async function getStaticProps({ params }) {
   let products = [];
 
   try {
-    const json = await fetchWithRetry(`${process.env.API_URL}/api/products`, 5, 2000); // Retries 5 times with 2-second delay
+    const json = await fetchWithRetry(
+      `${process.env.API_URL}/api/products`,
+      5,
+      1000 * 30
+    ); // Retries 5 times with 30-second delay
     products = json.data;
 
     // Check if json.data is defined and is an array
@@ -68,11 +76,13 @@ export async function getStaticProps({ params }) {
       return { notFound: true };
     }
   } catch (error) {
-    console.error('Error fetching product data:', error);
+    console.error("Error fetching product data:", error);
     return { notFound: true };
   }
 
-  const product = products.find((p) => p.custom_url.url.replace(/\//g, '') === params.slug);
+  const product = products.find(
+    (p) => p.custom_url.url.replace(/\//g, "") === params.slug
+  );
 
   if (!product) {
     return { notFound: true };
