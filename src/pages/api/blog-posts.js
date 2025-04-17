@@ -1,5 +1,5 @@
 const cache = new Map();
-const CACHE_TTL = 10 * 60 * 1000; // 10 minute in milliseconds
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
@@ -14,7 +14,6 @@ export default async function handler(req, res) {
     let postsData = getCache(cacheKeyBlogs);
 
     if (!postsData) {
-      // Fetch all blog posts
       const postsResponse = await fetch(
         `https://api.bigcommerce.com/stores/${storeHash}/v2/blog/posts`,
         {
@@ -28,14 +27,15 @@ export default async function handler(req, res) {
       );
 
       if (!postsResponse.ok) {
-        throw new Error(`BigCommerce API error: ${postsResponse.statusText}`);
+        return res
+          .status(500)
+          .json({ error: `BigCommerce API error: ${postsResponse.status} ${postsResponse.statusText}` });
       }
 
       postsData = await postsResponse.json();
-      setCache(cacheKeyBlogs, postsData);
+      setCache(cacheKeyBlogs, postsData); // Only cache on successful response
     }
 
-    // Filter and map posts
     const publishedPosts = postsData
       .filter((post) => post.is_published)
       .map((post) => ({
@@ -55,17 +55,17 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ data: publishedPosts });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: `Unexpected error: ${error.message}` });
   }
 }
 
-// Helper functions for caching
+// Simple in-memory cache
 function getCache(key) {
   const cached = cache.get(key);
   if (cached && cached.expiry > Date.now()) {
     return cached.value;
   }
-  cache.delete(key); // Expired, remove from cache
+  cache.delete(key);
   return null;
 }
 

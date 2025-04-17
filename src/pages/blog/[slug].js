@@ -10,7 +10,7 @@ import { blogDetails } from "@/data/sidebarPageContainerTwo";
 import React from "react";
 
 // Helper function for retry logic
-const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
+const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   let attempts = 0;
   while (attempts < retries) {
     try {

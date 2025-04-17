@@ -1,8 +1,8 @@
 import image1 from "@/images/resource/sytis-grid-safe-1.jpg";
 import image2 from "@/images/resource/sytis-grid-safe-2.jpg";
-import image3 from "@/images/resource/sytis-grid-safe-3.jpg";
-import image4 from "@/images/resource/sytis-grid-safe-4.jpg";
-import image5 from "@/images/resource/sytis-grid-safe-5.jpg";
+import image3 from "@/images/resource/sytis-grid-safe-5.jpg";
+import image4 from "@/images/resource/sytis-grid-safe-3.jpg";
+import image5 from "@/images/resource/sytis-grid-safe-4.jpg";
 
 const gridSafeSkidFeaturedSection = [
   {
@@ -74,7 +74,7 @@ const gridSafeSkidFeaturedSection = [
   },
   {
     image: image4,
-    title: "InfraSpec Software",
+    title: "InfraSpec™ Software",
     text: "InfraSpec™ is our proprietary web-based control center for the GridSafe™ System, offering the following features:",
     features: [
       {

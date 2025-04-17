@@ -1,5 +1,5 @@
 const cache = new Map();
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
@@ -10,17 +10,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Cache key for products data
     const cacheKey = "products";
-
-    // Check if the data is in the cache
     const cachedData = cache.get(cacheKey);
+
     if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
-      // Return cached data if it's still valid
       return res.status(200).json({ data: cachedData.data });
     }
 
-    // Fetch all products
     const productsResponse = await fetch(
       `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products`,
       {
@@ -33,13 +29,14 @@ export default async function handler(req, res) {
     );
 
     if (!productsResponse.ok) {
-      throw new Error(`BigCommerce API error: ${productsResponse.statusText}`);
+      return res.status(500).json({
+        error: `BigCommerce API error: ${productsResponse.status} ${productsResponse.statusText}`,
+      });
     }
 
     const productsData = await productsResponse.json();
     const products = productsData.data || [];
 
-    // Fetch images for each product
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
         const imagesResponse = await fetch(
@@ -53,9 +50,13 @@ export default async function handler(req, res) {
           }
         );
 
-        const imagesData = imagesResponse.ok
-          ? await imagesResponse.json()
-          : { data: [] };
+        if (!imagesResponse.ok) {
+          throw new Error(
+            `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`
+          );
+        }
+
+        const imagesData = await imagesResponse.json();
 
         return {
           id: product.id,
@@ -84,11 +85,10 @@ export default async function handler(req, res) {
       })
     );
 
-    // Cache the result with the current timestamp
     cache.set(cacheKey, { data: productsWithImages, timestamp: Date.now() });
 
     return res.status(200).json({ data: productsWithImages });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: `BigCommerce API error: ${error.message}` });
   }
 }
