@@ -35,7 +35,11 @@ export async function getStaticPaths() {
   let blogPosts = [];
 
   try {
-    const json = await fetchWithRetry(`${process.env.API_URL}/api/blog-posts`, 5, 2000); // Retries 5 times with 2-second delay
+    const json = await fetchWithRetry(
+      `${process.env.API_URL}/api/blog-posts`,
+      5,
+      1000 * 60
+    ); // Retries 5 times with 60-second delay
     blogPosts = json.data;
   } catch (error) {
     console.error("Error fetching blog posts:", error);
@@ -60,7 +64,11 @@ export async function getStaticProps({ params }) {
   let blogPosts = [];
 
   try {
-    const json = await fetchWithRetry(`${process.env.API_URL}/api/blog-posts`, 5, 2000); // Retries 5 times with 2-second delay
+    const json = await fetchWithRetry(
+      `${process.env.API_URL}/api/blog-posts`,
+      5,
+      1000 * 60
+    ); // Retries 5 times with 60-second delay
     blogPosts = json.data;
 
     // Check if json.data is defined and is an array
@@ -91,7 +99,12 @@ const SYTISBlogSingle = ({ post, blogPosts }) => {
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
-      <PageBanner title={post.title} page={post.title} parent="blog" parentHref="/blog" />
+      <PageBanner
+        title={post.title}
+        page={post.title}
+        parent="blog"
+        parentHref="/blog"
+      />
       <SytisBlogPostPageContainer post={post} blogPosts={blogPosts} isDetails />
       <MainFooter />
     </Layout>
