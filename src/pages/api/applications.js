@@ -1,5 +1,5 @@
 const cache = new Map();
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Check cache for categories
     const cacheKeyCategories = "categories";
     let categoriesData = getCache(cacheKeyCategories);
 
@@ -27,9 +26,9 @@ export default async function handler(req, res) {
       );
 
       if (!categoriesResponse.ok) {
-        throw new Error(
-          `BigCommerce API error: ${categoriesResponse.statusText}`
-        );
+        return res.status(500).json({
+          error: `BigCommerce API error: ${categoriesResponse.status} ${categoriesResponse.statusText}`,
+        });
       }
 
       categoriesData = await categoriesResponse.json();
@@ -40,7 +39,6 @@ export default async function handler(req, res) {
       .filter((cat) => cat.parent_id === 18 && cat.is_visible !== false)
       .sort((a, b) => a.sort_order - b.sort_order);
 
-    // Fetch metafields and products for each category
     const categoriesWithDetails = await Promise.all(
       filteredCategories.map(async (category) => {
         const cacheKeyMeta = `metafields-${category.category_id}`;
@@ -58,14 +56,16 @@ export default async function handler(req, res) {
             }
           );
 
-          metafieldsData = metafieldsResponse.ok
-            ? await metafieldsResponse.json()
-            : { data: [] };
+          if (!metafieldsResponse.ok) {
+            return res.status(500).json({
+              error: `BigCommerce API error fetching metafields for category ${category.category_id}: ${metafieldsResponse.status} ${metafieldsResponse.statusText}`,
+            });
+          }
 
+          metafieldsData = await metafieldsResponse.json();
           setCache(cacheKeyMeta, metafieldsData);
         }
 
-        // Extract iconUrl and content from metafields
         const iconMetafield = metafieldsData.data.find(
           (meta) => meta.key === "iconUrl"
         );
@@ -93,14 +93,16 @@ export default async function handler(req, res) {
             }
           );
 
-          productsData = productsResponse.ok
-            ? await productsResponse.json()
-            : { data: [] };
+          if (!productsResponse.ok) {
+            return res.status(500).json({
+              error: `BigCommerce API error fetching products for category ${category.category_id}: ${productsResponse.status} ${productsResponse.statusText}`,
+            });
+          }
 
+          productsData = await productsResponse.json();
           setCache(cacheKeyProducts, productsData);
         }
 
-        // Helper function to trim all string values
         const trimStrings = (obj) => {
           if (typeof obj === "string") return obj.trim();
           if (Array.isArray(obj)) return obj.map(trimStrings);
@@ -132,10 +134,13 @@ export default async function handler(req, res) {
                 }
               );
 
-              imagesData = imagesResponse.ok
-                ? await imagesResponse.json()
-                : { data: [] };
+              if (!imagesResponse.ok) {
+                return res.status(500).json({
+                  error: `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`,
+                });
+              }
 
+              imagesData = await imagesResponse.json();
               setCache(cacheKeyImages, imagesData);
             }
 
@@ -173,8 +178,8 @@ export default async function handler(req, res) {
           description: category.description,
           name: category.name,
           image_url: category.image_url || null,
-          iconUrl, // Add iconUrl from metafields
-          content: content, // Add content from metafields
+          iconUrl,
+          content,
           products: productsWithDetails,
         });
       })
@@ -182,17 +187,19 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ data: categoriesWithDetails });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ error: `BigCommerce API error: ${error.message}` });
   }
 }
 
-// Helper functions for caching
+// Cache helpers
 function getCache(key) {
   const cached = cache.get(key);
   if (cached && cached.expiry > Date.now()) {
     return cached.value;
   }
-  cache.delete(key); // Expired, remove from cache
+  cache.delete(key);
   return null;
 }
 

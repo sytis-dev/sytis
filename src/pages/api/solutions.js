@@ -1,5 +1,5 @@
 const cache = new Map();
-const CACHE_TTL = 10 *60 * 1000; // 10 minute in milliseconds
+const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Check cache for categories
     const cacheKeyCategories = "categories";
     let categoriesData = getCache(cacheKeyCategories);
 
@@ -27,9 +26,9 @@ export default async function handler(req, res) {
       );
 
       if (!categoriesResponse.ok) {
-        throw new Error(
-          `BigCommerce API error: ${categoriesResponse.statusText}`
-        );
+        return res.status(500).json({
+          error: `BigCommerce API error: ${categoriesResponse.status} ${categoriesResponse.statusText}`,
+        });
       }
 
       categoriesData = await categoriesResponse.json();
@@ -44,10 +43,8 @@ export default async function handler(req, res) {
       (a, b) => a.sort_order - b.sort_order
     );
 
-    // Fetch metafields and products for each category
     const categoriesWithProducts = await Promise.all(
       sortedCategories.map(async (category) => {
-        // Fetch metafields for each category to get the iconUrl
         const cacheKeyMeta = `metafields-${category.category_id}`;
         let metafieldsData = getCache(cacheKeyMeta);
 
@@ -63,20 +60,21 @@ export default async function handler(req, res) {
             }
           );
 
-          metafieldsData = metafieldsResponse.ok
-            ? await metafieldsResponse.json()
-            : { data: [] };
+          if (!metafieldsResponse.ok) {
+            return res.status(500).json({
+              error: `BigCommerce API error fetching metafields for category ${category.category_id}: ${metafieldsResponse.status} ${metafieldsResponse.statusText}`,
+            });
+          }
 
+          metafieldsData = await metafieldsResponse.json();
           setCache(cacheKeyMeta, metafieldsData);
         }
 
-        // Extract iconUrl from metafields
         const iconMetafield = metafieldsData.data.find(
           (meta) => meta.key === "iconUrl"
         );
         const iconUrl = iconMetafield ? iconMetafield.value : null;
 
-        // Fetch products for each category
         const cacheKeyProducts = `products-${category.category_id}`;
         let productsData = getCache(cacheKeyProducts);
 
@@ -92,10 +90,13 @@ export default async function handler(req, res) {
             }
           );
 
-          productsData = productsResponse.ok
-            ? await productsResponse.json()
-            : { data: [] };
+          if (!productsResponse.ok) {
+            return res.status(500).json({
+              error: `BigCommerce API error fetching products for category ${category.category_id}: ${productsResponse.status} ${productsResponse.statusText}`,
+            });
+          }
 
+          productsData = await productsResponse.json();
           setCache(cacheKeyProducts, productsData);
         }
 
@@ -116,10 +117,13 @@ export default async function handler(req, res) {
                 }
               );
 
-              imagesData = imagesResponse.ok
-                ? await imagesResponse.json()
-                : { data: [] };
+              if (!imagesResponse.ok) {
+                return res.status(500).json({
+                  error: `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`,
+                });
+              }
 
+              imagesData = await imagesResponse.json();
               setCache(cacheKeyImages, imagesData);
             }
 
@@ -128,7 +132,7 @@ export default async function handler(req, res) {
               name: product.name?.trim() || null,
               sku: product.sku?.trim() || null,
               description: product.description?.trim() || null,
-              slug: product.custom_url?.url?.trim() || null, // Ensures custom_url is valid
+              slug: product.custom_url?.url?.trim() || null,
               custom_url: product.custom_url,
               brandId: product.brand_id,
               price: product.calculated_price,
@@ -145,7 +149,7 @@ export default async function handler(req, res) {
                   url_thumbnail: image.url_thumbnail?.trim() || null,
                   url_tiny: image.url_tiny?.trim() || null,
                   date_modified: image.date_modified,
-                })) || [], // Ensure all_images is an array
+                })) || [],
             };
           })
         );
@@ -155,7 +159,7 @@ export default async function handler(req, res) {
           name: category.name?.trim() || null,
           description: category.description?.trim() || null,
           image_url: category.image_url?.trim() || null,
-          iconUrl, // Add iconUrl here
+          iconUrl,
           products: productsWithDetails,
         };
       })
@@ -163,7 +167,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ data: categoriesWithProducts });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: `BigCommerce API error: ${error.message}` });
   }
 }
 
@@ -173,7 +177,7 @@ function getCache(key) {
   if (cached && cached.expiry > Date.now()) {
     return cached.value;
   }
-  cache.delete(key); // Expired, remove from cache
+  cache.delete(key); // Remove expired
   return null;
 }
 
