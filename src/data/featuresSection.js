@@ -31,6 +31,7 @@ export const featuresSectionTwo = {
   image:
     "https://cdn11.bigcommerce.com/s-f8ph8pgqne/products/86/images/501/TC-90-Feature-Image-1032x669__14699.1742920131.1280.1280.jpg?c=1",
   title: "INTRODUCING THE SYTIS TC-90™",
+  altText: "TC90™ Bi-spectral Panel Camera",
   title2: "SYTIS TC-90™",
   link: "/products/tc90-bi-spectral-panel-camera",
   features: [

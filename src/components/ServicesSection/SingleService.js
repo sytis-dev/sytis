@@ -3,7 +3,7 @@ import { Col, Image } from "react-bootstrap";
 import TextSplit from "../Reuseable/TextSplit";
 
 const SingleService = ({ service = {} }) => {
-  const { icon, title, text, image, href } = service;
+  const { icon, title, text, image, href, altText } = service;
   const [isHovered, setIsHovered] = useState(false);
 
   const limitedText = text ? text.slice(0, 10) : "";
@@ -35,7 +35,7 @@ const SingleService = ({ service = {} }) => {
           <a href={href}>
             <Image
               src={image.src}
-              alt=""
+              alt={altText}
               style={{
                 transform: "scale(0.6)",
               }}
