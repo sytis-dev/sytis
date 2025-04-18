@@ -9,7 +9,7 @@ import SYTISBlogPost from "./SytisBlogPost";
 const { title, newsData } = newsSection;
 
 const STORAGE_KEY = "blog_data";
-const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000;
+const CACHE_EXPIRATION_MS = 1 * 60 * 1000;
 
 const SYTISBlog = ({ className = "", showTitle = true, isMore = false }) => {
   const [blogPosts, setBlogPosts] = useState([]);

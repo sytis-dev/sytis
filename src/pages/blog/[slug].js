@@ -6,7 +6,6 @@ import MainFooter from "@/components/MainFooter/MainFooter";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import SytisBlogPostPageContainer from "@/components/SytisBlogPostPageContainer/SytisBlogPostPageContainer";
-import { blogDetails } from "@/data/sidebarPageContainerTwo";
 import React from "react";
 
 // Helper function for retry logic
@@ -67,7 +66,7 @@ export async function getStaticProps({ params }) {
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/blog-posts`,
       5,
-      1000 * 60
+      1000 * 15
     ); // Retries 5 times with 60-second delay
     blogPosts = json.data;
 
