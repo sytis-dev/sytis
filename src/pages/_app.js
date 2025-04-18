@@ -10,6 +10,8 @@ import "node_modules/swiper/swiper-bundle.min.css";
 import "react-circular-progressbar/dist/styles.css";
 import "react-modal-video/css/modal-video.min.css";
 import "tiny-slider/dist/tiny-slider.css";
+import { Analytics } from '@vercel/analytics/next';
+
 
 // extra css
 import "@/styles/style.css";
@@ -20,6 +22,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <ContextProvider>
       <Component {...pageProps} />
+      <Analytics />
     </ContextProvider>
   );
 };
