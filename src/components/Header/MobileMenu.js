@@ -4,7 +4,8 @@ import headerData from "@/data/header";
 import React from "react";
 import { Image } from "react-bootstrap";
 
-const { icon, text, email, phone, socials, navItemsSYTIS, navItemsTwo } = headerData;
+const { icon, text, email, phone, socials, navItemsSYTIS, navItemsTwo } =
+  headerData;
 
 const MobileMenu = ({ onePage = false }) => {
   const { menuStatus, toggleMenu } = useRootContext();
@@ -23,6 +24,7 @@ const MobileMenu = ({ onePage = false }) => {
       <div className="side-menu__block-inner">
         <div className="side-menu__top justify-content-end">
           <a
+            href=""
             onClick={toggleMenu}
             className="side-menu__toggler side-menu__close-btn"
           >
@@ -46,7 +48,7 @@ const MobileMenu = ({ onePage = false }) => {
         <div className="side-menu__content">
           <p>{text}</p>
           <p>
-          <a href={`/contact`}>Contact Us</a> <br />{" "}
+            <a href={`/contact`}>Contact Us</a> <br />{" "}
             <a href={`mailto:${email}`}>{email}</a> <br />{" "}
             <a href={`tel:${phone.split(" ").join("")}`}>{phone}</a>
           </p>
