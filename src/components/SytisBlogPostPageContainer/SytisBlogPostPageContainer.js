@@ -17,6 +17,7 @@ const SytisBlogPostPageContainer = ({
 
   const handleOpen = () => setOpen(true);
 
+
   return (
     <>
       <div className="sidebar-page-container">

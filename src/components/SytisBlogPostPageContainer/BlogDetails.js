@@ -27,6 +27,11 @@ const BlogDetails = ({ post = {}, blogPosts = [] }) => {
     console.log(data);
   };
 
+  post.date = new Date(post.published_date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
+
   // Find the index of the current post
   const postIndex = blogPosts.findIndex(({ id }) => id === post.id);
 
@@ -54,10 +59,10 @@ const BlogDetails = ({ post = {}, blogPosts = [] }) => {
             <div className="post-meta">
               <ul className="clearfix">
                 <li>
-                  <span className="far fa-clock"></span> {date}
+                  <span className="far fa-clock"></span> {post.date}
                 </li>
                 <li>
-                  <span className="far fa-user-circle"></span> {admin}
+                  <span className="far fa-user-circle"></span> {post.author}
                 </li>
               </ul>
             </div>
