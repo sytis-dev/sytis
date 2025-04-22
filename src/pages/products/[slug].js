@@ -8,6 +8,9 @@ import ProductDetailsPage from "@/components/ProductDetails/ProductDetailsPage";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
+import Head from "next/head";
+
+
 
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {

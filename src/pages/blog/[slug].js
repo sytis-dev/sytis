@@ -7,6 +7,8 @@ import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import SytisBlogPostPageContainer from "@/components/SytisBlogPostPageContainer/SytisBlogPostPageContainer";
 import React from "react";
+import Head from "next/head";
+
 
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
@@ -93,6 +95,15 @@ export async function getStaticProps({ params }) {
 const SYTISBlogSingle = ({ post, blogPosts }) => {
   return (
     <Layout pageTitle={post.title}>
+          <Head>
+        <meta
+          name="description"
+          content={
+            post.meta_description ||
+            `Learn more about ${post.title} and how it supports your operations.`
+          }
+        />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />

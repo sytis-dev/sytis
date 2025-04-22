@@ -10,6 +10,8 @@ import SidebarPageContainer from "@/components/SidebarPageContainer/SidebarPageC
 import SYTISApplicationContainer from "@/components/SytisApplicationContainer/SytisApplicationContainer";
 import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
+import Head from "next/head";
+
 
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
@@ -113,6 +115,15 @@ export async function getStaticProps({ params }) {
 const Application = ({ application }) => {
   return (
     <Layout pageTitle={application.name}>
+      <Head>
+        <meta
+          name="description"
+          content={
+            application.meta_description ||
+            `Learn more about ${application.name} and how it supports your operations.`
+          }
+        />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
@@ -131,5 +142,4 @@ const Application = ({ application }) => {
     </Layout>
   );
 };
-
 export default Application;
