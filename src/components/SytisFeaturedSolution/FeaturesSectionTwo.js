@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { Col, Image, Row } from "react-bootstrap";
 
-const { title, features, image, title2, link } = featuresSectionTwo;
+const { title, features, image, title2, link, altText } = featuresSectionTwo;
 
 const FeaturesSectionTwo = () => {
   return (
@@ -23,7 +23,7 @@ const FeaturesSectionTwo = () => {
                   {features.map(({ id, title, text }) => (
                     <div key={id} className="feature">
                       <div className="count">
-                        <span >0{id}</span>
+                        <span>0{id}</span>
                       </div>
                       <h5>{title}</h5>
                       <div className="sub-text">{text}</div>
@@ -37,7 +37,7 @@ const FeaturesSectionTwo = () => {
                 <div className="image-box animated fadeInRight">
                   <a href={link}>
                     {" "}
-                    <Image src={image} alt="" />
+                    <Image alt={altText} src={image} />
                     <div className="cap-box">
                       <div className="cap-inner">
                         <h5>{title2}</h5>

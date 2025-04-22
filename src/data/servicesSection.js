@@ -12,6 +12,7 @@ const services = [
     href: "/applications/substation-monitoring",
     icon: "flaticon-vector",
     title: "Substation\nMonitoring",
+    altText: "Substation Monitoring",
     text: "Substation monitoring is the process of observing and analyzing the performance of electrical substations to ensure their efficient operation and reliability.",
   },
   {
@@ -20,6 +21,7 @@ const services = [
     href: "/applications/electrical-panel",
     icon: "flaticon-digital",
     title: "Electrical\nPanel",
+    altText: "Electrical Panel",
     text: "Electrical panels are crucial components in electrical systems, serving as the central point for distributing electricity to various circuits and devices within a building or facility.",
   },
   {
@@ -27,6 +29,7 @@ const services = [
     image: flameImage,
     href: "/applications/fire-detection",
     icon: "flaticon-instant-camera",
+    altText: "Flame and Fire Protection",
     title: "flame\nfire Protection",
     text: "Effective flame and fire protection systems are essential for safeguarding lives and property from the devastating effects of fire, ensuring early detection and suppression.",
   },
@@ -36,6 +39,7 @@ const services = [
     href: "/applications/renewable-energy",
     icon: "flaticon-monitor",
     title: "Renewable \nEnergy",
+    altText: "Renewable Energy",
     text: "Renewable energy refers to energy derived from natural sources that are replenished at a faster rate than they are consumed, such as solar, wind, hydro, and geothermal energy.",
   },
   {
@@ -44,6 +48,7 @@ const services = [
     href: "/applications/security",
     icon: "flaticon-instant-camera",
     title: "Security",
+    altText: "Security Systems",
     text: "Security systems are designed to protect people, property, and assets from unauthorized access, theft, vandalism, and other potential threats through various technologies and measures.",
   },
   {
@@ -52,6 +57,7 @@ const services = [
     href: "/applications/transportation",
     icon: "flaticon-monitor",
     title: "Transportation",
+    altText: "Transportation Systems",
     text: "Transportation systems encompass the infrastructure, vehicles, and services that facilitate the movement of people and goods from one location to another, including roads, railways, airways, and waterways.",
   },
 ];
