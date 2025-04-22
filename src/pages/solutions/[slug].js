@@ -11,6 +11,8 @@ import SYTISApplicationContainer from "@/components/SytisApplicationContainer/Sy
 import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
 import ShopPage from "@/components/ShopPage/ShopPage";
+import Head from "next/head";
+
 
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
@@ -114,6 +116,15 @@ export async function getStaticProps({ params }) {
 const Solution = ({ solution }) => {
   return (
     <Layout pageTitle={solution.name}>
+    <Head>
+        <meta
+          name="description"
+          content={
+            solution.meta_description ||
+            `Learn more about ${solution.name} and how it supports your operations.`
+          }
+        />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />

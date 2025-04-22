@@ -69,6 +69,9 @@ export default async function handler(req, res) {
           price: product.calculated_price,
           categories: product.categories,
           is_price_hidden: product.is_price_hidden,
+          meta_description: product.meta_description?.trim() || null,
+          meta_keywords: product.meta_keywords,
+          date_created: product.date_created,
           all_images:
             imagesData.data.map((image) => ({
               id: image.id,
