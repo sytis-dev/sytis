@@ -179,6 +179,8 @@ export default async function handler(req, res) {
           name: category.name,
           image_url: category.image_url || null,
           iconUrl,
+          meta_description: category.meta_description?.trim() || null,
+          meta_keywords: category.meta_keywords,
           content,
           products: productsWithDetails,
         });
