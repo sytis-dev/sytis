@@ -97,6 +97,9 @@ export default async function handler(req, res) {
           }
 
           productsData = await productsResponse.json();
+          productsData = productsData.data.filter(
+            (prod) => prod.is_visible
+          );
           setCache(cacheKeyProducts, productsData);
         }
 

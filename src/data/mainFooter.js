@@ -92,6 +92,11 @@ export const mainFooter = {
       title: "Solution Inquiry",
     },
     {
+      id: 10,
+      href: "/events",
+      title: "Event Calendar",
+    },
+    {
       id: 7,
       href: "/privacy-policy",
       title: "Privacy Policy",

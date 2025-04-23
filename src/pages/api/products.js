@@ -36,6 +36,9 @@ export default async function handler(req, res) {
 
     const productsData = await productsResponse.json();
     const products = productsData.data || [];
+    products = products.filter(
+      (prod) => prod.is_visible
+    );
 
     const productsWithImages = await Promise.all(
       products.map(async (product) => {

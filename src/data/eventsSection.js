@@ -38,18 +38,6 @@ export const eventsOne = [
     link: "https://www.eei.org/Events/_Local/spring-transmission-distribution-metering-mutual-assistance-conference",
   },
   {
-    id: 6,
-    days: "23-25",
-    month: "April",
-    date: "16 Jun",
-    endDate: "18 June ",
-    image: "eei.png",
-    title: "EEI Wildfire Tech Summit 2025",
-    time: "08:00am / 05:00pm",
-    address: "Denver, CO",
-    link: "https://www.dtn.com/event/eei-wildfire-tech-summit/",
-  },
-  {
     id: 3,
     days: "19-22",
     month: "May",
@@ -85,7 +73,33 @@ export const eventsOne = [
     address: "United States of America",
     link: "https://www.nfpa.org/events/conference?gad_source=1&gbraid=0AAAAAD3hth0e8wFQ7BnM54sziFgr5nDsz&gclid=EAIaIQobChMI5tCf2ZGtjAMVBSxECB2diSn-EAAYASAAEgK5d_D_BwE&gclsrc=aw.ds",
   },
-
+  {
+    id: 6,
+    days: "17-18",
+    month: "June",
+    date: "17 Jun",
+    endDate: "18 June ",
+    image: "",
+    title: "London Off-Shore Wind Show",
+    time: "09:00am / 04:30pm BST",
+    address: "Excel, London",
+    link: "https://www.renewableuk.com/events/global-offshore-wind-2025/gow25/",
+    image:
+      "renewable_uk.png",
+  },
+  {
+    id: 7,
+    days: "19-20",
+    month: "June",
+    date: "19 Jun",
+    endDate: "20 June",
+    image:
+      "windeurope.png",
+    title: "WindEurope Technical Conference",
+    time: "08:00am / 04:30pm",
+    address: "Istanbul, Turkey",
+    link: "https://windeurope.org/tech2025/",
+  },
 ];
 
 export const eventsDetails = {
