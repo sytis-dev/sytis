@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     }
 
     const productsData = await productsResponse.json();
-    const products = productsData.data || [];
+    let products = productsData.data || [];
     products = products.filter(
       (prod) => prod.is_visible
     );
