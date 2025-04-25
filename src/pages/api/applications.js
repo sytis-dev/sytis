@@ -79,7 +79,7 @@ export default async function handler(req, res) {
           : null;
 
         const cacheKeyProducts = `products-${category.category_id}`;
-        let productsData = getCache(cacheKeyProducts);
+        var productsData = getCache(cacheKeyProducts);
 
         if (!productsData) {
           const productsResponse = await fetch(

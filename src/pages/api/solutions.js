@@ -76,7 +76,7 @@ export default async function handler(req, res) {
         const iconUrl = iconMetafield ? iconMetafield.value : null;
 
         const cacheKeyProducts = `products-${category.category_id}`;
-        let productsData = getCache(cacheKeyProducts);
+        var productsData = getCache(cacheKeyProducts);
 
         if (!productsData) {
           const productsResponse = await fetch(
@@ -94,9 +94,10 @@ export default async function handler(req, res) {
             return res.status(500).json({
               error: `BigCommerce API error fetching products for category ${category.category_id}: ${productsResponse.status} ${productsResponse.statusText}`,
             });
-          }
+          } 
 
           productsData = await productsResponse.json();
+  
           setCache(cacheKeyProducts, productsData);
         }
 
@@ -171,7 +172,9 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ data: categoriesWithProducts });
   } catch (error) {
-    return res.status(500).json({ error: `BigCommerce API error: ${error.message}` });
+    return res
+      .status(500)
+      .json({ error: `BigCommerce API error: ${error.message}` });
   }
 }
 
