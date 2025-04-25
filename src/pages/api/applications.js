@@ -79,7 +79,7 @@ export default async function handler(req, res) {
           : null;
 
         const cacheKeyProducts = `products-${category.category_id}`;
-        let productsData = getCache(cacheKeyProducts);
+        var productsData = getCache(cacheKeyProducts);
 
         if (!productsData) {
           const productsResponse = await fetch(
@@ -100,9 +100,6 @@ export default async function handler(req, res) {
           }
 
           productsData = await productsResponse.json();
-          productsData = productsData.data.filter(
-            (prod) => prod.is_visible
-          );
           setCache(cacheKeyProducts, productsData);
         }
 
