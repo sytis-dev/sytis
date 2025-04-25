@@ -154,11 +154,6 @@ const navItemsSYTIS = [
       { id: 2, name: "Fixed Cameras", href: "/solutions/fixed-cameras" },
       { id: 3, name: "PTZ Cameras", href: "/solutions/ptz-cameras" },
       { id: 4, name: "NVR", href: "/solutions/nvr" },
-      {
-        id: 5,
-        name: "Acoustic Imaging",
-        href: "/solutions/acoustic-imaging",
-      },
     ],
   },
   {
