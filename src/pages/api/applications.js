@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     }
 
     const filteredCategories = categoriesData.data
-      .filter((cat) => cat.parent_id === 18 && cat.is_visible !== false)
+      .filter((cat) => cat.parent_id === 18 && cat.is_visible)
       .sort((a, b) => a.sort_order - b.sort_order);
 
     const categoriesWithDetails = await Promise.all(
