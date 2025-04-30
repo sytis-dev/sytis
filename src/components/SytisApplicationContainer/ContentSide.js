@@ -13,17 +13,36 @@ const ContentSide = ({ application = {} }) => {
   const topImage = images.length > 0 ? images[0] : null;
   const bottomImage = images.length > 0 ? images[images.length - 1] : null;
 
+  const isFireDetection = application.name === "Fire Detection";
+
   return (
     <div className="content-details">
-      {topImage && (
-        <div className="main-image image">
-          <Image src={topImage} alt="Top Image" />
+      {/* Embedded styling for video */}
+
+
+      {isFireDetection ? (
+        <div className="video-wrapper" style={{ marginBottom: "20px" }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="background-video"
+            src="/video/sytis-fire-detection.mp4"
+            type="video/mp4"
+          >
+            Your browser does not support the video tag.
+          </video>
         </div>
+      ) : (
+        topImage && (
+          <div className="main-image image" style={{ marginBottom: "20px" }}>
+            <Image src={topImage} alt="Top Image" fluid />
+          </div>
+        )
       )}
 
       <div className="text-content">
-        {/* <h3>{title}</h3> */}
-
         {sections.map((section, index) => (
           <div
             key={index}
@@ -51,7 +70,6 @@ const ContentSide = ({ application = {} }) => {
                     marginBottom: "10px",
                     position: "relative",
                     paddingLeft: "20px",
-                    listStyleType: "none", // Remove default bullets
                   }}
                 >
                   <span
@@ -87,8 +105,8 @@ const ContentSide = ({ application = {} }) => {
       </div>
 
       {bottomImage && (
-        <div className="bottom-image image">
-          <Image src={bottomImage} alt="Bottom Image" />
+        <div className="bottom-image image" style={{ marginTop: "20px" }}>
+          <Image src={bottomImage} alt="Bottom Image" fluid />
         </div>
       )}
     </div>
