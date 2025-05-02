@@ -36,19 +36,9 @@ class MyDocument extends Document {
             type="image/x-icon"
           />
           <link rel="icon" href="favicon.ico" />
-          <meta
-            name="description"
-            content="ytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
-          />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            property="og:title"
-            content="Sytis | Real-Time Thermal Monitoring"
-          />
-          <meta
-            property="og:description"
-            content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
-          />
+
+
           <meta property="og:image" content="/og-image.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />

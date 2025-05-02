@@ -10,8 +10,6 @@ import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
 import Head from "next/head";
 
-
-
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   let attempts = 0;
@@ -100,6 +98,20 @@ export async function getStaticProps({ params }) {
 const ProductDetails = ({ product }) => {
   return (
     <Layout pageTitle={product.name}>
+      <Head>
+        <meta name="description" />
+        <meta
+          property="og:description"
+          content={
+            product.meta_description ||
+            `Learn more about ${product.name} and how it supports your operations.`
+          }
+        />
+        <meta
+          property="og:title"
+          content={`Sytis | ${product.name}`}
+        />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
