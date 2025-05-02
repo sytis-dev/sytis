@@ -38,10 +38,34 @@ class MyDocument extends Document {
           <link rel="icon" href="favicon.ico" />
           <meta
             name="description"
-            content="Linoor is a multipurpose and powerful Digital Services Agency NextJS Template. The template is highly suitable template for companies that offer web design, web development, internet services, digital marketing, SEO services and all other internet marketing and services related agencies and businesses."
+            content="ytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
           />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
+          <meta
+            property="og:title"
+            content="Sytis | Real-Time Thermal Monitoring"
+          />
+          <meta
+            property="og:description"
+            content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
+          />
+          <meta property="og:image" content="/og-image.png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.sytis.com" />{" "}
+          {/* Update with your real domain */}
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="Sytis | Real-Time Thermal Monitoring"
+          />
+          <meta
+            name="twitter:description"
+            content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
+          />
+          <meta name="twitter:image" content="/og-image.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
