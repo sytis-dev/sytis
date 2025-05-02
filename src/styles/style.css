@@ -86,8 +86,8 @@
 
  ***/
 :root {
-  --thm-font: "Teko", sans-serif;
-  --thm-b-font: "Rubik", sans-serif;
+  --thm-font: "Novecento Sans Wide", sans-serif;
+  --thm-b-font: "Novecento Sans Wide", sans-serif;
   --thm-base: #ffaa17;
   --thm-base-rgb: 255, 170, 23;
   --thm-black: #222429;
@@ -114,6 +114,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   top: 0 !important;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("/fonts/Novecentosanswide-Normal.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 a {
@@ -12686,7 +12694,7 @@ img.lazy-image.loaded {
   display: flex;
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
-  font-family: "Teko", sans-serif;
+  font-family: "Novecento Sans Wide", sans-serif;
   position: relative;
 }
 
