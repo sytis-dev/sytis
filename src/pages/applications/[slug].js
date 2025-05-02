@@ -12,7 +12,6 @@ import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
 import Head from "next/head";
 
-
 // Helper function for retry logic
 const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   let attempts = 0;
@@ -123,6 +122,14 @@ const Application = ({ application }) => {
             `Learn more about ${application.name} and how it supports your operations.`
           }
         />
+        <meta
+          name="og:description"
+          content={
+            application.meta_description ||
+            `Learn more about ${application.name} and how it supports your operations.`
+          }
+        />
+        <meta property="og:title" content={`Sytis | ${application.name}`} />
       </Head>
       <Style />
       <HeaderOne />

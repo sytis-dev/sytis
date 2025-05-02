@@ -33,6 +33,18 @@ const Layout = ({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SYTIS | {pageTitle}</title>
+        <meta
+          name="description"
+          content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
+        />
+        <meta
+          property="og:description"
+          content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
+        />
+        <meta
+          property="og:title"
+          content="Sytis | Real-Time Thermal Monitoring"
+        />
       </Head>
       <Preloader className={preloaderClass} loading={loading} bg={preloader} />
       <main

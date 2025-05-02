@@ -30,7 +30,7 @@ export const contactSection = {
       required: true,
     },
   ],
-  title: "EU  PARTNER - DIGITAL SMART GROUP",
+  title: "Connect With Our Partners",
   contacts: [
     {
       id: 1,
@@ -51,33 +51,40 @@ export const contactSection = {
       address: "3474 Empresa Dr. #150 <br/> San Luis Obispo, CA 93449",
       email: "",
       phone: "",
-    }
+    },
   ],
   euContacts: [
     {
       id: 1,
-      name: "HEADQUARTERS",
+      location: "Europe",
+      name: "Digital Smart Group",
       address: "",
-      email: "",
-      phone: "Tel: +34 936 940 009",
+      email: "info@digitalsmartgroup.com",
+      phone: "HQ Tel: +34 936 940 009",
+      phone2: "UK Office Tel: +44 7426 477726",
+      city: "United Kingdom",
     },
     {
       id: 2,
-      name: "UK OFFICE",
+      location: "Canada",
+      name: "PowerNet MCL",
       address: "",
-      email: "",
-      phone: "Tel: +44 7426 477726",
+      email: "Powernet@Powernet-mcl.com",
+      phone: "Tel: 403-571-4735",
+      city: "Calgary, Alberta",
     },
     {
       id: 3,
-      name: "EMAIL",
+      location: "Southeast Asia",
+      name: "Calibr8",
       address: "",
-      email: "info@digitalsmartgroup.com",
-      phone: "",
-    }
+      phone: "Tel: 25310-2705; 25310-2711",
+      city: "Manila, Philippines",
+      website: "www.calibr8.systems",
+    },
   ],
   canadaTitle: "Canadian Partner - PowerNet MCL",
-  canadaContacts:[
+  canadaContacts: [
     {
       id: 1,
       name: "PHONE",
@@ -98,8 +105,8 @@ export const contactSection = {
       address: "Calgary, Alberta",
       email: "",
       phone: "",
-    }
-  ]
+    },
+  ],
 };
 
 export const contactSectionTwo = {
