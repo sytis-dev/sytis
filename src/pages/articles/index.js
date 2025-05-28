@@ -11,7 +11,7 @@ import React from "react";
 
 const BlogGrid = () => {
   return (
-    <Layout pageTitle="Blog Posts">
+    <Layout pageTitle="Articles">
       <Style />
       <HeaderOne />
       <MobileMenu />
