@@ -191,6 +191,11 @@ const navItemsSYTIS = [
   },
   {
     id: 4,
+    name: "Articles",
+    href: "/articles",
+  },
+  {
+    id: 5,
     name: "About SYTIS",
     href: "/about",
     subNavItems: [
@@ -200,14 +205,13 @@ const navItemsSYTIS = [
   },
 
   {
-    id: 5,
+    id: 6,
     name: "Resources",
     href: "",
     subNavItems: [
       { id: 1, name: "Solution Inquiry", href: "/solution-inquiry" },
       { id: 2, name: "FAQ", href: "/faq" },
       // { id: 3, name: "Careers", href: "/careers" },
-      { id: 4, name: "Blog", href: "/blog" },
       { id: 5, name: "Product Resources", href: "/product-resources" },
     ],
   },

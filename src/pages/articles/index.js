@@ -11,12 +11,12 @@ import React from "react";
 
 const BlogGrid = () => {
   return (
-    <Layout pageTitle="Blog Posts">
+    <Layout pageTitle="Articles">
       <Style />
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
-      <PageBanner title="Blog" />
+      <PageBanner title="Articles" />
       <SYTISBlog showTitle={false} />
       <MainFooter />
     </Layout>
