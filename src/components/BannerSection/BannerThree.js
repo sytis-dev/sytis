@@ -31,9 +31,10 @@ const BannerThree = () => {
 
   return (
     <section
-      style={{ paddingTop: "60px" }} // adjust if your top bar is taller/shorter
-      className="banner-section banner-three"
+      style={{ paddingTop: "60px" }}
+      className="relative banner-section banner-three"
     >
+      {/* Operating hours and social links */}
       <div className="left-based-text">
         <div className="base-inner">
           <div className="hours">
@@ -60,10 +61,13 @@ const BannerThree = () => {
         </div>
       </div>
 
+      {/* Background Image */}
       <div
         className="bg-image"
         style={{ backgroundImage: `url(${bg.src})` }}
       ></div>
+
+      {/* Slider */}
       <div className="banner-carousel">
         <TinySlider options={settings} ref={listRef}>
           {bannersTwo.map((banner) => (
@@ -71,6 +75,9 @@ const BannerThree = () => {
           ))}
         </TinySlider>
       </div>
+
+      {/* LDES Logo Overlay */}
+
     </section>
   );
 };
