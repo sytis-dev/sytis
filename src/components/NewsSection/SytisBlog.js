@@ -52,7 +52,7 @@ const SYTISBlog = ({ className = "", showTitle = true, isMore = false }) => {
 
         const formattedData = data.map((post) => ({
           id: post.id.toString(),
-          href: `/blog/${post.url}`,
+          href: `/articles/${post.url}`,
           image: `https://store-f8ph8pgqne-1.mybigcommerce.com${post.thumbnail_path}`,
           title: post.title,
           body: post.body,

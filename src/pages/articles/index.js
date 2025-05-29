@@ -16,7 +16,7 @@ const BlogGrid = () => {
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
-      <PageBanner title="Blog" />
+      <PageBanner title="Articles" />
       <SYTISBlog showTitle={false} />
       <MainFooter />
     </Layout>

@@ -111,8 +111,8 @@ const SYTISBlogSingle = ({ post, blogPosts }) => {
       <PageBanner
         title={post.title}
         page={post.title}
-        parent="blog"
-        parentHref="/blog"
+        parent="articles"
+        parentHref="/articles"
       />
       <SytisBlogPostPageContainer post={post} blogPosts={blogPosts} isDetails />
       <MainFooter />
