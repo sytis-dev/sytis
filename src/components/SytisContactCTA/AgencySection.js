@@ -31,7 +31,11 @@ const AgencySection = () => {
                         current === id ? " active-btn" : ""
                       }`}
                     >
-                      <span>{text}</span>
+                      <span
+                        style={{ color: current === id ? "white" : "black" }}
+                      >
+                        {text}
+                      </span>
                     </li>
                   ))}
                 </ul>

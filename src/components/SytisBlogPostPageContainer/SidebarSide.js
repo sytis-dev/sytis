@@ -25,7 +25,8 @@ const SidebarSide = ({ blogPosts, post }) => {
 
           {blogPosts.map(({ id, title, thumbnail_path, preview_url }) => (
             <div key={id} className="post">
-              <a href={"" + preview_url}>
+              <a href={preview_url.replace("/blog", "/articles")}>
+                {" "}
                 <figure className="post-thumb">
                   <Image
                     src={`https://store-f8ph8pgqne-1.mybigcommerce.com${thumbnail_path}`}
@@ -33,7 +34,9 @@ const SidebarSide = ({ blogPosts, post }) => {
                   />
                 </figure>
                 <h5 className="text">
-                  <a href={"" + preview_url}>{title}</a>
+                  <a href={preview_url.replace("/blog", "/articles")}>
+                    {title}
+                  </a>
                 </h5>
               </a>
             </div>
