@@ -8,6 +8,7 @@ const TextSplit = ({
   hoveredColor = "black",
   hovered = true,
   padding = "", // additional styles to apply to the outer span element
+  fontSize = "100%",
 }) => {
   const newText = children || text;
   const arr = newText.split(separator);
@@ -22,6 +23,7 @@ const TextSplit = ({
               paddingTop: padding,
               paddingBottom: padding,
               color: hovered ? color : hoveredColor,
+              fontSize: fontSize,
             }}
           >
             {t.trim()} {i !== lastIndex && <br />}
