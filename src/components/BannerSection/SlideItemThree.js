@@ -1,9 +1,10 @@
 import Link from "next/link";
 import React, { forwardRef } from "react";
 import TextSplit from "../Reuseable/TextSplit";
+import Image from "next/image";
 
 const SlideItemThree = ({ slide = {} }, ref) => {
-  const { bg, title, text, button_text, button_link, id } = slide;
+  const { bg, title, text, button_text, button_link, id, fontSize } = slide;
 
   return (
     <div style={{ userSelect: "none" }} ref={ref} className="slide-item">
@@ -25,7 +26,7 @@ const SlideItemThree = ({ slide = {} }, ref) => {
             <div className="inner">
               {id == 1 ? (
                 <h1>
-                  <TextSplit text={title} />
+                  <TextSplit fontSize={fontSize} text={title} />
                 </h1>
               ) : (
                 <h2
@@ -35,14 +36,30 @@ const SlideItemThree = ({ slide = {} }, ref) => {
                     lineHeight: "1.0",
                   }}
                 >
-                  <TextSplit text={title} />
+                  <TextSplit fontSize={fontSize} text={title} />
                 </h2>
               )}
+              <Link href="https://ldesconsortium.sandia.gov/">
+                <a
+                  className="w-[20px] sm:w-[140px] opacity-90 pointer-events-auto"
+                  title="Learn more about our LDES partnership"
+                >
+                  <Image
+                    width={300}
+                    height={125}
+                    src="/ldes-logo.png"
+                    alt="LDES National Consortium Teaming Partner"
+                    className="w-full h-auto"
+                  />
+                </a>
+              </Link>
 
               <div style={{ color: "white" }} className="text">
                 {text}
               </div>
-              <div className="link-box">
+
+              {/* Button + Logo Row */}
+              <div className="link-box flex items-center gap-4 mt-8 flex-wrap">
                 <Link href={button_link}>
                   <a className="theme-btn btn-style-two">
                     <i className="btn-curve"></i>
@@ -50,6 +67,9 @@ const SlideItemThree = ({ slide = {} }, ref) => {
                   </a>
                 </Link>
               </div>
+              <br />
+              <br />
+              <br />
             </div>
           </div>
         </div>
