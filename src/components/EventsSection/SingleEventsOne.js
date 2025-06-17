@@ -6,6 +6,8 @@ const SingleEventsOne = ({ event = {} }) => {
   const { title, image, date, endDate, time, address, link, days, month } =
     event;
 
+  const hasValidAddress = !!address && address.trim() !== "";
+
   return (
     <Col md={6} lg={4}>
       <div className="events-one__item">
@@ -17,28 +19,50 @@ const SingleEventsOne = ({ event = {} }) => {
               {month}
             </div>
           </div>
-          <Link href={link}>
-            <a>
-              <Image
-                src={
-                  require(`@/images/update-09-06-2021/events/${image}`).default
-                    .src
-                }
-                alt=""
-                style={{
-                  width: "100%",
-                  minHeight: "250px", // Minimum height
-                  maxHeight: "275px", // Maximum height
-                  objectFit: "cover", // Ensures the image maintains aspect ratio
-                  borderRadius: "8px",
-                }}
-              />
-            </a>
-          </Link>
+
+          {hasValidAddress ? (
+            <Link href={link}>
+              <a>
+                <Image
+                  src={
+                    require(`@/images/update-09-06-2021/events/${image}`).default
+                      .src
+                  }
+                  alt=""
+                  style={{
+                    width: "100%",
+                    minHeight: "250px",
+                    maxHeight: "275px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                  }}
+                />
+              </a>
+            </Link>
+          ) : (
+            <Image
+              src={
+                require(`@/images/update-09-06-2021/events/${image}`).default.src
+              }
+              alt=""
+              style={{
+                width: "100%",
+                minHeight: "250px",
+                maxHeight: "275px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
+            />
+          )}
         </div>
+
         <div className="events-one__content">
           <h3 className="events-one__title">
-            <Link href={link}>{title}</Link>
+            {hasValidAddress ? (
+              <Link href={link}>{title}</Link>
+            ) : (
+              <span>{title}</span>
+            )}
           </h3>
           <ul className="events-one__meta list-unstyled">
             <li>

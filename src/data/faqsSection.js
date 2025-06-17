@@ -55,10 +55,9 @@ const resources = [
     title: "Thermal Card Camera",
     links: [
       {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-tc-90.pdf",
+        href: "/resources/TC-90-Datasheet-2025.pdf",
         text: "Thermal Card Camera (TC-90™)",
       },
-
     ],
   },
   {
@@ -66,15 +65,11 @@ const resources = [
     title: "PTZ Cameras",
     links: [
       {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-mini-ptz-25mm.pdf",
-        text: "Bi-spectral Mini PTZ Camera 25mm (IIS-BPTM6451-F25)",
+        href: "/resources/MINI-PTZ-Datasheet.pdf",
+        text: "Bi-spectral Mini PTZ Camera 25mm/50mm (IIS-BPTM6451-F25/IIS-BPTM6451-F50)",
       },
       {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-mini-ptz-50mm.pdf",
-        text: "Bi-spectral Mini PTZ Camera 50mm (IIS-BPTM6451-F50)",
-      },
-      {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-ptz-100mm.pdf",
+        href: "/resources/FULL-PTZ-Datasheet.pdf",
         text: "Bi-spectral PTZ Camera 100mm (BPTT6451-F100)",
       },
       {
