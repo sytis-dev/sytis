@@ -94,67 +94,69 @@ export default async function handler(req, res) {
             return res.status(500).json({
               error: `BigCommerce API error fetching products for category ${category.category_id}: ${productsResponse.status} ${productsResponse.statusText}`,
             });
-          } 
+          }
 
           productsData = await productsResponse.json();
-  
+
           setCache(cacheKeyProducts, productsData);
         }
 
         const productsWithDetails = await Promise.all(
-          productsData.data.map(async (product) => {
-            const cacheKeyImages = `images-${product.id}`;
-            let imagesData = getCache(cacheKeyImages);
+          productsData.data
+            .filter((product) => product.is_visible)
+            .map(async (product) => {
+              const cacheKeyImages = `images-${product.id}`;
+              let imagesData = getCache(cacheKeyImages);
 
-            if (!imagesData) {
-              const imagesResponse = await fetch(
-                `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
-                {
-                  method: "GET",
-                  headers: {
-                    "X-Auth-Token": accessToken,
-                    "Content-Type": "application/json",
-                  },
+              if (!imagesData) {
+                const imagesResponse = await fetch(
+                  `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
+                  {
+                    method: "GET",
+                    headers: {
+                      "X-Auth-Token": accessToken,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+
+                if (!imagesResponse.ok) {
+                  return res.status(500).json({
+                    error: `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`,
+                  });
                 }
-              );
 
-              if (!imagesResponse.ok) {
-                return res.status(500).json({
-                  error: `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`,
-                });
+                imagesData = await imagesResponse.json();
+                setCache(cacheKeyImages, imagesData);
               }
 
-              imagesData = await imagesResponse.json();
-              setCache(cacheKeyImages, imagesData);
-            }
-
-            return {
-              id: product.id,
-              name: product.name?.trim() || null,
-              sku: product.sku?.trim() || null,
-              description: product.description?.trim() || null,
-              slug: product.custom_url?.url?.trim() || null,
-              custom_url: product.custom_url,
-              brandId: product.brand_id,
-              price: product.calculated_price,
-              categories: product.categories,
-              is_price_hidden: product.is_price_hidden,
-              meta_description: product.meta_description?.trim() || null,
-              meta_keywords: product.meta_keywords,
-              all_images:
-                imagesData.data.map((image) => ({
-                  id: image.id,
-                  is_thumbnail: image.is_thumbnail,
-                  sort_order: image.sort_order,
-                  description: image.description?.trim() || null,
-                  url_zoom: image.url_zoom?.trim() || null,
-                  url_standard: image.url_standard?.trim() || null,
-                  url_thumbnail: image.url_thumbnail?.trim() || null,
-                  url_tiny: image.url_tiny?.trim() || null,
-                  date_modified: image.date_modified,
-                })) || [],
-            };
-          })
+              return {
+                id: product.id,
+                name: product.name?.trim() || null,
+                sku: product.sku?.trim() || null,
+                description: product.description?.trim() || null,
+                slug: product.custom_url?.url?.trim() || null,
+                custom_url: product.custom_url,
+                brandId: product.brand_id,
+                price: product.calculated_price,
+                categories: product.categories,
+                is_price_hidden: product.is_price_hidden,
+                meta_description: product.meta_description?.trim() || null,
+                meta_keywords: product.meta_keywords,
+                all_images:
+                  imagesData.data.map((image) => ({
+                    id: image.id,
+                    is_thumbnail: image.is_thumbnail,
+                    sort_order: image.sort_order,
+                    description: image.description?.trim() || null,
+                    url_zoom: image.url_zoom?.trim() || null,
+                    url_standard: image.url_standard?.trim() || null,
+                    url_thumbnail: image.url_thumbnail?.trim() || null,
+                    url_tiny: image.url_tiny?.trim() || null,
+                    date_modified: image.date_modified,
+                  })) || [],
+              };
+            })
         );
 
         return {

@@ -35,7 +35,7 @@ export const eventsOne = [
     title: "EEI TDM&MA 2025",
     time: "08:00am / 05:00pm",
     address: "Phoenix, AZ",
-    link: "https://www.eei.org/Events/_Local/spring-transmission-distribution-metering-mutual-assistance-conference",
+    link: "",
   },
   {
     id: 3,

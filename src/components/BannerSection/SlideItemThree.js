@@ -24,6 +24,20 @@ const SlideItemThree = ({ slide = {} }, ref) => {
         <div className="content-box">
           <div className="content">
             <div className="inner">
+              <Link href="https://ldesconsortium.sandia.gov/">
+                <a
+                  className="w-[20px] sm:w-[140px] opacity-90 pointer-events-auto"
+                  title="Learn more about our LDES partnership"
+                >
+                  <Image
+                    width={300}
+                    height={125}
+                    src="/ldes-logo.png"
+                    alt="LDES National Consortium Teaming Partner"
+                    className="w-full h-auto"
+                  />
+                </a>
+              </Link>
               {id == 1 ? (
                 <h1>
                   <TextSplit fontSize={fontSize} text={title} />
@@ -39,20 +53,6 @@ const SlideItemThree = ({ slide = {} }, ref) => {
                   <TextSplit fontSize={fontSize} text={title} />
                 </h2>
               )}
-              <Link href="https://ldesconsortium.sandia.gov/">
-                <a
-                  className="w-[20px] sm:w-[140px] opacity-90 pointer-events-auto"
-                  title="Learn more about our LDES partnership"
-                >
-                  <Image
-                    width={300}
-                    height={125}
-                    src="/ldes-logo.png"
-                    alt="LDES National Consortium Teaming Partner"
-                    className="w-full h-auto"
-                  />
-                </a>
-              </Link>
 
               <div style={{ color: "white" }} className="text">
                 {text}

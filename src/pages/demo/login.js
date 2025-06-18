@@ -5,7 +5,7 @@ import React from "react";
 
 const Login = () => {
   return (
-    <Layout pageTitle="Login">
+    <Layout pageTitle="Demo Login">
       <Style />
       <LoginWrapper />
     </Layout>
