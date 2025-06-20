@@ -14,6 +14,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { CookieManager } from "react-cookie-manager";
 import "react-cookie-manager/style.css";
+import { useEffect, useState } from "react";
 
 // extra css
 import "@/styles/style.css";
@@ -23,6 +24,41 @@ import "@/styles/responsive.css";
 const GTM_ID = "GTM-WL832HQN";
 
 const MyApp = ({ Component, pageProps }) => {
+  const [disableBlocking, setDisableBlocking] = useState(true);
+  const [loadingGeo, setLoadingGeo] = useState(true);
+
+  useEffect(() => {
+    const checkRegion = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        const isEU =
+          data && Array.isArray(data.in_eu)
+            ? data.in_eu.includes("EU")
+            : data.in_eu;
+
+        if (isEU) {
+          setDisableBlocking(false); // Block all cookies until consent
+          console.log("EU region detected, blocking cookies by default");
+        } else {
+          setDisableBlocking(true); // Allow cookies automatically
+        }
+      } catch (err) {
+        console.error(
+          "Geolocation check failed, defaulting to block cookies",
+          err
+        );
+        setDisableBlocking(true); // Fallback to safe default
+      } finally {
+        setLoadingGeo(false);
+      }
+    };
+
+    checkRegion();
+  }, []);
+
+  if (loadingGeo) return null;
+
   return (
     <CookieManager
       translations={{
@@ -39,6 +75,7 @@ const MyApp = ({ Component, pageProps }) => {
       theme="dark"
       enableFloatingButton={true}
       displayType="banner"
+      disableAutomaticBlocking={disableBlocking}
       cookieKitId="6854954ce5b3247b9f0e5e18"
       onManage={(preferences) => {
         if (preferences) {
