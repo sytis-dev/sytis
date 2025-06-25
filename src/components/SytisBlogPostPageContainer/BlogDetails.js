@@ -90,9 +90,14 @@ const BlogDetails = ({ post = {}, blogPosts = [] }) => {
             <Col key={i} md={6} sm={12} className="control-col">
               <div className="control-inner">
                 <h4>
-                  <a href={`${post.preview_url}`}>{post.title}</a>
+                  <a href={post.preview_url.replace("blog", "articles")}>
+                    {post.title}
+                  </a>
                 </h4>
-                <a href={`${post.preview_url}`} className="over-link"></a>
+                <a
+                  href={post.preview_url.replace("blog", "articles")}
+                  className="over-link"
+                ></a>
               </div>
             </Col>
           ))}

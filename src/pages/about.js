@@ -15,11 +15,24 @@ import VideoOne from "@/components/VideoSection/VideoOne";
 import FunFacts from "@/components/FunFacts/FunFacts";
 import WeWorkSection from "@/components/WeWorkSection/WeWorkSection";
 import CallToSection from "@/components/CallToSection/CallToSection";
-
+import Head from "next/head";
 
 const About = () => {
   return (
     <Layout pageTitle="About Us">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | About</title>
+        <meta
+          name="description"
+          content="With decades of experience in thermal technology, SYTIS is leading innovation in condition-based monitoring. Learn how we're making critical infrastructure safer worldwide."
+        />
+        <meta
+          property="og:description"
+          content="With decades of experience in thermal technology, SYTIS is leading innovation in condition-based monitoring. Learn how we're making critical infrastructure safer worldwide."
+        />
+        <meta property="og:title" content="SYTIS | About" />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />

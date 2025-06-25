@@ -39,7 +39,7 @@ const faqs = [
     id: 7,
     title:
       "Can the GridSafe™ system monitor all components in an unmanned substation? ",
-    text: "Yes. That’s one of the reasons for its design.  The PTZ cameras include virtual fence line monitoring up to a mile around the perimeter of the sire as well.",
+    text: "Yes. That’s one of the reasons for its design.  The PTZ cameras include virtual fence line monitoring up to a mile around the perimeter of the site as well.",
   },
   {
     id: 8,
@@ -71,10 +71,6 @@ const resources = [
       {
         href: "/resources/FULL-PTZ-Datasheet.pdf",
         text: "Bi-spectral PTZ Camera 100mm (BPTT6451-F100)",
-      },
-      {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-variable-ptz.pdf",
-        text: "Bi-spectral Variable PTZ Camera (B-PTT-6451-VF)",
       },
     ],
   },

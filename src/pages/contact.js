@@ -8,6 +8,7 @@ import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React, { useEffect } from "react";
 import AgencySection from "@/components/SytisContactCTA/AgencySection";
 import ContactSection from "@/components/ContactSection/ContactSection";
+import Head from "next/head";
 
 const Contact = () => {
   // useEffect hook to dynamically load the HubSpot form script
@@ -25,6 +26,19 @@ const Contact = () => {
 
   return (
     <Layout pageTitle="Contact">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | Contact</title>
+        <meta
+          name="description"
+          content="Get in touch with the experts at SYTIS for a quote or with any questions."
+        />
+        <meta
+          property="og:description"
+          content="Get in touch with the experts at SYTIS for a quote or with any questions."
+        />
+        <meta property="og:title" content="SYTIS | Contact" />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />

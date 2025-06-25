@@ -7,6 +7,7 @@ import MobileMenu from "@/components/Header/MobileMenu";
 import MainFooter from "@/components/MainFooter/MainFooter";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup"; // Assuming your page banner component is here
+import Head from "next/head"; // Assuming you are using Next.js for SEO and head management
 
 const NewsletterSignUp = () => {
   useEffect(() => {
@@ -35,6 +36,19 @@ const NewsletterSignUp = () => {
 
   return (
     <Layout pageTitle="Newsletter Signup">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | Newsletter Signup</title>
+        <meta
+          name="description"
+          content="Sign up for SYTIS' newsletter to get the latest news and updates right in your inbox."
+        />
+        <meta
+          property="og:description"
+          content="Sign up for SYTIS' newsletter to get the latest news and updates right in your inbox."
+        />
+        <meta property="og:title" content="Sytis | Newsletter Signup" />
+      </Head>
       <PageBanner title="Newsletter Signup" />
       <Style />
       <HeaderOne />

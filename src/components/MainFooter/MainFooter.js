@@ -140,6 +140,12 @@ const MainFooter = ({ normalPadding = true }) => {
             <div className="copyright">
               &copy; Copyright {year} by {author}
             </div>
+            <br />
+            <div className="copyright">
+              We do not sell or share your personal information. For more
+              details, please read our{" "}
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </div>
           </div>
         </div>
       </div>

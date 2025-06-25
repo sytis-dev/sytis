@@ -62,12 +62,12 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <CookieManager
       translations={{
-        title: "Would You Like A Cookie? 🍪",
+        title: "This site uses cookies and similar tools",
         message:
-          "We value your privacy. Choose which cookies you want to allow. Essential cookies are always enabled as they are necessary for the website to function properly.",
-        buttonText: "Accept All",
+          "This site uses cookies and similar technologies, including those from third parties, to operate and improve the site, enable features like social media, support marketing efforts, and collect usage data. We and our partners use this data to analyze performance, understand user interactions, personalize experiences, and deliver relevant content and ads here and on third-party sites. You can review or change your cookie preferences at any time via Cookie Settings.",
+        buttonText: "OK",
         declineButtonText: "Decline All",
-        manageButtonText: "Manage Cookies",
+        manageButtonText: "Cookie Settings",
         privacyPolicyText: "Privacy Policy",
       }}
       showManageButton={true}
@@ -96,15 +96,16 @@ const MyApp = ({ Component, pageProps }) => {
         //   "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg",
         // declineButton:
         //   "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg",
+        declineButton: "hidden", // Hide the decline button as per your request
         // manageButton:
         //   "border-2 border-blue-500 text-blue-500 font-bold py-2 px-4 rounded-lg hover:bg-blue-50",
 
         // // Banner style (bottom of screen)
-        // bannerContainer:
-        //   "bg-white/90 border-2 border-blue-200 shadow-xl rounded-xl",
+        //  bannerContainer:
+        // "bg-white/90 border-2 border-blue-200 shadow-xl rounded-xl",
         // bannerContent: "p-6 space-y-4",
-        // bannerTitle: "text-lg font-bold text-blue-800",
-        // bannerMessage: "text-sm text-gray-700",
+        //  bannerTitle: "text-xl font-bold text-blue-800",
+        //  bannerMessage: "text-sm text-gray-700",
 
         // // Popup style (bottom left corner)
         // popupContainer:

@@ -7,10 +7,24 @@ import MainFooter from "@/components/MainFooter/MainFooter";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
+import Head from "next/head";
 
 const Shipping = () => {
   return (
     <Layout pageTitle="SYTIS | Shipping">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | Shipping</title>
+        <meta
+          name="description"
+          content="Learn about SYTIS shipping policies, delivery timelines, and how we handle orders across the U.S. and international locations."
+        />
+        <meta
+          property="og:description"
+          content="Learn about SYTIS shipping policies, delivery timelines, and how we handle orders across the U.S. and international locations."
+        />
+        <meta property="og:title" content="SYTIS | Shipping" />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
@@ -26,9 +40,9 @@ const Shipping = () => {
         <h2 style={{ marginBottom: "1rem" }}>Returns Policy</h2>
         <p>
           You may return most new, unopened items within 30 days of delivery for
-          a full refund. We will also pay the return shipping costs if the return
-          is a result of our error (you received an incorrect or defective item,
-          etc.).
+          a full refund. We will also pay the return shipping costs if the
+          return is a result of our error (you received an incorrect or
+          defective item, etc.).
         </p>
 
         <p>
