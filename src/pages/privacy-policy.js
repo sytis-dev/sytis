@@ -6,11 +6,25 @@ import Layout from "@/components/Layout/Layout";
 import MainFooter from "@/components/MainFooter/MainFooter";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
+import Head from "next/head";
 import React from "react";
 
 const PrivacyPolicy = () => {
   return (
     <Layout pageTitle="SYTIS | Privacy Policy">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | Privacy Policy</title>
+        <meta
+          name="description"
+          content="Understand how SYTIS collects, uses and protects your personal information in compliance with privacy regulations."
+        />
+        <meta
+          property="og:description"
+          content="Understand how SYTIS collects, uses and protects your personal information in compliance with privacy regulations."
+        />
+        <meta property="og:title" content="Sytis | Privacy Policy" />
+      </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />

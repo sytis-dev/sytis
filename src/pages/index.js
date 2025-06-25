@@ -22,16 +22,33 @@ import SponsorsSection from "@/components/SponsorsSection/SponsorsSection";
 import NewsSection from "@/components/NewsSection/NewsSection";
 import CallToSection from "@/components/CallToSection/CallToSection";
 import SYTISBlog from "@/components/NewsSection/SytisBlog";
+import Head from "next/head";
 
 const Home3 = () => {
   return (
     <Layout pageTitle="Home">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SYTIS | Home</title>
+        <meta
+          name="description"
+          content="SYTIS redefines predictive maintenance with wireless thermal imaging and AI alerts for utility and industrial systems. Predict, prevent and protect with condition-based monitoring."
+        />
+        <meta
+          property="og:description"
+          content="SYTIS redefines predictive maintenance with wireless thermal imaging and AI alerts for utility and industrial systems. Predict, prevent and protect with condition-based monitoring."
+        />
+        <meta
+          property="og:title"
+          content="Sytis | Home"
+        />
+      </Head>
       <Style />
       <HeaderOne headerStyle="header-style-two" logo={4} />
       <MobileMenu />
       <SearchPopup />
       <BannerThree
-        style={{ paddingTop:"1000px" }} // adjust if your top bar is taller/shorter
+        style={{ paddingTop: "1000px" }} // adjust if your top bar is taller/shorter
       />
       {/* <CallToSectionTwo btnClassName="btn-style-one" /> */}
 

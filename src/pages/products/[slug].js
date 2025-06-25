@@ -99,7 +99,13 @@ const ProductDetails = ({ product }) => {
   return (
     <Layout pageTitle={product.name}>
       <Head>
-        <meta name="description" />
+        <meta
+          name="description"
+          content={
+            product.meta_description ||
+            `Learn more about ${product.name} and how it supports your operations.`
+          }
+        />
         <meta
           property="og:description"
           content={
@@ -107,10 +113,7 @@ const ProductDetails = ({ product }) => {
             `Learn more about ${product.name} and how it supports your operations.`
           }
         />
-        <meta
-          property="og:title"
-          content={`Sytis | ${product.name}`}
-        />
+        <meta property="og:title" content={`Sytis | ${product.name}`} />
       </Head>
       <Style />
       <HeaderOne />

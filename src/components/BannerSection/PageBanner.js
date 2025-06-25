@@ -21,7 +21,7 @@ const PageBanner = ({
   }, []);
 
   return (
-    <section style={{ marginTop : "150px"}} className="page-banner">
+    <section style={{ marginTop : "115px"}} className="page-banner">
       <div
         className="image-layer"
         style={{ backgroundImage: `url(${bg.src})` }}
