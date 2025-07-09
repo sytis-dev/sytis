@@ -6,9 +6,9 @@ import image2 from "@/images/update-1-12-2020/resources/client-1.png";
 const sponsors = [
   "AES-150x80.png",
   "AO-150x80.png",
-  "Bart-150x80.png",
+  //"Bart-150x80.png",
   "Edison-150x80.png",
-  "Iberdrola-150x80.png",
+  //"Iberdrola-150x80.png",
   "PSE-150x80.png",
   "Sandia-150x80.png",
   "Tenaga-150x80.png",

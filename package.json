@@ -26,6 +26,7 @@
     "react-countup": "^6.2.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.30.0",
+    "react-hot-toast": "^2.5.2",
     "react-masonry-component": "^6.3.0",
     "react-mixitup": "^3.0.0",
     "react-modal-video": "^1.2.8",
