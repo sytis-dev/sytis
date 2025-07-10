@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Disallow demo pages
+Disallow: /demo/
+
+# Disallow API routes
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://sytis.com/sitemap.xml 
