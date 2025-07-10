@@ -1,13 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
 
-const WombatToast = () => {
-  const title = "Boost Field Safety Today!";
-  const message =
-    "Wombat puts essential safety tasks, training, and docs right in your team's hands—on-site and offline.";
-  const ctaText = "Get a Demo";
-  const ctaLink = "https://hub.sytis.com/wombat-access";
-
+const GeneralToast = ({
+  title = "Notification!",
+  message = "This is a general notification.",
+  ctaText = "Learn More",
+  ctaLink = "#",
+  color = "#e61919", // Default to site red
+}) => {
   return (
     <div
       style={{
@@ -20,7 +21,7 @@ const WombatToast = () => {
         fontFamily: "'Rubik', sans-serif",
         color: "#686a6f",
         zIndex: 1000,
-        border: "1px solid rgba(230, 25, 25, 0.1)", // #e61919
+        border: `1px solid ${color}20`, // 20 = ~12% opacity
       }}
     >
       {/* Close button */}
@@ -44,7 +45,7 @@ const WombatToast = () => {
           transition: "all 0.3s ease",
         }}
         onMouseEnter={(e) => {
-          e.target.style.background = "#e61919";
+          e.target.style.background = color;
           e.target.style.color = "white";
         }}
         onMouseLeave={(e) => {
@@ -84,7 +85,7 @@ const WombatToast = () => {
         style={{
           position: "relative",
           display: "inline-block",
-          background: "#e61919",
+          background: color,
           color: "#ffffff",
           padding: "0.75rem 1.5rem",
           borderRadius: "5px",
@@ -103,7 +104,7 @@ const WombatToast = () => {
           e.target.style.background = "#222429";
         }}
         onMouseLeave={(e) => {
-          e.target.style.background = "#e61919";
+          e.target.style.background = color;
         }}
       >
         <span style={{ position: "relative", zIndex: 1 }}>
@@ -129,4 +130,12 @@ const WombatToast = () => {
   );
 };
 
-export default WombatToast;
+GeneralToast.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+  ctaText: PropTypes.string,
+  ctaLink: PropTypes.string,
+  color: PropTypes.string,
+};
+
+export default GeneralToast;
