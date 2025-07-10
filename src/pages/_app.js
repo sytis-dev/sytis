@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast, Toaster } from "react-hot-toast";
-import WombatToast from "@/components/Toasts/WombatToast";
+import GeneralToast from "@/components/Toasts/GeneralToast";
 
 import ContextProvider from "@/context/ContextProvider";
 import "@/vendors/animate.css";
@@ -75,7 +75,13 @@ const MyApp = ({ Component, pageProps }) => {
                 t.visible ? "animate-enter" : "animate-leave"
               } max-w-md w-full pointer-events-auto ring-1 ring-black ring-opacity-5`}
             >
-              <WombatToast />
+              <GeneralToast
+                title="Download WOMBAT Resource"
+                message="Use The Windfarm Operations and Maintenance cost-Benefit Analysis Tool (WOMBAT) to calculate direct and indirect O&M costs."
+                ctaText="Access Here"
+                ctaLink="https://hub.sytis.com/wombat-access"
+                color="#e61919"
+              />
             </div>
           ),
           { duration: 10000 }
