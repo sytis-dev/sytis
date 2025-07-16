@@ -9880,20 +9880,13 @@ img.lazy-image.loaded {
   display: block;
   width: auto;
   max-width: none;
-  -webkit-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  filter: grayscale(100%);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   border-radius: 7px;
 }
 
 .features-section-two .right-col .image-box:hover img {
-  -webkit-filter: grayscale(0%);
-  -ms-filter: grayscale(0%);
-  -moz-filter: grayscale(0%);
-  filter: grayscale(0%);
+  /* Removed grayscale effect - image stays in color */
 }
 
 .features-section-two .right-col .cap-box {
