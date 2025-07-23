@@ -52,7 +52,7 @@ const SYTISSolutions = () => {
           href: `/solutions/${slugify(sol.name, { lower: true })}`,
           image: sol.image_url,
           title: sol.name,
-          icon: sol.icon || "flaticon-computer",
+          icon: sol.iconUrl || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
           description:
             sol.description ||
             "Lorem ipsum is simply free sed qui magni dolores eos qui voptam.",
@@ -100,17 +100,20 @@ const SYTISSolutions = () => {
                     className="service-nine__content"
                     style={{ textAlign: "center" }}
                   >
-                    <div
-                      className="service-nine__icon"
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* <i className={icon} style={{ fontSize: "2rem" }}></i>{" "} */}
-                      {/* You can adjust the size if needed */}
-                    </div>
+                             <div
+                        className="service-nine__icon"
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={icon}
+                          alt={title}
+                          style={{ width: "80px", height: "80px" }}
+                        />
+                      </div>
                     <h4 style={{ marginTop: "1rem" }}>
                       <Link href={href}>{title}</Link>
                     </h4>
