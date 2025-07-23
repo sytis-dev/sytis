@@ -710,8 +710,8 @@
   }
 
   .banner-three .banner-carousel .content-box {
-    height: 600px !important;
-    min-height: 600px !important;
+    min-height: 300px !important;
+    height: auto !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     display: flex !important;
@@ -927,7 +927,7 @@
 @media only screen and (max-width: 599px) {
   .banner-three .banner-carousel .slide-item.slide-vital-visibility .content-box h1,
   .banner-three .banner-carousel .slide-item.slide-vital-visibility .content-box h2 {
-    font-size: clamp(72px, 18vw, 120px) !important;
+    font-size: clamp(68px, 18vw, 120px) !important;
     max-width: 95vw !important;
     text-align: center !important;
     margin-left: auto;
@@ -939,7 +939,19 @@
   }
   .banner-three .banner-carousel .slide-item.slide-innovative .content-box h1,
   .banner-three .banner-carousel .slide-item.slide-innovative .content-box h2 {
-    font-size: clamp(16px, 6vw, 28px) !important;
+    font-size: clamp(65px, 6vw, 28px) !important;
+    max-width: 95vw !important;
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1px !important;
+  }
+  .banner-three .banner-carousel .slide-item.slide-predict-prevent-protect .content-box h1,
+  .banner-three .banner-carousel .slide-item.slide-predict-prevent-protect .content-box h2 {
+    font-size: clamp(64px, 6vw, 32px) !important;
     max-width: 95vw !important;
     text-align: center !important;
     margin-left: auto;
