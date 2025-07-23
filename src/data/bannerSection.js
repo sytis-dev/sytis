@@ -47,7 +47,7 @@ export const bannerOne = {
     {
       id: 2,
       bg: "sytis-slider-1.jpg",
-      title: "INNOVATIVE\nTHERMAL\nTECHNOLOGY",
+      title: "INNOVATIVE THERMAL\nTECHNOLOGY",
       text: "Introducing continuous remote detection monitoring systems for mission-critical electrical assets and perimeter surveillance.",
       button_text: "Browse Applications",
       button_link: "/applications",

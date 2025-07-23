@@ -7,7 +7,7 @@ const SlideItemThree = ({ slide = {} }, ref) => {
   const { bg, title, text, button_text, button_link, id, fontSize } = slide;
 
   return (
-    <div style={{ userSelect: "none" }} ref={ref} className="slide-item">
+    <div style={{ userSelect: "none" }} ref={ref} className={`slide-item${id === 2 ? ' slide-innovative' : ''}${id === 4 ? ' slide-vital-visibility' : ''}`}>
       <div className="round-shape-1"></div>
       <div className="round-image">
         <div
