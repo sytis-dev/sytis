@@ -33,8 +33,8 @@ const SidebarSide = () => {
           <div className="text">{text}</div>
           <div className="phone">
             <a href={`tel:${phone.split(" ").join("")}`}>
-              <span className="icon flaticon-call"></span>
-              {phone}
+              <img src="/phone-icon.png" alt="Phone Icon" style={{ width: 24, height: 24 }} />
+              <span style={{ marginLeft: 8 }}>{phone}</span>
             </a>
           </div>
         </div>
