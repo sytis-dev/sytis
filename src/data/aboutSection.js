@@ -34,7 +34,7 @@ export const aboutSectionTwo = {
   text: "With over 35 years in thermal imaging technology, SYTIS is on the forefront of infrared and optical monitoring innovations. <br/> <br/>  Follow our journey, as our team researches, develops, and advocates monitoring systems to promote safety in all industries.",
   counters: [],
   since: "2008",
-  ctaTitle: "View Blcogs",
+  ctaTitle: "View Articles",
 };
 
 export const aboutSectionThree = {

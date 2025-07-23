@@ -175,7 +175,7 @@ const HeaderOne = ({
                 <div className="login-btn" style={{ marginRight: "30px" }}>
                   <Link href="/login">
                     <a className="theme-btn login-toggler">
-                      <span className="flaticon-user"></span>
+                      <img src="/user-icon.svg" alt="User Icon" style={{ width: 24, height: 24 }} />
                     </a>
                   </Link>
                 </div>
@@ -185,7 +185,7 @@ const HeaderOne = ({
                     type="button"
                     className="theme-btn search-toggler"
                   >
-                    <span className="flaticon-loupe"></span>
+                    <img src="/search-icon.svg" alt="Search Icon" style={{ width: 24, height: 24 }} />
                   </button>
                 </div>
                 <div className="link-box">
