@@ -143,7 +143,7 @@ const SYTISSolutions = () => {
                           <img
                             src={icon}
                             alt={title}
-                            style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                            style={{ width: "200px", height: "200px", objectFit: "contain" }}
                           />
                         </div>
                         <h4 style={{ marginTop: "1rem", textAlign: 'center', color: 'var(--thm-black)' }}>
@@ -210,7 +210,7 @@ const SYTISSolutions = () => {
                           <img
                             src={icon}
                             alt={title}
-                            style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                            style={{ width: "200px", height: "200px", objectFit: "contain" }}
                           />
                         </div>
                         <h4 style={{ marginTop: "1rem", textAlign: 'center', color: 'var(--thm-black)' }}>
