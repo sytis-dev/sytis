@@ -33,7 +33,7 @@ export const bannerOne = {
     },
     {
       id: 2,
-      href: "https://www.facebook.comtech",
+      href: "https://www.facebook.com/sytistech/",
       title: "Facebook",
     },
     {
