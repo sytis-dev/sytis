@@ -31,7 +31,7 @@ export const mainFooter = {
   about3:
     "We’ve grown our business on a set of \n three building blocks. Enjoy the \n people you work.",
   text: "SYTIS is a technology company focused on software and high definition infrared and optical cameras, delivering actionable, intelligent data when it is needed most: before an issue gets out of control. ",
-  address: "3474 Empresa Dr. #150 \n San Luis Obispo, CA 93449",
+  address: "3474 Empresa Dr. #150 \n San Luis Obispo, CA 93401",
   address3: "66 Mark Street, New Town DC 5752, Lo New York",
   address2:
     "214 Gold Street Round Road. 66 \n Code New York, United States \n of America",

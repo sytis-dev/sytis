@@ -48,7 +48,7 @@ export const contactSection = {
     {
       id: 3,
       name: "ADDRESS",
-      address: "3474 Empresa Dr. #150 <br/> San Luis Obispo, CA 93449",
+      address: "3474 Empresa Dr. #150 <br/> San Luis Obispo, CA 93401",
       email: "",
       phone: "",
     },
