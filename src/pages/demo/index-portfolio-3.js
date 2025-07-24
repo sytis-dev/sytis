@@ -9,7 +9,7 @@ import React from "react";
 
 const PortfolioHome3 = () => {
   return (
-    <Layout pageTitle="Horizontal Portfolio Three" preloader={preloader}>
+    <Layout pageTitle="Horizontal Portfolio Three" preloader={preloader} noIndex={true}>
       <Style
         font="Roboto Condensed"
         bFont="Roboto Condensed"

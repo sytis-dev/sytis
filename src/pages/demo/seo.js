@@ -12,7 +12,7 @@ import React from "react";
 
 const Seo = () => {
   return (
-    <Layout pageTitle="SEO & Content Writing">
+    <Layout pageTitle="SEO & Content Writing" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

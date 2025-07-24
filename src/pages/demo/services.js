@@ -13,7 +13,7 @@ import React from "react";
 
 const services = () => {
   return (
-    <Layout pageTitle="Services">
+    <Layout pageTitle="Services" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

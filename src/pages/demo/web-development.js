@@ -12,7 +12,7 @@ import React from "react";
 
 const WebDevelopment = () => {
   return (
-    <Layout pageTitle="Website Development">
+    <Layout pageTitle="Website Development" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

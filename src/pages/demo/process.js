@@ -11,7 +11,7 @@ import React from "react";
 
 const Process = () => {
   return (
-    <Layout pageTitle="Process Page">
+    <Layout pageTitle="Process Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

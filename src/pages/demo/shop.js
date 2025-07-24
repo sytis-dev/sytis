@@ -10,7 +10,7 @@ import React from "react";
 
 const Shop = () => {
   return (
-    <Layout pageTitle="Shop Page">
+    <Layout pageTitle="Shop Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

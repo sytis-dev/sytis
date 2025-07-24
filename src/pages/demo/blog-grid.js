@@ -10,7 +10,7 @@ import React from "react";
 
 const BlogGrid = () => {
   return (
-    <Layout pageTitle="Blog Posts">
+    <Layout pageTitle="Blog Posts" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

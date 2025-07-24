@@ -11,7 +11,7 @@ import React from "react";
 
 const History = () => {
   return (
-    <Layout pageTitle="Our History">
+    <Layout pageTitle="Our History" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

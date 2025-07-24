@@ -14,7 +14,7 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <Layout pageTitle="How It Works">
+    <Layout pageTitle="How It Works" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

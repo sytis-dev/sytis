@@ -10,7 +10,7 @@ import React from "react";
 
 const Team = () => {
   return (
-    <Layout pageTitle="Team">
+    <Layout pageTitle="Team" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

@@ -10,7 +10,7 @@ import React from "react";
 
 const Portfolio = () => {
   return (
-    <Layout pageTitle="Portfolio">
+    <Layout pageTitle="Portfolio" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

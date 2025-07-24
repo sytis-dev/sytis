@@ -19,7 +19,7 @@ import React from "react";
 
 const Home8 = () => {
   return (
-    <Layout pageTitle="Home 08" preloader={preloader}>
+    <Layout pageTitle="Home 08" noIndex={true} preloader={preloader}>
       <Style
         font="DM Sans, sans-serif"
         bFont="DM Sans, sans-serif"

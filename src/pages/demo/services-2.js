@@ -10,7 +10,7 @@ import React from "react";
 
 const Services2 = () => {
   return (
-    <Layout pageTitle="Services">
+    <Layout pageTitle="Services" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

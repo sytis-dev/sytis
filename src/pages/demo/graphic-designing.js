@@ -12,7 +12,7 @@ import React from "react";
 
 const GraphicDesigning = () => {
   return (
-    <Layout pageTitle="Graphic Designing">
+    <Layout pageTitle="Graphic Designing" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

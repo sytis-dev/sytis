@@ -8,7 +8,7 @@ import React from "react";
 
 const ParallaxHome = () => {
   return (
-    <Layout pageTitle="Home 03">
+    <Layout pageTitle="Home Parallax" noIndex={true}>
       <Style />
       <HeaderOne
         logo={2}

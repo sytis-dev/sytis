@@ -13,7 +13,7 @@ import React from "react";
 
 const ProductDetails = () => {
   return (
-    <Layout pageTitle="Product Details Page">
+    <Layout pageTitle="Product Details Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

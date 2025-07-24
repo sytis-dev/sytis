@@ -12,7 +12,7 @@ import React from "react";
 
 const faqs = () => {
   return (
-    <Layout pageTitle="FAQs">
+    <Layout pageTitle="FAQs" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

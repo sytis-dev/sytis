@@ -30,7 +30,7 @@ const HomeDark = () => {
   }, []);
 
   return (
-    <Layout pageTitle="Home 01">
+    <Layout pageTitle="Home Dark" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

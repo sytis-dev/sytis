@@ -13,7 +13,7 @@ import React from "react";
 
 const AboutMe = () => {
   return (
-    <Layout pageTitle="About Me">
+    <Layout pageTitle="About Me" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

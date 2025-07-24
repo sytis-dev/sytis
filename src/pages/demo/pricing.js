@@ -11,7 +11,7 @@ import React from "react";
 
 const Pricing = () => {
   return (
-    <Layout pageTitle="Pricing Page">
+    <Layout pageTitle="Pricing Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

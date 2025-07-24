@@ -17,7 +17,7 @@ import React from "react";
 
 const Home4 = () => {
   return (
-    <Layout pageTitle="Home 04" preloader={preloader}>
+    <Layout pageTitle="Home 04" noIndex={true} preloader={preloader}>
       <Style
         font="Barlow, sans-serif"
         bFont="Barlow, sans-serif"

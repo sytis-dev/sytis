@@ -14,6 +14,7 @@ const PortfolioHome2 = () => {
       mainClass="page-wrapper__gradient"
       preloaderClass="preloader__gradient"
       preloader={preloader}
+      noIndex={true}
     >
       <Style />
       <HeaderOne
