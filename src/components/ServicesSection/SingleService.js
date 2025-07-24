@@ -30,6 +30,9 @@ const SingleService = ({ service = {} }) => {
             height: "100px",
             marginBottom: "10px",
             color: "black",
+            ...(typeof window !== 'undefined' && window.innerWidth <= 599
+              ? { marginBottom: '32px', height: '80px' }
+              : {}),
           }}
         >
           <a href={href}>
@@ -37,7 +40,7 @@ const SingleService = ({ service = {} }) => {
               src={image.src}
               alt={altText}
               style={{
-                transform: "scale(0.6)",
+                transform: typeof window !== 'undefined' && window.innerWidth <= 599 ? 'scale(0.5)' : 'scale(0.6)',
               }}
             />
           </a>
