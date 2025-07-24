@@ -29,8 +29,8 @@ const services = [
     image: flameImage,
     href: "/applications/fire-detection",
     icon: "flaticon-instant-camera",
-    altText: "Flame and Fire Protection",
-    title: "flame\nfire Protection",
+    altText: "Fire Detection",
+    title: "fire Detection",
     text: "Effective flame and fire protection systems are essential for safeguarding lives and property from the devastating effects of fire, ensuring early detection and suppression.",
   },
   {
