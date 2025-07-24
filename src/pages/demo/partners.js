@@ -11,7 +11,7 @@ import React from "react";
 
 const Partners = () => {
   return (
-    <Layout pageTitle="How It Works">
+    <Layout pageTitle="Partners" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

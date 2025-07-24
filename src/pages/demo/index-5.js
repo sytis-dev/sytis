@@ -13,7 +13,7 @@ import React from "react";
 
 const Home5 = () => {
   return (
-    <Layout pageTitle="Home 05" preloader={preloader}>
+    <Layout pageTitle="Home 05" noIndex={true} preloader={preloader}>
       <Style
         font="Jost, sans-serif"
         bFont="Jost, sans-serif"

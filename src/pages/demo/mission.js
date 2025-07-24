@@ -14,7 +14,7 @@ import React from "react";
 
 const Mission = () => {
   return (
-    <Layout pageTitle="Our Mission">
+    <Layout pageTitle="Our Mission" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

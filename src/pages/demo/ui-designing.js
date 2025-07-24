@@ -12,7 +12,7 @@ import React from "react";
 
 const UiDesigning = () => {
   return (
-    <Layout pageTitle="UI/UX Designing">
+    <Layout pageTitle="UI/UX Designing" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

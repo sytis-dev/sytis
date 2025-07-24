@@ -5,7 +5,7 @@ import React from "react";
 
 const ComingSoon = () => {
   return (
-    <Layout pageTitle="Coming Soon Page">
+    <Layout pageTitle="Coming Soon Page" noIndex={true}>
       <Style />
       <ComingSoonSection />
     </Layout>

@@ -10,7 +10,7 @@ import React from "react";
 
 const Clients = () => {
   return (
-    <Layout pageTitle="Clients Page">
+    <Layout pageTitle="Clients Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

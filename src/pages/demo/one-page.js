@@ -25,7 +25,7 @@ import React from "react";
 
 const OnePage = () => {
   return (
-    <Layout pageTitle="Home 03">
+    <Layout pageTitle="One Page" noIndex={true}>
       <Style />
       <HeaderOne
         onePage

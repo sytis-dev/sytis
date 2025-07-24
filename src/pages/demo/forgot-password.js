@@ -5,7 +5,7 @@ import React from "react";
 
 const ForgotPassword = () => {
   return (
-    <Layout pageTitle="Forgot Password">
+    <Layout pageTitle="Forgot Password" noIndex={true}>
       <Style />
       <LoginWrapper forgot />
     </Layout>

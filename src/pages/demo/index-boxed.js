@@ -22,7 +22,7 @@ import React from "react";
 
 const boxedHome = () => {
   return (
-    <Layout pageTitle="Home 01" mainClass="boxed-wrapper">
+    <Layout pageTitle="Home 01" mainClass="boxed-wrapper" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

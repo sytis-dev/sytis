@@ -12,7 +12,7 @@ import React from "react";
 
 const PortfolioSingle2 = () => {
   return (
-    <Layout pageTitle="Portfolio Single">
+    <Layout pageTitle="Portfolio Single 2" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

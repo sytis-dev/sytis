@@ -10,7 +10,7 @@ import React from "react";
 
 const Cart = () => {
   return (
-    <Layout pageTitle="Cart Page">
+    <Layout pageTitle="Cart Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

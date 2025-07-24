@@ -5,7 +5,7 @@ import React from "react";
 
 const Register = () => {
   return (
-    <Layout pageTitle="Register">
+    <Layout pageTitle="Register" noIndex={true}>
       <Style />
       <LoginWrapper register />
     </Layout>

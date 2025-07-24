@@ -10,6 +10,7 @@ const Layout = ({
   preloader,
   mainClass,
   preloaderClass,
+  noIndex, // Add noIndex prop
 }) => {
   const [loading, setLoading] = useState(true);
   const { scrollTop } = useScroll(100);
@@ -30,6 +31,11 @@ const Layout = ({
 
   return (
     <>
+      {noIndex && (
+        <Head>
+          <meta name="robots" content="noindex, nofollow" />
+        </Head>
+      )}
       <Preloader className={preloaderClass} loading={loading} bg={preloader} />
       <main
         id="wrapper"

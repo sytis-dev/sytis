@@ -10,7 +10,7 @@ import React from "react";
 
 const Testimonials2 = () => {
   return (
-    <Layout pageTitle="Testimonials">
+    <Layout pageTitle="Testimonials" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

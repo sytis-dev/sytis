@@ -16,7 +16,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <Layout pageTitle="About Us">
+    <Layout pageTitle="About Us" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

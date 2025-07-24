@@ -10,7 +10,7 @@ import React from "react";
 
 const Checkout = () => {
   return (
-    <Layout pageTitle="Checkout Page">
+    <Layout pageTitle="Checkout Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

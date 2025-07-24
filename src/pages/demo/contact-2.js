@@ -12,7 +12,7 @@ import React from "react";
 
 const Contact2 = () => {
   return (
-    <Layout pageTitle="Contact">
+    <Layout pageTitle="Contact" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

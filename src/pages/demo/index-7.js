@@ -20,7 +20,7 @@ import React from "react";
 
 const Home7 = () => {
   return (
-    <Layout pageTitle="Home 07" preloader={preloader}>
+    <Layout pageTitle="Home 07" noIndex={true} preloader={preloader}>
       <Style
         font="Rubik, sans-serif"
         bFont="Rubik, sans-serif"

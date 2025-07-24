@@ -21,7 +21,7 @@ import React from "react";
 
 const Home6 = () => {
   return (
-    <Layout pageTitle="Home 06" preloader={preloader}>
+    <Layout pageTitle="Home 06" noIndex={true} preloader={preloader}>
       <Style
         font="Kumbh Sans, sans-serif"
         bFont="Kumbh Sans, sans-serif"

@@ -10,7 +10,7 @@ import React from "react";
 
 const EventDetails = () => {
   return (
-    <Layout pageTitle="Events Page | Events Details">
+    <Layout pageTitle="Events Page | Events Details" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

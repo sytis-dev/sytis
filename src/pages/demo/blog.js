@@ -10,7 +10,7 @@ import React from "react";
 
 const Blog = () => {
   return (
-    <Layout pageTitle="Blog Sidebar">
+    <Layout pageTitle="Blog Sidebar" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

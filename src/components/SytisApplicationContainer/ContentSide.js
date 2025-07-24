@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 
 const ContentSide = ({ application = {} }) => {
@@ -14,15 +14,39 @@ const ContentSide = ({ application = {} }) => {
   const bottomImage = images.length > 0 ? images[images.length - 1] : null;
 
   const isFireDetection = application.name === "Fire Detection";
+  const videoRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 767px)').matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleFullscreen = () => {
+    const video = videoRef.current;
+    if (video) {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
+      }
+    }
+  };
 
   return (
     <div className="content-details">
       {/* Embedded styling for video */}
 
-
       {isFireDetection ? (
-        <div className="video-wrapper" style={{ marginBottom: "20px" }}>
+        <div className="video-wrapper" style={{ marginBottom: "20px", position: 'relative', width: '100%', paddingTop: '56.25%' }}>
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
@@ -30,9 +54,44 @@ const ContentSide = ({ application = {} }) => {
             className="background-video"
             src="/video/sytis-fire-detection.mp4"
             type="video/mp4"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: isMobile ? 'contain' : 'cover',
+              borderRadius: '8px',
+              maxHeight: '400px',
+              background: isMobile ? 'white' : undefined,
+              cursor: isMobile ? 'pointer' : 'default',
+            }}
+            onClick={isMobile ? handleFullscreen : undefined}
           >
             Your browser does not support the video tag.
           </video>
+          {/* Fullscreen button overlay, only on mobile */}
+          {isMobile && (
+            <button
+              onClick={handleFullscreen}
+              style={{
+                position: 'absolute',
+                bottom: 10,
+                right: 10,
+                zIndex: 2,
+                background: 'rgba(0,0,0,0.6)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                fontSize: '16px',
+                cursor: 'pointer',
+              }}
+              aria-label="Fullscreen video"
+            >
+              ⛶
+            </button>
+          )}
         </div>
       ) : (
         topImage && (

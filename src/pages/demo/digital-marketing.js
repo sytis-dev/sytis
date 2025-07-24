@@ -12,7 +12,7 @@ import React from "react";
 
 const DigitalMarketing = () => {
   return (
-    <Layout pageTitle="Digital Marketing">
+    <Layout pageTitle="Digital Marketing" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

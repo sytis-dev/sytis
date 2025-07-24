@@ -20,7 +20,7 @@ import React from "react";
 
 const Home3 = () => {
   return (
-    <Layout pageTitle="Home 03">
+    <Layout pageTitle="Home 03" noIndex={true}>
       <Style />
       <HeaderOne headerStyle="header-style-two" logo={4} />
       <MobileMenu />

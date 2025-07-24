@@ -11,7 +11,7 @@ import React from "react";
 
 const Events = () => {
   return (
-    <Layout pageTitle="Events Page">
+    <Layout pageTitle="Events Page" noIndex={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />
