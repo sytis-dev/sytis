@@ -61,7 +61,7 @@ const GeneralToast = ({
       <h4 style={{ 
         margin: "0 0 0.75rem", 
         fontSize: "1.25rem", 
-        fontFamily: "'Teko', sans-serif",
+        fontFamily: "'Novecento Sans Wide', sans-serif",
         color: "#222429",
         fontWeight: "400",
         lineHeight: "1.2"
@@ -90,7 +90,7 @@ const GeneralToast = ({
           padding: "0.75rem 1.5rem",
           borderRadius: "5px",
           textDecoration: "none",
-          fontFamily: "'Teko', sans-serif",
+          fontFamily: "'Novecento Sans Wide', sans-serif",
           fontSize: "16px",
           fontWeight: "400",
           textTransform: "uppercase",

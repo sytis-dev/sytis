@@ -34,7 +34,7 @@ const customStyle = {
       backgroundColor: "#ffaa17",
     },
     fontSize: 20,
-    fontFamily: "Teko, sans-serif",
+    fontFamily: "Novecento Sans Wide, sans-serif",
     textAlign: "left",
     fontWeight: 400,
   }),

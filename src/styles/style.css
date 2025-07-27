@@ -1,3 +1,12 @@
+/* Add Novecento Sans Wide font-face */
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('../assets/fonts/Novecento WideNormal.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Linoor - DIgital Agency HTML Template  */
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -86,7 +95,7 @@
 
  ***/
 :root {
-  --thm-font: "Teko", sans-serif;
+  --thm-font: 'Novecento Sans Wide', sans-serif;
   --thm-b-font: "Rubik", sans-serif;
   --thm-base: #ffaa17;
   --thm-base-rgb: 255, 170, 23;
@@ -2749,6 +2758,7 @@ img.lazy-image.loaded {
   margin: 0;
   -webkit-transform: translateY(80px);
   transform: translateY(80px);
+  font-family: var(--thm-font);
 }
 
 .banner-two .banner-carousel .content-box h1 {
@@ -3976,11 +3986,6 @@ img.lazy-image.loaded {
 .about-section .image-column .image-block:nth-child(2) {
   margin-right: 140px;
   margin-top: -170px;
-}
-
-.about-section .text-column {
-  position: relative;
-  margin-bottom: 30px;
 }
 
 .about-section .text-column .inner {
@@ -9554,6 +9559,7 @@ img.lazy-image.loaded {
   font-size: 50px;
   font-weight: 800;
   color: #fff;
+  font-family: 'Novecento Sans Wide';
 }
 
 .call-to-section-three .auto-container .btn-style-three {
@@ -9609,6 +9615,7 @@ img.lazy-image.loaded {
 
 .services-section-three__one-page .sec-title h2 {
   color: #fff;
+  font-family: 'Novecento Sans Wide';
 }
 
 .services-section-three__one-page .service-block-two .inner-box {
@@ -9618,6 +9625,7 @@ img.lazy-image.loaded {
 
 .services-section-three__one-page .service-block-two .inner-box h5 a {
   color: #fff;
+  font-family: 'Novecento Sans Wide';
 }
 
 .services-section-three__one-page .service-block-two .inner-box .bottom-curve,
@@ -9709,6 +9717,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   line-height: 1em;
   margin: 0;
+  font-family: 'Novecento Sans Wide';
 }
 
 .discover-block .cap-inner .more-link {
@@ -9830,7 +9839,7 @@ img.lazy-image.loaded {
   line-height: 1em;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .features-section-two .feature:hover .count {
@@ -9851,6 +9860,7 @@ img.lazy-image.loaded {
   line-height: 1.2em;
   text-transform: uppercase;
   margin-bottom: 15px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .features-section-two .feature .sub-text {
@@ -9913,6 +9923,7 @@ img.lazy-image.loaded {
   color: white;
   line-height: 1em;
   margin: 0;
+  font-family: 'Novecento Sans Wide';
 }
 
 /***
@@ -9953,7 +9964,7 @@ img.lazy-image.loaded {
   padding: 30px 15px;
   text-transform: uppercase;
   margin: 0;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -10138,7 +10149,7 @@ img.lazy-image.loaded {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .testi-block-two .text {
@@ -10149,7 +10160,7 @@ img.lazy-image.loaded {
   font-weight: 400;
   letter-spacing: 0em;
   color: #ffffff;
-  font-family: var(--thm-b-font);
+  font-family: 'Novecento Sans Wide';
   padding: 0px 0px;
 }
 
@@ -10323,7 +10334,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: -30px;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .counter-block .graph-outer .count-box .sign {
@@ -10347,6 +10358,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0 0;
+  font-family: 'Novecento Sans Wide';
 }
 
 /* about section three */
@@ -10380,6 +10392,7 @@ img.lazy-image.loaded {
 
 .about-section-three__content .sec-title-two h2 {
   margin-top: 10px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .about-section-three__summery p {
@@ -10488,6 +10501,7 @@ img.lazy-image.loaded {
   line-height: 1;
   margin-bottom: 5px;
   position: relative;
+  font-family: 'Novecento Sans Wide';
 }
 
 .about-section-three__name p {
@@ -10628,6 +10642,7 @@ img.lazy-image.loaded {
   line-height: 34px;
   margin: 0;
   font-weight: 400;
+  font-family: 'Novecento Sans Wide';
 }
 
 @media (min-width: 1200px) {
@@ -10671,6 +10686,7 @@ img.lazy-image.loaded {
 
 .about-me-counter .counter-block h4 {
   font-size: 26px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .about-me-counter .sec-title {
@@ -10719,6 +10735,7 @@ img.lazy-image.loaded {
 
 .get-quote-two .sec-title h2 {
   color: #ffffff;
+  font-family: 'Novecento Sans Wide';
 }
 
 .get-quote-two .left-col {
@@ -10769,7 +10786,7 @@ img.lazy-image.loaded {
   font-size: 16px;
   font-weight: 400;
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   margin-top: -4px;
 }
 
@@ -10877,7 +10894,7 @@ img.lazy-image.loaded {
 }
 
 .map-data {
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   text-align: center;
   font-size: 20px;
   color: #222222;
@@ -10887,7 +10904,7 @@ img.lazy-image.loaded {
 }
 
 .map-data h6 {
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   font-size: 24px;
   font-weight: 400;
   text-align: center;
@@ -11041,6 +11058,7 @@ img.lazy-image.loaded {
   letter-spacing: 1px;
   text-transform: uppercase;
   margin: 0;
+  font-family: 'Novecento Sans Wide';
 }
 
 .page-banner .page-nav {
@@ -11067,7 +11085,7 @@ img.lazy-image.loaded {
   padding-right: 15px;
   margin-right: 15px;
   letter-spacing: 0.1em;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .page-banner .bread-crumb li:before {
@@ -12679,7 +12697,7 @@ img.lazy-image.loaded {
   display: flex;
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
-  font-family: "Teko", sans-serif;
+  font-family: var(--thm-font);
   position: relative;
 }
 
@@ -12744,10 +12762,6 @@ img.lazy-image.loaded {
   margin: 0;
   font-family: var(--thm-b-font);
   color: #9ca3a9;
-}
-
-.side-menu__content p + p {
-  margin-top: 30px;
 }
 
 .side-menu__content p a {
@@ -12837,7 +12851,7 @@ img.lazy-image.loaded {
 
 /* style switcher */
 .style-switcher {
-  font-family: "Teko", sans-serif;
+  font-family: var(--thm-font);
   position: fixed;
   top: 100px;
   left: 0;
@@ -12872,7 +12886,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-size: 30px;
   line-height: 1;
-  font-family: "Teko", sans-serif;
+  font-family: var(--thm-font);
   margin-bottom: 20px;
 }
 
@@ -12891,7 +12905,7 @@ img.lazy-image.loaded {
 .style-switcher .language-feature button {
   border: none;
   outline: none;
-  font-family: "Teko", sans-serif;
+  font-family: var(--thm-font);
   font-size: 16px;
   text-transform: uppercase;
   background-color: var(--thm-black);
@@ -13555,7 +13569,7 @@ img.lazy-image.loaded {
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 10px;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-masonary__box-content p::after {
@@ -13573,6 +13587,7 @@ img.lazy-image.loaded {
   line-height: 1;
   font-size: 30px;
   letter-spacing: 0.1em;
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-masonary__box-content h4 a {
@@ -13626,6 +13641,7 @@ img.lazy-image.loaded {
   font-size: 50px;
   color: var(--thm-black);
   margin-bottom: 40px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-details-header__image {
@@ -13655,6 +13671,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   line-height: 1;
   margin-bottom: 10px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-details-header__text {
@@ -13787,6 +13804,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   color: var(--thm-black);
   font-size: 40px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-details-info__text {
@@ -13941,6 +13959,7 @@ img.lazy-image.loaded {
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 20px;
+  font-family: 'Novecento Sans Wide';
 }
 
 @media (min-width: 1200px) {
@@ -14105,7 +14124,7 @@ img.lazy-image.loaded {
   margin: 0;
   color: #fff;
   font-weight: 800;
-  font-family: "Montserrat", "Rubik";
+  font-family: 'Novecento Sans Wide';
   font-size: 30px;
 }
 
@@ -14125,7 +14144,7 @@ img.lazy-image.loaded {
   line-height: 1;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Montserrat", "Rubik";
+  font-family: 'Novecento Sans Wide';
   color: #fff;
   margin-bottom: 15px;
   margin-top: 30px;
@@ -14250,6 +14269,7 @@ img.lazy-image.loaded {
   font-weight: 400;
   line-height: 1;
   display: block;
+  font-family: 'Novecento Sans Wide';
 }
 
 .portfolio-horizontal-two__title a {
@@ -14361,6 +14381,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   line-height: 1;
   font-weight: 600;
+  font-family: 'Novecento Sans Wide';
 }
 
 .demo-top h3 span {
@@ -14486,6 +14507,7 @@ img.lazy-image.loaded {
   letter-spacing: 0.1em;
   margin-top: 20px;
   text-align: center;
+  font-family: 'Novecento Sans Wide';
 }
 
 /* demo footer */
@@ -14494,6 +14516,7 @@ img.lazy-image.loaded {
   font-size: 80px;
   letter-spacing: 0;
   margin: 0;
+  font-family: 'Novecento Sans Wide';
 }
 
 .main-footer__demo .footer-widget p {
@@ -14502,7 +14525,7 @@ img.lazy-image.loaded {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 300;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   margin-bottom: 45px;
 }
 
@@ -14622,7 +14645,7 @@ img.lazy-image.loaded {
   text-align: center;
   line-height: 1;
   margin-top: 35px;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
 }
 
 .login-wrapper .signup-link a {
@@ -14774,7 +14797,7 @@ img.lazy-image.loaded {
   margin: 0;
   font-size: 20px;
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   letter-spacing: 0.1em;
   color: var(--thm-base);
   margin-bottom: 2px;
@@ -14826,6 +14849,7 @@ img.lazy-image.loaded {
   font-weight: 300;
   margin-top: 40px;
   margin-bottom: 20px;
+  font-family: 'Novecento Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -14850,6 +14874,7 @@ img.lazy-image.loaded {
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 10px;
+  font-family: 'Novecento Sans Wide';
 }
 
 .coming-soon__form {
@@ -15002,7 +15027,7 @@ img.lazy-image.loaded {
   border: 1px solid var(--thm-base);
   border-radius: 8px;
   text-align: center;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   overflow: hidden;
 }
 
@@ -15937,7 +15962,7 @@ img.lazy-image.loaded {
 
 .cart-total li span:first-child {
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   font-size: 30px;
   color: var(--thm-black);
   margin-right: 70px;
@@ -16038,7 +16063,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-size: 35px;
   font-weight: 400;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   line-height: 1;
   margin-bottom: 40px;
 }
@@ -16181,7 +16206,7 @@ img.lazy-image.loaded {
 
 .checkout__table thead th {
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   color: var(--thm-black);
   font-size: 30px;
   line-height: 1;
@@ -16537,7 +16562,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-size: 16px;
   letter-spacing: 0.1em;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   display: inline-block;
   vertical-align: middle;
   position: relative;
@@ -16605,7 +16630,7 @@ img.lazy-image.loaded {
   text-align: center;
   color: var(--thm-black);
   font-size: 30px;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   border-radius: 50%;
   padding-top: 2px;
   margin-bottom: 0px;
@@ -16633,7 +16658,7 @@ img.lazy-image.loaded {
   font-size: 20px;
   color: var(--thm-base);
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novecento Sans Wide';
   margin: 0;
   display: block;
   line-height: 1;
@@ -16872,6 +16897,7 @@ img.lazy-image.loaded {
   line-height: 1;
   margin-top: 20px;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -16989,7 +17015,7 @@ img.lazy-image.loaded {
   background-color: var(--thm-base);
   width: 60px;
   height: 60px;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   text-align: center;
   display: flex;
   justify-content: center;
@@ -17039,6 +17065,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   margin-bottom: 16px;
   text-transform: uppercase;
+  font-family: 'Novato Sans Wide';
 }
 
 .events-one__title a {
@@ -17168,7 +17195,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   color: var(--thm-black);
   font-weight: 400;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   font-size: 22px;
 }
 
@@ -17216,6 +17243,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   margin: 0;
   line-height: 1;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -17234,6 +17262,7 @@ img.lazy-image.loaded {
   font-size: 40px;
   line-height: 1.2em;
   letter-spacing: -0.04em;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 1200px) {
@@ -17270,6 +17299,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-weight: bold;
   line-height: 1.2em;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -17567,6 +17597,7 @@ img.lazy-image.loaded {
   transition: transform 1500ms ease, opacity 1500ms ease;
   transition: transform 1500ms ease, opacity 1500ms ease,
     -webkit-transform 1500ms ease;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -17598,6 +17629,7 @@ img.lazy-image.loaded {
   transition: transform 1500ms ease, opacity 1500ms ease,
     -webkit-transform 1500ms ease;
   opacity: 0;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -17631,6 +17663,7 @@ img.lazy-image.loaded {
     opacity 2000ms ease;
   transition: transform 2000ms ease, background 500ms ease, color 500ms ease,
     opacity 2000ms ease, -webkit-transform 2000ms ease;
+  font-family: 'Novato Sans Wide';
 }
 
 .slider-six__btn:hover {
@@ -17684,6 +17717,7 @@ img.lazy-image.loaded {
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   font-size: 22px;
+  font-family: 'Novato Sans Wide';
 }
 
 .slider-six .main-slider__nav [class*="swiper-button-"]:hover {
@@ -17768,6 +17802,7 @@ img.lazy-image.loaded {
 
 .mainmenu-six__btn {
   padding: 17px 49px;
+  font-family: 'Novato Sans Wide';
 }
 
 .mainmenu-six__btn:hover {
@@ -17802,6 +17837,7 @@ img.lazy-image.loaded {
   font-size: 15px;
   text-transform: capitalize;
   font-weight: bold;
+  font-family: 'Novato Sans Wide';
 }
 
 .mainmenu-six .main-menu .navigation > li > ul > li > a {
@@ -17811,6 +17847,7 @@ img.lazy-image.loaded {
   text-transform: capitalize;
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
+  font-family: 'Novato Sans Wide';
 }
 
 .mainmenu-six .main-menu .navigation > li > ul > li > a:hover {
@@ -17840,6 +17877,7 @@ img.lazy-image.loaded {
   font-weight: bold;
   color: #fff;
   margin-bottom: 40px;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__widget {
@@ -17859,6 +17897,7 @@ img.lazy-image.loaded {
   line-height: 1.2em;
   margin-top: 35px;
   margin-bottom: 35px;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__social {
@@ -17920,6 +17959,7 @@ img.lazy-image.loaded {
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   position: relative;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__links__list__item li a::after {
@@ -17963,6 +18003,7 @@ img.lazy-image.loaded {
   color: #91aab9;
   font-size: 14px;
   font-weight: bold;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__newsletter__form {
@@ -17989,6 +18030,7 @@ img.lazy-image.loaded {
   background-color: rgba(0, 0, 0, 0);
   color: #91aab9;
   padding-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__newsletter__form ::-webkit-input-placeholder {
@@ -18023,6 +18065,7 @@ img.lazy-image.loaded {
   -ms-flex-align: center;
   align-items: center;
   margin-top: 20px;
+  font-family: 'Novato Sans Wide';
 }
 
 .footer-six__newsletter__form p a {
@@ -18119,6 +18162,7 @@ img.lazy-image.loaded {
   color: #fff;
   font-size: 40px;
   font-weight: bold;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 1200px) {
@@ -18173,6 +18217,7 @@ img.lazy-image.loaded {
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   position: relative;
+  font-family: 'Novato Sans Wide';
 }
 
 .video-six__btn:hover {
@@ -18294,6 +18339,7 @@ img.lazy-image.loaded {
   color: var(--thm-text);
   margin: 0;
   margin-top: 27px;
+  font-family: 'Novato Sans Wide';
 }
 
 .blog-six__title {
@@ -18302,6 +18348,7 @@ img.lazy-image.loaded {
   font-size: 24px;
   line-height: 34px;
   font-weight: bold;
+  font-family: 'Novato Sans Wide';
 }
 
 .blog-six__title a {
@@ -20728,6 +20775,7 @@ img.lazy-image.loaded {
   max-width: 540px;
   margin-top: 20px;
   margin-bottom: 25px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -20743,7 +20791,7 @@ img.lazy-image.loaded {
 .about-nine__summery {
   font-size: 24px;
   line-height: 1.667;
-  color: var(--thm-base);
+  color: var(--thm-text);
   font-weight: 400;
   margin-top: 10px;
   margin-bottom: 15px;
@@ -20830,6 +20878,7 @@ img.lazy-image.loaded {
   margin-top: 30px;
   margin-bottom: 32px;
   position: relative;
+  font-family: 'Novato Sans Wide';
 }
 
 .service-seven__title a {
@@ -20907,6 +20956,7 @@ img.lazy-image.loaded {
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   position: relative;
+  font-family: 'Novato Sans Wide';
 }
 
 .service-seven__item:hover .service-seven__link {
@@ -21166,6 +21216,7 @@ img.lazy-image.loaded {
   transition: transform 1000ms ease, opacity 1000ms ease, visibility 1000ms ease,
     -webkit-transform 1000ms ease;
   max-width: 516px;
+  font-family: 'Novato Sans Wide';
 }
 
 .slider-seven__title span {
@@ -21216,14 +21267,10 @@ img.lazy-image.loaded {
   transform: translateY(100px);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity 2000ms ease, visibility 2000ms ease,
-    background 500ms ease, -webkit-transform 2000ms ease;
-  transition: opacity 2000ms ease, visibility 2000ms ease, background 500ms ease,
-    -webkit-transform 2000ms ease;
-  transition: transform 2000ms ease, opacity 2000ms ease, visibility 2000ms ease,
-    background 500ms ease;
-  transition: transform 2000ms ease, opacity 2000ms ease, visibility 2000ms ease,
-    background 500ms ease, -webkit-transform 2000ms ease;
+  -webkit-transition: opacity 2000ms ease, visibility 2000ms ease, background 500ms ease, -webkit-transform 2000ms ease;
+  transition: opacity 2000ms ease, visibility 2000ms ease, background 500ms ease, -webkit-transform 2000ms ease;
+  transition: transform 2000ms ease, opacity 2000ms ease, visibility 2000ms ease, background 500ms ease;
+  transition: transform 2000ms ease, opacity 2000ms ease, visibility 2000ms ease, background 500ms ease, -webkit-transform 2000ms ease;
 }
 
 .swiper-slide-active .slider-seven__title,
@@ -22232,7 +22279,7 @@ img.lazy-image.loaded {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  font-family: "Shadows Into Light";
+  font-family: 'Novato Sans Wide';
   color: var(--thm-black);
   font-size: 30px;
   margin-bottom: 20px;
@@ -22309,7 +22356,7 @@ img.lazy-image.loaded {
   line-height: 1;
   font-size: 60px;
   color: #eef0f6;
-  font-family: "Shadows Into Light";
+  font-family: 'Novato Sans Wide';
   content: counters(serviceNumber, ".", decimal-leading-zero);
   position: absolute;
   right: 35px;
@@ -22358,6 +22405,7 @@ img.lazy-image.loaded {
   margin: 0;
   max-width: 101px;
   font-weight: bold;
+  font-family: 'Novato Sans Wide';
 }
 
 .service-eight__title a {
@@ -22494,6 +22542,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-weight: bold;
   max-width: 118px;
+  font-family: 'Novato Sans Wide';
 }
 
 .about-eleven__progress {
@@ -22506,6 +22555,7 @@ img.lazy-image.loaded {
   font-weight: bold;
   color: var(--thm-black);
   margin-bottom: 2px;
+  font-family: 'Novato Sans Wide';
 }
 
 .about-eleven__progress-line {
@@ -22564,6 +22614,7 @@ img.lazy-image.loaded {
   color: var(--thm-black);
   font-weight: bold;
   margin-bottom: 7px;
+  font-family: 'Novato Sans Wide';
 }
 
 .about-eleven__info__text {
@@ -22617,6 +22668,7 @@ img.lazy-image.loaded {
   margin: 0;
   font-weight: 500;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -22678,7 +22730,7 @@ img.lazy-image.loaded {
 .slider-eight__text {
   margin: 0;
   color: #fff;
-  font-family: "Shadows Into Light";
+  font-family: 'Novato Sans Wide';
   font-size: 20px;
   line-height: 1.2;
   -webkit-transform-origin: bottom center;
@@ -22721,6 +22773,7 @@ img.lazy-image.loaded {
   transition: transform 1500ms ease, opacity 1500ms ease,
     -webkit-transform 1500ms ease;
   opacity: 0;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 768px) {
@@ -23075,15 +23128,11 @@ img.lazy-image.loaded {
   background-color: transparent;
 }
 
-.mainmenu-eight .main-menu {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mainmenu-eight .main-menu .navigation li > a {
   font-size: 16px;
   font-weight: 500;
   text-transform: capitalize;
+  font-family: 'Novato Sans Wide';
 }
 
 .mainmenu-eight .main-menu .navigation > li > a {
@@ -23208,6 +23257,7 @@ img.lazy-image.loaded {
   text-transform: uppercase;
   margin-top: 20px;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 .service-nine__title a {
@@ -23309,13 +23359,14 @@ img.lazy-image.loaded {
   line-height: 1;
   letter-spacing: 0.1em;
   margin-bottom: 9px;
+  font-family: 'Novato Sans Wide';
 }
 
 .team-four__designation {
   color: #686a6f;
   font-size: 16px;
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   letter-spacing: 0.1em;
   line-height: 1;
   margin: 0;
@@ -23402,6 +23453,7 @@ img.lazy-image.loaded {
   line-height: 36px;
   margin-top: 35px;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 .partner-one__text {
@@ -23417,7 +23469,7 @@ img.lazy-image.loaded {
 
 .partner-one__link {
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   font-size: 16px;
   color: var(--thm-black);
   letter-spacing: 0.1em;
@@ -23585,6 +23637,7 @@ img.lazy-image.loaded {
   font-weight: 300;
   color: var(--thm-base);
   margin-bottom: 20px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -23604,6 +23657,7 @@ img.lazy-image.loaded {
   font-weight: 300;
   margin-top: 30px;
   margin-bottom: 20px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -23645,7 +23699,7 @@ img.lazy-image.loaded {
   font-size: 50px;
   line-height: 1;
   text-transform: uppercase;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -23685,6 +23739,7 @@ img.lazy-image.loaded {
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 @media (min-width: 992px) {
@@ -23837,7 +23892,7 @@ img.lazy-image.loaded {
   position: absolute;
   border-radius: 50%;
   color: var(--thm-black);
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   font-size: 30px;
   padding-top: 5px;
   width: 60px;
@@ -23927,6 +23982,7 @@ img.lazy-image.loaded {
   margin: 0;
   line-height: 1;
   margin-bottom: 10px;
+  font-family: 'Novato Sans Wide';
 }
 
 .pricing-three__icon {
@@ -23938,7 +23994,7 @@ img.lazy-image.loaded {
 .pricing-three__amount {
   display: inline-block;
   position: relative;
-  font-family: var(--thm-font);
+  font-family: 'Novato Sans Wide';
   font-size: 60px;
   text-transform: uppercase;
   line-height: 1;

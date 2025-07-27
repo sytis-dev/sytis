@@ -39,7 +39,7 @@ const CounterBlock = ({ counter = {} }) => {
                       fill: "#222429",
                       fontWeight: 400,
                       fontSize: 20,
-                      fontFamily: "Teko, sans-serif",
+                      fontFamily: "Novecento Sans Wide, sans-serif",
                       letterSpacing: "0.05em",
                     },
                     trail: {
