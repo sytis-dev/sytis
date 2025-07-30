@@ -4,6 +4,111 @@
   }
 }
 
+/* Fix for 1272px viewport width - header navigation overlap */
+@media only screen and (max-width: 1272px) {
+  .main-header .header-upper .inner-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .main-header .nav-outer .main-menu .navigation > li {
+    margin-right: 15px;
+    padding: 25px 0px;
+  }
+  
+  .main-header .nav-outer .main-menu .navigation > li > a {
+    font-size: 18px;
+    padding: 10px 0px;
+  }
+  
+  .main-header .other-links .search-btn {
+    padding-right: 15px;
+    margin-right: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .login-btn {
+    margin-right: 15px !important;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .link-box {
+    margin-left: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .link-box .theme-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+  
+  /* Ensure proper spacing for header-style-two */
+  .header-style-two .main-header .header-upper .inner-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .header-style-two .main-header .nav-outer .main-menu .navigation > li {
+    margin-right: 15px;
+    padding: 25px 0px;
+  }
+  
+  .header-style-two .main-header .other-links .search-btn {
+    padding-right: 15px;
+    margin-right: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .header-style-two .main-header .other-links .login-btn {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .header-style-two .main-header .other-links .link-box {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+
+/* Additional fix for screens between 1200px and 1272px */
+@media only screen and (min-width: 1200px) and (max-width: 1272px) {
+  .main-header .nav-outer .main-menu .navigation > li {
+    margin-right: 12px;
+    padding: 25px 0px;
+  }
+  
+  .main-header .nav-outer .main-menu .navigation > li > a {
+    font-size: 17px;
+  }
+  
+  .main-header .other-links .search-btn {
+    padding-right: 12px;
+    margin-right: 12px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .login-btn {
+    margin-right: 12px !important;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .link-box {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .main-header .other-links .link-box .theme-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
 @media only screen and (max-width: 1699px) {
   .banner-carousel .slide-item .round-image {
     top: 100px;
