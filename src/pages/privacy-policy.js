@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import PageBanner from "@/components/BannerSection/PageBanner";
 import HeaderOne from "@/components/Header/HeaderOne";
 import MobileMenu from "@/components/Header/MobileMenu";
@@ -7,6 +8,7 @@ import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 const PrivacyPolicy = () => {
   return (
@@ -84,7 +86,7 @@ const PrivacyPolicy = () => {
                 {/* Introduction */}
                 <div className="section" style={{ marginBottom: "40px" }}>
                   <p style={{ marginBottom: "20px", fontSize: "1.1rem" }}>
-                    These SYTIS Privacy Policy statements ("Policy") apply to information collected through <strong>https://www.sytis.com</strong> (the "Website") and any related services (collectively, the "Services"). By accessing or using the Website or Services, you agree to this Policy. Please read it carefully.
+                    These SYTIS Privacy Policy statements (&ldquo;Policy&rdquo;) apply to information collected through <strong>https://www.sytis.com</strong> (the &ldquo;Website&rdquo;) and any related services (collectively, the &ldquo;Services&rdquo;). By accessing or using the Website or Services, you agree to this Policy. Please read it carefully.
                   </p>
                 </div>
 
@@ -293,7 +295,7 @@ const PrivacyPolicy = () => {
                     </p>
                     <p>
                       <strong>3.4 Cookie Policy Link</strong><br />
-                      For more details about our cookie practices, please see <a href="/cookie-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/cookie-policy</a>.
+                      For more details about our cookie practices, please see <Link href="/cookie-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/cookie-policy</Link>.
                     </p>
                   </div>
                 </div>
@@ -499,7 +501,7 @@ const PrivacyPolicy = () => {
                     <ul style={{ paddingLeft: "20px", marginBottom: "15px" }}>
                       <li style={{ marginBottom: "5px" }}>• Right to Access. Request confirmation of whether we process your data and obtain a copy of your Personal Data.</li>
                       <li style={{ marginBottom: "5px" }}>• Right to Rectification. Request correction of inaccurate or incomplete data.</li>
-                      <li style={{ marginBottom: "5px" }}>• Right to Erasure ("Right to Be Forgotten"). Request deletion of your Personal Data, subject to legal exceptions.</li>
+                                              <li style={{ marginBottom: "5px" }}>• Right to Erasure (&ldquo;Right to Be Forgotten&rdquo;). Request deletion of your Personal Data, subject to legal exceptions.</li>
                       <li style={{ marginBottom: "5px" }}>• Right to Restrict Processing. Request that we limit processing of your Personal Data.</li>
                       <li style={{ marginBottom: "5px" }}>• Right to Data Portability. Receive a machine-readable copy of your data and, where technically feasible, have it transmitted to another controller.</li>
                       <li style={{ marginBottom: "5px" }}>• Right to Object. Object to processing based on our legitimate interests or to direct marketing.</li>

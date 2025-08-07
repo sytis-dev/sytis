@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import PageBanner from "@/components/BannerSection/PageBanner";
 import HeaderOne from "@/components/Header/HeaderOne";
 import MobileMenu from "@/components/Header/MobileMenu";
@@ -7,6 +8,7 @@ import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 const TermsOfUse = () => {
   return (
@@ -400,10 +402,10 @@ const TermsOfUse = () => {
                     borderLeft: "4px solid #e74c3c"
                   }}>
                     <p style={{ marginBottom: "15px" }}>
-                      By using the Website, you agree to be bound by our Privacy Policy located at, <a href="/privacy-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/privacy-policy</a>, which is incorporated by reference into these Terms of Use, please review it carefully. We use cookies to improve user experience. By using the Website, you consent to our Cookie Policy, see our Cookie Notice located at <a href="/cookie-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/cookie-policy</a>.
+                      By using the Website, you agree to be bound by our Privacy Policy located at, <Link href="/privacy-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/privacy-policy</Link>, which is incorporated by reference into these Terms of Use, please review it carefully. We use cookies to improve user experience. By using the Website, you consent to our Cookie Policy, see our Cookie Notice located at <Link href="/cookie-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/cookie-policy</Link>.
                     </p>
                     <p>
-                      We care about data privacy and security. Please be advised the Website is hosted in the United States. If you access the Website from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United States, then through your continued use of the Website, you are transferring your data to the United States, and you expressly consent to have your data transferred to and processed in the United States. If you reside in the European Union or European Economic Area ("EU/EEA"), see applicable GDPR section located in the privacy policy, <a href="/privacy-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/privacy-policy</a>. By using the Website, you acknowledge that you have read and agree to the Privacy Policy, which explains how we collect, use, and share your information under the California Online Privacy Protection Act (Cal. Civ. Code § 1798.83), the California Consumer Privacy Act (Cal. Civ. Code § 1798.100 et seq), and the EU's General Data Protection Regulation (GDPR). California residents can request deletion or disclosure.
+                      We care about data privacy and security. Please be advised the Website is hosted in the United States. If you access the Website from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United States, then through your continued use of the Website, you are transferring your data to the United States, and you expressly consent to have your data transferred to and processed in the United States. If you reside in the European Union or European Economic Area (&ldquo;EU/EEA&rdquo;), see applicable GDPR section located in the privacy policy, <Link href="/privacy-policy" style={{ color: "#e74c3c" }}>https://www.sytis.com/privacy-policy</Link>. By using the Website, you acknowledge that you have read and agree to the Privacy Policy, which explains how we collect, use, and share your information under the California Online Privacy Protection Act (Cal. Civ. Code § 1798.83), the California Consumer Privacy Act (Cal. Civ. Code § 1798.100 et seq), and the EU&apos;s General Data Protection Regulation (GDPR). California residents can request deletion or disclosure.
                     </p>
                   </div>
                 </div>

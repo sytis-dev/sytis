@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import PageBanner from "@/components/BannerSection/PageBanner";
 import HeaderOne from "@/components/Header/HeaderOne";
 import MobileMenu from "@/components/Header/MobileMenu";
@@ -85,7 +86,7 @@ const CookiePolicy = () => {
                 {/* Introduction */}
                 <div className="section" style={{ marginBottom: "40px" }}>
                   <p style={{ marginBottom: "20px", fontSize: "1.1rem" }}>
-                    This Cookie Policy explains how SYTIS ("SYTIS," "Company," "we," "us," or "our") uses cookies and similar tracking technologies when you visit <strong>https://www.sytis.com</strong> (the "Website"). It is intended to inform you about what cookies are, how we use them, and how you can control them. By continuing to use or access the Website, you consent to the use of cookies in accordance with this Policy.
+                    This Cookie Policy explains how SYTIS (&ldquo;SYTIS,&rdquo; &ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) uses cookies and similar tracking technologies when you visit <strong>https://www.sytis.com</strong> (the &ldquo;Website&rdquo;). It is intended to inform you about what cookies are, how we use them, and how you can control them. By continuing to use or access the Website, you consent to the use of cookies in accordance with this Policy.
                   </p>
                 </div>
 
@@ -106,19 +107,19 @@ const CookiePolicy = () => {
                     borderLeft: "4px solid #e74c3c"
                   }}>
                     <div style={{ marginBottom: "15px" }}>
-                      <strong>1.1 "Cookies"</strong> are small text files placed on your device (computer, tablet, or mobile) by websites you visit. They allow the site to recognize your device and remember certain information about your visit.
+                      <strong>1.1 &ldquo;Cookies&rdquo;</strong> are small text files placed on your device (computer, tablet, or mobile) by websites you visit. They allow the site to recognize your device and remember certain information about your visit.
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <strong>1.2 "Web Beacons," "Pixels," or "Tracking Technologies"</strong> refer to small graphic images or scripts that work in conjunction with cookies to collect information about your browsing.
+                      <strong>1.2 &ldquo;Web Beacons,&rdquo; &ldquo;Pixels,&rdquo; or &ldquo;Tracking Technologies&rdquo;</strong> refer to small graphic images or scripts that work in conjunction with cookies to collect information about your browsing.
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <strong>1.3 "First-Party Cookies"</strong> are set by the Website you are visiting (i.e., SYTIS).
+                      <strong>1.3 &ldquo;First-Party Cookies&rdquo;</strong> are set by the Website you are visiting (i.e., SYTIS).
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <strong>1.4 "Third-Party Cookies"</strong> are set by domains other than the one you're visiting (e.g., analytics providers, social media platforms).
+                      <strong>1.4 &ldquo;Third-Party Cookies&rdquo;</strong> are set by domains other than the one you&apos;re visiting (e.g., analytics providers, social media platforms).
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <strong>1.5 "Personal Data"</strong> means any information that identifies or can be used to identify, contact, or locate you, either directly or in combination with other data.
+                      <strong>1.5 &ldquo;Personal Data&rdquo;</strong> means any information that identifies or can be used to identify, contact, or locate you, either directly or in combination with other data.
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                       <strong>1.6 "Subject to the GDPR/EEA Residents"</strong> refers to residents of the European Union or European Economic Area, who have additional rights regarding cookies under the EU General Data Protection Regulation.
