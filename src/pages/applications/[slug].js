@@ -35,17 +35,6 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
-  // TEMPORARILY DISABLED: Prevent building application pages during deploy
-  // since production API doesn't have the new changes yet
-  console.log("Application pages temporarily disabled for this deploy");
-  
-  return {
-    paths: [],
-    fallback: "blocking", // This will generate pages on-demand instead
-  };
-
-  // ORIGINAL CODE (commented out for now):
-  /*
   let applications = [];
 
   try {
@@ -63,15 +52,16 @@ export async function getStaticPaths() {
     };
   }
 
-  const paths = applications.map((application) => ({
-    params: { slug: application.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
-  }));
+  const paths = applications
+    .filter((application) => application.custom_url && application.custom_url.url) // Filter out items without custom_url
+    .map((application) => ({
+      params: { slug: application.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
+    }));
 
   return {
     paths,
     fallback: "blocking", // Ensures new pages are generated on request
   };
-  */
 }
 
 // getStaticProps with retry logic

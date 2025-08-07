@@ -32,17 +32,6 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
-  // TEMPORARILY DISABLED: Prevent building product pages during deploy
-  // since production API doesn't have the new changes yet
-  console.log("Product pages temporarily disabled for this deploy");
-  
-  return {
-    paths: [],
-    fallback: "blocking", // This will generate pages on-demand instead
-  };
-
-  // ORIGINAL CODE (commented out for now):
-  /*
   let products = [];
 
   try {
@@ -60,15 +49,16 @@ export async function getStaticPaths() {
     };
   }
 
-  const paths = products.map((product) => ({
-    params: { slug: product.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
-  }));
+  const paths = products
+    .filter((product) => product.custom_url && product.custom_url.url) // Filter out items without custom_url
+    .map((product) => ({
+      params: { slug: product.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
+    }));
 
   return {
     paths,
     fallback: "blocking", // Ensures new pages are generated on request
   };
-  */
 }
 
 // getStaticProps with retry logic
