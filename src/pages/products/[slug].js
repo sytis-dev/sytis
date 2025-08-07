@@ -3,7 +3,6 @@ import HeaderOne from "@/components/Header/HeaderOne";
 import MobileMenu from "@/components/Header/MobileMenu";
 import Layout from "@/components/Layout/Layout";
 import MainFooter from "@/components/MainFooter/MainFooter";
-import ProductDescription from "@/components/ProductDetails/ProductDescription";
 import ProductDetailsPage from "@/components/ProductDetails/ProductDetailsPage";
 import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
@@ -33,6 +32,17 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
+  // TEMPORARILY DISABLED: Prevent building product pages during deploy
+  // since production API doesn't have the new changes yet
+  console.log("Product pages temporarily disabled for this deploy");
+  
+  return {
+    paths: [],
+    fallback: "blocking", // This will generate pages on-demand instead
+  };
+
+  // ORIGINAL CODE (commented out for now):
+  /*
   let products = [];
 
   try {
@@ -58,6 +68,7 @@ export async function getStaticPaths() {
     paths,
     fallback: "blocking", // Ensures new pages are generated on request
   };
+  */
 }
 
 // getStaticProps with retry logic
@@ -121,7 +132,6 @@ const ProductDetails = ({ product }) => {
       <SearchPopup />
       <PageBanner title={product.name} page="Shop" />
       <ProductDetailsPage product={product} />
-      <ProductDescription product={product} />
       <MainFooter />
     </Layout>
   );

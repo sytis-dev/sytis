@@ -35,39 +35,43 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
+  // TEMPORARILY DISABLED: Prevent building application pages during deploy
+  // since production API doesn't have the new changes yet
+  console.log("Application pages temporarily disabled for this deploy");
+  
+  return {
+    paths: [],
+    fallback: "blocking", // This will generate pages on-demand instead
+  };
+
+  // ORIGINAL CODE (commented out for now):
+  /*
   let applications = [];
 
   try {
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/applications`,
       5,
-      1000 * 10
-    ); // Retries 5 times with 10-second delay
+      1000 * 30
+    ); // Retries 5 times with 30-second delay
     applications = json.data;
-    console.log(applications);
   } catch (error) {
     console.error("Error fetching applications:", error);
     return {
       paths: [],
-      fallback: "blocking",
+      fallback: "blocking", // fallback blocking if fetching fails
     };
   }
 
-  const paths = applications.map((app) => ({
-    params: {
-      slug: app.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim(),
-    },
+  const paths = applications.map((application) => ({
+    params: { slug: application.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
   }));
 
   return {
     paths,
-    fallback: "blocking", // Blocking mode to wait for static page build
+    fallback: "blocking", // Ensures new pages are generated on request
   };
+  */
 }
 
 // getStaticProps with retry logic

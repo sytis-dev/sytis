@@ -36,6 +36,17 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
+  // TEMPORARILY DISABLED: Prevent building solution pages during deploy
+  // since production API doesn't have the new changes yet
+  console.log("Solution pages temporarily disabled for this deploy");
+  
+  return {
+    paths: [],
+    fallback: "blocking", // This will generate pages on-demand instead
+  };
+
+  // ORIGINAL CODE (commented out for now):
+  /*
   let solutions = [];
 
   try {
@@ -45,30 +56,23 @@ export async function getStaticPaths() {
       1000 * 30
     ); // Retries 5 times with 30-second delay
     solutions = json.data;
-    console.log(solutions);
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
       paths: [],
-      fallback: "blocking",
+      fallback: "blocking", // fallback blocking if fetching fails
     };
   }
 
-  const paths = solutions.map((app) => ({
-    params: {
-      slug: app.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim(),
-    },
+  const paths = solutions.map((solution) => ({
+    params: { slug: solution.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
   }));
 
   return {
     paths,
-    fallback: "blocking", // Blocking mode to wait for static page build
+    fallback: "blocking", // Ensures new pages are generated on request
   };
+  */
 }
 
 // getStaticProps with retry logic

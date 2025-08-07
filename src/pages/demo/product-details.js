@@ -3,7 +3,6 @@ import HeaderOne from "@/components/Header/HeaderOne";
 import MobileMenu from "@/components/Header/MobileMenu";
 import Layout from "@/components/Layout/Layout";
 import MainFooter from "@/components/MainFooter/MainFooter";
-import ProductDescription from "@/components/ProductDetails/ProductDescription";
 import ProductDetailsPage from "@/components/ProductDetails/ProductDetailsPage";
 import Style from "@/components/Reuseable/Style";
 import ReviewForm from "@/components/ReviewSection/ReviewForm";
@@ -20,7 +19,6 @@ const ProductDetails = () => {
       <SearchPopup />
       <PageBanner title="Product Details" page="Shop" />
       <ProductDetailsPage />
-      <ProductDescription />
       <ReviewOne />
       <ReviewForm />
       <MainFooter />
