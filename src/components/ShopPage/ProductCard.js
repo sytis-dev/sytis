@@ -5,7 +5,9 @@ import { Col, Image } from "react-bootstrap";
 const ProductCard = ({ product = {} }) => {
   const { image, title, price, all_images, name, slug } = product;
 
-  const imageUrl = image || (all_images?.[0]?.url_standard ?? "");
+  // Use the first image from the pre-sorted all_images array (API now returns sorted images)
+  const firstImage = all_images?.[0];
+  const imageUrl = image || (firstImage?.url_standard ?? "");
   const productTitle = title || name;
 
   return (
