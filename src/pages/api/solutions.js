@@ -226,6 +226,11 @@ export default async function handler(req, res) {
                 is_price_hidden: product.is_price_hidden,
                 meta_description: product.meta_description?.trim() || null,
                 meta_keywords: product.meta_keywords,
+                // Add specification fields
+                weight: product.weight,
+                width: product.width,
+                depth: product.depth,
+                height: product.height,
                 all_images:
                   imagesData.data
                     .map((image) => ({

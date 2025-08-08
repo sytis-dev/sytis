@@ -16,6 +16,10 @@ const ProductDetailsPage = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showZoomModal, setShowZoomModal] = useState(false);
+  
+  // Safety check for product
+  const safeProduct = product || {};
+  
   // Process tabs from API in the correct order
   const tabs = [
     { key: 'tab_description', label: 'Description' },
@@ -25,14 +29,14 @@ const ProductDetailsPage = ({ product }) => {
   ];
 
   const getTabContent = (tabKey) => {
-    if (!product?.tabs) return null;
-    const tab = product.tabs.find(t => t.key === tabKey);
+    if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs)) return null;
+    const tab = safeProduct.tabs.find(t => t && t.key === tabKey);
     return tab?.value;
   };
 
   // Find the first available tab to set as default
   const getFirstAvailableTab = () => {
-    if (!product?.tabs || product.tabs.length === 0) return 'tab_description';
+    if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs) || safeProduct.tabs.length === 0) return 'tab_description';
     for (const tab of tabs) {
       if (getTabContent(tab.key)) {
         return tab.key;
@@ -47,22 +51,53 @@ const ProductDetailsPage = ({ product }) => {
   const imageRef = useRef(null);
   const thumbnailRefs = useRef([]);
 
-  // Get all images from the product, sorted by sort_order
-  const allImages = product?.all_images || [];
+  // Get all images from the product, sorted by sort_order with safety checks
+  const allImages = Array.isArray(safeProduct?.all_images) ? safeProduct.all_images : [];
   const selectedImage = allImages[selectedImageIndex] || allImages[0];
   
   // Fallback to default values if the product prop doesn't contain values
-  const productImage = selectedImage?.url_standard || image.src;
+  const productImage = selectedImage?.url_standard || selectedImage?.url || selectedImage?.src || image.src;
   const productImageZoom = selectedImage?.url_zoom || productImage;
-  const productTitle = product?.name || title;
-  const productPrice = product?.price || price;
-  const productStars = product?.stars || stars;
-  const productCustomerReviews = product?.customerReviews || customerReviews;
-  const productText = product?.text || text;
-  const productText2 = product?.text2 || text2;
+  const productTitle = safeProduct?.name || safeProduct?.product_name || safeProduct?.title || title;
+  const productPrice = safeProduct?.price || price;
+  const productStars = safeProduct?.stars || stars;
+  const productCustomerReviews = safeProduct?.customerReviews || customerReviews;
+  const productText = safeProduct?.text || text;
+  const productText2 = safeProduct?.text2 || text2;
+
+  // Safe access to product specifications with multiple fallback field names
+  const getProductSpecs = () => {
+    const specs = [];
+    
+    // SKU with fallbacks
+    const sku = safeProduct?.sku || safeProduct?.product_sku || safeProduct?.id;
+    if (sku) specs.push({ label: 'SKU', value: sku });
+    
+    // Weight with fallbacks
+    const weight = safeProduct?.weight || safeProduct?.product_weight || safeProduct?.shipping_weight || safeProduct?.weight_lbs;
+    if (weight && weight !== 'N/A') specs.push({ label: 'Weight', value: `${weight} lbs` });
+    
+    // Width with fallbacks
+    const width = safeProduct?.width || safeProduct?.product_width || safeProduct?.shipping_width || safeProduct?.width_in;
+    if (width && width !== 'N/A') specs.push({ label: 'Width', value: `${width} in` });
+    
+    // Depth with fallbacks
+    const depth = safeProduct?.depth || safeProduct?.product_depth || safeProduct?.shipping_depth || safeProduct?.depth_in;
+    if (depth && depth !== 'N/A') specs.push({ label: 'Depth', value: `${depth} in` });
+    
+    // Height with fallbacks
+    const height = safeProduct?.height || safeProduct?.product_height || safeProduct?.shipping_height || safeProduct?.height_in;
+    if (height && height !== 'N/A') specs.push({ label: 'Height', value: `${height} in` });
+    
+    return specs;
+  };
+
+  const productSpecs = getProductSpecs();
 
   const handleImageClick = (index) => {
-    setSelectedImageIndex(index);
+    if (index >= 0 && index < allImages.length) {
+      setSelectedImageIndex(index);
+    }
   };
 
   const handleZoomClick = () => {
@@ -106,29 +141,33 @@ const ProductDetailsPage = ({ product }) => {
   };
 
   const handlePreviousImage = () => {
-    setSelectedImageIndex((prevIndex) => {
-      const newIndex = prevIndex === 0 ? allImages.length - 1 : prevIndex - 1;
-      // Scroll to the previous thumbnail after state update
-      setTimeout(() => {
-        if (thumbnailRefs.current[newIndex]) {
-          thumbnailRefs.current[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }, 0);
-      return newIndex;
-    });
+    if (allImages.length > 1) {
+      setSelectedImageIndex((prevIndex) => {
+        const newIndex = prevIndex === 0 ? allImages.length - 1 : prevIndex - 1;
+        // Scroll to the previous thumbnail after state update
+        setTimeout(() => {
+          if (thumbnailRefs.current[newIndex]) {
+            thumbnailRefs.current[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 0);
+        return newIndex;
+      });
+    }
   };
 
   const handleNextImage = () => {
-    setSelectedImageIndex((prevIndex) => {
-      const newIndex = prevIndex === allImages.length - 1 ? 0 : prevIndex + 1;
-      // Scroll to the next thumbnail after state update
-      setTimeout(() => {
-        if (thumbnailRefs.current[newIndex]) {
-          thumbnailRefs.current[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }, 0);
-      return newIndex;
-    });
+    if (allImages.length > 1) {
+      setSelectedImageIndex((prevIndex) => {
+        const newIndex = prevIndex === allImages.length - 1 ? 0 : prevIndex + 1;
+        // Scroll to the next thumbnail after state update
+        setTimeout(() => {
+          if (thumbnailRefs.current[newIndex]) {
+            thumbnailRefs.current[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 0);
+        return newIndex;
+      });
+    }
   };
 
   return (
@@ -144,15 +183,19 @@ const ProductDetailsPage = ({ product }) => {
                   <div className="product-thumbnails">
                     {allImages.map((img, index) => (
                       <div
-                        key={img.id}
+                        key={img?.id || index}
                         className={`thumbnail-item ${index === selectedImageIndex ? 'active' : ''}`}
                         onClick={() => handleImageClick(index)}
                         ref={el => thumbnailRefs.current[index] = el}
                       >
                         <Image 
-                          src={img.url_thumbnail || img.url_standard} 
-                          alt={img.description || `Product image ${index + 1}`}
+                          src={img?.url_thumbnail || img?.url_standard || img?.url || img?.src || img} 
+                          alt={img?.description || `Product image ${index + 1}`}
                           fluid
+                          onError={(e) => {
+                            console.log('Thumbnail image failed to load:', e.target.src);
+                            e.target.src = '/product_images/uploaded_images/picture1.jpg';
+                          }}
                         />
                       </div>
                     ))}
@@ -172,6 +215,10 @@ const ProductDetailsPage = ({ product }) => {
                         src={productImage} 
                         alt={selectedImage?.description || productTitle}
                         fluid
+                        onError={(e) => {
+                          console.log('Product image failed to load:', e.target.src);
+                          e.target.src = '/product_images/uploaded_images/picture1.jpg';
+                        }}
                       />
                        {/* {magnifier.show && ( // Commented out magnifier */}
                        {/*   <div  // Commented out magnifier */}
@@ -340,19 +387,35 @@ const ProductDetailsPage = ({ product }) => {
               </div>
               
               {/* Product Meta Description */}
-              {product?.meta_description && (
+              {(safeProduct?.meta_description || safeProduct?.description) && (
                 <div className="product-details__meta-description">
-                  <p>{product.meta_description}</p>
+                  <p>{safeProduct.meta_description || safeProduct.description}</p>
                 </div>
               )}
               
-              <div>
+              {/* Product Specifications */}
+              {productSpecs.length > 0 && (
+                <div className="product-specifications">
+                  <h4 className="product-specifications__title">Product Specifications</h4>
+                  <div className="product-specifications__grid">
+                    {productSpecs.map((spec, index) => (
+                      <div key={`spec-${index}`} className="spec-item">
+                        <span className="spec-label">{spec.label}:</span>
+                        <span className="spec-value">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <div className="contact-pricing-btn-wrapper">
                 <Link
                   className="theme-btn btn-style-one demo-purchase-btn"
                   href="/contact"
+                  passHref
                 >
                   <a
-                    className="theme-btn btn-style-one demo-purchase-btn"
+                    className="theme-btn btn-style-one demo-purchase-btn contact-pricing-btn"
                     style={{ color: "white !important" }}
                   >
                     <i className="btn-curve"></i>
@@ -453,6 +516,10 @@ const ProductDetailsPage = ({ product }) => {
                   height: 'auto',
                   objectFit: 'contain',
                   display: 'block'
+                }}
+                onError={(e) => {
+                  console.log('Zoom image failed to load:', e.target.src);
+                  e.target.src = '/product_images/uploaded_images/picture1.jpg';
                 }}
               />
             </div>

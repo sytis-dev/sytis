@@ -134,10 +134,12 @@ const SytisApplications = () => {
                           color: 'var(--thm-base)',
                         }}
                       >
-                        <img
+                        <Image
                           src={icon}
                           alt={title}
-                          style={{ width: "200px", height: "200px", objectFit: "contain" }}
+                          width={200}
+                          height={200}
+                          style={{ objectFit: "contain" }}
                         />
                       </div>
                       <h4 style={{ marginTop: "1rem", textAlign: 'center', color: 'var(--thm-black)' }}>
