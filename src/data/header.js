@@ -213,9 +213,6 @@ const navItemsSYTIS = [
       { id: 2, name: "FAQ", href: "/faq" },
       // { id: 3, name: "Careers", href: "/careers" },
       { id: 5, name: "Product Resources", href: "/product-resources" },
-      { id: 6, name: "Privacy Policy", href: "/privacy-policy" },
-      { id: 7, name: "Cookie Policy", href: "/cookie-policy" },
-      { id: 8, name: "Terms of Use", href: "/terms-of-use" },
     ],
   },
 ];

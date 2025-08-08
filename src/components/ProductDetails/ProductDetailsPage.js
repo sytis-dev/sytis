@@ -5,6 +5,7 @@ import React, { useState, useRef } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import TextSplit from "../Reuseable/TextSplit";
 import weDOSection from "@/data/weDOSection";
+import RelatedProductsCarousel from "./RelatedProductsCarousel";
 
 // Destructure with defaults
 const { image, title, price, stars, customerReviews, text, text2 } =
@@ -526,6 +527,9 @@ const ProductDetailsPage = ({ product }) => {
           </div>
         </div>
       )}
+
+      {/* Related Products Carousel */}
+      <RelatedProductsCarousel currentProduct={safeProduct} />
     </>
   );
 };
