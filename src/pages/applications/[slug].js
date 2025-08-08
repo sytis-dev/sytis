@@ -74,20 +74,40 @@ export async function getStaticPaths() {
   };
 }
 
-// getStaticProps with build safety
+// getStaticProps with runtime API calls
 export async function getStaticProps({ params }) {
-  // Skip API calls during build if needed
-  if (shouldSkipBuildApiCalls()) {
-    return { notFound: true };
-  }
-
   let applications = [];
 
   try {
-    applications = await safeBuildApiCall('applications', []);
+    // At runtime (when user visits), make API call to the deployed endpoint
+    // We know we're at runtime because getStaticProps with fallback: "blocking" 
+    // only runs when a user actually visits the page
+    
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'https://sytis-qzu7jtjzh-tech-savagery.vercel.app'; // Use your preview URL as fallback
+    
+    console.log(`🔄 Runtime: Fetching applications from ${baseUrl}/api/applications`);
+    
+    const response = await fetch(`${baseUrl}/api/applications`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      console.error(`API call failed: ${response.status} ${response.statusText}`);
+      throw new Error(`API call failed: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    applications = data?.data || [];
+
+    console.log(`✅ Runtime: Fetched ${applications.length} applications`);
 
     // Check if applications data is valid
     if (!Array.isArray(applications)) {
+      console.error('Applications data is not an array:', applications);
       return { notFound: true };
     }
   } catch (error) {

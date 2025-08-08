@@ -75,20 +75,37 @@ export async function getStaticPaths() {
   };
 }
 
-// getStaticProps with build safety
+// getStaticProps with runtime API calls
 export async function getStaticProps({ params }) {
-  // Skip API calls during build if needed
-  if (shouldSkipBuildApiCalls()) {
-    return { notFound: true };
-  }
-
   let solutions = [];
 
   try {
-    solutions = await safeBuildApiCall('solutions', []);
+    // At runtime (when user visits), make API call to the deployed endpoint
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'https://sytis-qzu7jtjzh-tech-savagery.vercel.app'; // Use your preview URL as fallback
+    
+    console.log(`🔄 Runtime: Fetching solutions from ${baseUrl}/api/solutions`);
+    
+    const response = await fetch(`${baseUrl}/api/solutions`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      console.error(`API call failed: ${response.status} ${response.statusText}`);
+      throw new Error(`API call failed: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    solutions = data?.data || [];
+
+    console.log(`✅ Runtime: Fetched ${solutions.length} solutions`);
 
     // Check if solutions data is valid
     if (!Array.isArray(solutions)) {
+      console.error('Solutions data is not an array:', solutions);
       return { notFound: true };
     }
   } catch (error) {
