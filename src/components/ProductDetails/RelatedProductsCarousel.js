@@ -70,13 +70,6 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
           <div className="related-products__header">
             <h3></h3>
           </div>
-          <div className="related-products__loading">
-            <p>No related products found. Debug info:</p>
-            <p>Current product ID: {currentProduct?.id}</p>
-            <p>Current product solution: {currentProduct?.solution || 'None (using category fallback)'}</p>
-            <p>Current product categories: {JSON.stringify(currentProduct?.categories)}</p>
-            <p>API Mode: {currentProduct?.solution ? 'New Solution API' : 'Legacy Category Matching'}</p>
-          </div>
         </div>
       </section>
     );
