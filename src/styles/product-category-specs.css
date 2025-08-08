@@ -386,3 +386,29 @@
     font-size: 12px;
   }
 }
+
+/* Application Content Links Styles */
+.content-details .section-content a,
+.content-details .conclusion-content a,
+.content-details .features-list a {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.content-details .section-content a:hover,
+.content-details .conclusion-content a:hover,
+.content-details .features-list a:hover {
+  color: #cc0000;
+  border-bottom-color: #ff0000;
+  text-decoration: none;
+}
+
+.content-details .section-content a:focus,
+.content-details .conclusion-content a:focus,
+.content-details .features-list a:focus {
+  outline: 2px solid #ff0000;
+  outline-offset: 2px;
+}

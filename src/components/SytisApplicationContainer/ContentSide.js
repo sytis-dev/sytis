@@ -1,6 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 
+// Helper function to parse markdown-style links [text](url) and convert to HTML
+const parseMarkdownLinks = (text) => {
+  if (!text || typeof text !== 'string') {
+    return text;
+  }
+  
+  // Regular expression to match markdown links: [text](url)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  
+  // Replace markdown links with HTML anchor tags
+  return text.replace(linkRegex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+};
+
 const ContentSide = ({ application = {} }) => {
   const {
     images = [],
@@ -110,7 +123,7 @@ const ContentSide = ({ application = {} }) => {
             <h4>{section.title}</h4>
             <div
               className="section-content"
-              dangerouslySetInnerHTML={{ __html: section.content }}
+              dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(section.content) }}
             />
           </div>
         ))}
@@ -142,7 +155,7 @@ const ContentSide = ({ application = {} }) => {
                   >
                     •
                   </span>
-                  {feature}
+                  <span dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(feature) }} />
                 </li>
               ))}
             </ul>
@@ -157,7 +170,7 @@ const ContentSide = ({ application = {} }) => {
             <h4>Conclusion</h4>
             <div
               className="conclusion-content"
-              dangerouslySetInnerHTML={{ __html: conclusion }}
+              dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(conclusion) }}
             />
           </div>
         )}
