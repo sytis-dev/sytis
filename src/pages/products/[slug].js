@@ -30,17 +30,27 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import { shouldSkipBuildApiCalls, safeBuildApiCall, limitStaticPaths } from '../../lib/buildSafetyUtils';
+
+// getStaticPaths with build safety
 export async function getStaticPaths() {
+  // Skip API calls during build if needed
+  if (shouldSkipBuildApiCalls()) {
+    console.log('🚫 Skipping products static path generation');
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
+
   let products = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/products`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    products = json.data || [];
+    products = await safeBuildApiCall('products', []);
+    
+    // Limit the number of pages generated at build time
+    products = limitStaticPaths(products, 'products', 20); // Allow more products
+    
   } catch (error) {
     console.error("Error fetching products:", error);
     return {
@@ -61,19 +71,19 @@ export async function getStaticPaths() {
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with build safety
 export async function getStaticProps({ params }) {
+  // Skip API calls during build if needed
+  if (shouldSkipBuildApiCalls()) {
+    return { notFound: true };
+  }
+
   let products = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/products`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    products = json.data || [];
+    products = await safeBuildApiCall('products', []);
 
-    // Check if json.data is defined and is an array
+    // Check if products data is valid
     if (!Array.isArray(products)) {
       return { notFound: true };
     }

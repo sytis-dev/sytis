@@ -1,3 +1,5 @@
+import { VercelCacheManager, VERCEL_CACHE_CONFIG, vercelCachedApiCall, addVercelCacheHeaders } from '../../lib/vercelCacheUtils';
+
 const cache = new Map();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
@@ -55,28 +57,37 @@ export default async function handler(req, res) {
 
   try {
     const cacheKeyCategories = "categories";
-    let categoriesData = getCache(cacheKeyCategories);
+    
+    // Use Vercel-optimized caching with stale-while-revalidate
+    const { data: categoriesData, fromCache, isStale } = await vercelCachedApiCall(
+      cacheKeyCategories,
+      async () => {
+        const categoriesResponse = await fetch(
+          `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
+          {
+            method: "GET",
+            headers: {
+              "X-Auth-Token": accessToken,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-    if (!categoriesData) {
-      const categoriesResponse = await fetch(
-        `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
-        {
-          method: "GET",
-          headers: {
-            "X-Auth-Token": accessToken,
-            "Content-Type": "application/json",
-          },
+        if (!categoriesResponse.ok) {
+          throw new Error(`BigCommerce API error: ${categoriesResponse.status} ${categoriesResponse.statusText}`);
         }
-      );
 
-      if (!categoriesResponse.ok) {
-        return res.status(500).json({
-          error: `BigCommerce API error: ${categoriesResponse.status} ${categoriesResponse.statusText}`,
-        });
-      }
+        return await categoriesResponse.json();
+      },
+      VERCEL_CACHE_CONFIG.CATEGORIES
+    );
 
-      categoriesData = await categoriesResponse.json();
-      setCache(cacheKeyCategories, categoriesData);
+    if (fromCache && !isStale) {
+      console.log('Applications: Using fresh cached categories');
+    } else if (fromCache && isStale) {
+      console.log('Applications: Using stale cached categories, revalidating in background');
+    } else {
+      console.log('Applications: Fetched fresh categories from API');
     }
 
     const filteredCategories = categoriesData.data
@@ -272,6 +283,9 @@ export default async function handler(req, res) {
         });
       })
     );
+
+    // Add Vercel-optimized cache headers
+    addVercelCacheHeaders(res, VERCEL_CACHE_CONFIG.APPLICATIONS);
 
     return res.status(200).json({ data: categoriesWithDetails });
   } catch (error) {

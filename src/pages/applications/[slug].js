@@ -33,17 +33,27 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import { shouldSkipBuildApiCalls, safeBuildApiCall, limitStaticPaths } from '../../lib/buildSafetyUtils';
+
+// getStaticPaths with build safety
 export async function getStaticPaths() {
+  // Skip API calls during build if needed
+  if (shouldSkipBuildApiCalls()) {
+    console.log('🚫 Skipping applications static path generation');
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
+
   let applications = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    applications = json.data;
+    applications = await safeBuildApiCall('applications', []);
+    
+    // Limit the number of pages generated at build time
+    applications = limitStaticPaths(applications, 'applications');
+    
   } catch (error) {
     console.error("Error fetching applications:", error);
     return {
@@ -64,19 +74,19 @@ export async function getStaticPaths() {
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with build safety
 export async function getStaticProps({ params }) {
+  // Skip API calls during build if needed
+  if (shouldSkipBuildApiCalls()) {
+    return { notFound: true };
+  }
+
   let applications = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    applications = json.data;
+    applications = await safeBuildApiCall('applications', []);
 
-    // Check if json.data is defined and is an array
+    // Check if applications data is valid
     if (!Array.isArray(applications)) {
       return { notFound: true };
     }
