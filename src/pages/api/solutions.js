@@ -53,6 +53,9 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Missing API credentials" });
   }
 
+  // Check if we have an ID parameter for specific solution
+  const { id } = req.query;
+
   try {
     const cacheKeyCategories = "categories";
     let categoriesData = getCache(cacheKeyCategories);
@@ -79,9 +82,21 @@ export default async function handler(req, res) {
       setCache(cacheKeyCategories, categoriesData);
     }
 
-    const filteredCategories = categoriesData.data.filter(
+    let filteredCategories = categoriesData.data.filter(
       (cat) => cat.parent_id === 35 && cat.is_visible
     );
+
+    // If ID is specified, filter to only that category
+    if (id) {
+      const categoryId = parseInt(id, 10);
+      filteredCategories = filteredCategories.filter(
+        (cat) => cat.category_id === categoryId
+      );
+      
+      if (filteredCategories.length === 0) {
+        return res.status(404).json({ error: "Solution not found" });
+      }
+    }
 
     const sortedCategories = filteredCategories.sort(
       (a, b) => a.sort_order - b.sort_order
@@ -263,7 +278,12 @@ export default async function handler(req, res) {
       })
     );
 
-    return res.status(200).json({ data: categoriesWithProducts });
+    // If ID was specified, return single solution, otherwise return array
+    if (id) {
+      return res.status(200).json({ data: categoriesWithProducts[0] });
+    } else {
+      return res.status(200).json({ data: categoriesWithProducts });
+    }
   } catch (error) {
     return res
       .status(500)

@@ -1,6 +1,9 @@
 const cache = new Map();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
+// Hard-coded solution categories (same as in solutions API)
+const SOLUTION_PARENT_ID = 35;
+
 // Helper function to parse tab content from bullet point format
 const parseTabContent = (value) => {
   if (!value || typeof value !== 'string') {
@@ -45,6 +48,72 @@ const parseTabContent = (value) => {
   }
 };
 
+// Helper function to get solution categories (children of the hard-coded parent)
+const getSolutionCategories = async (storeHash, accessToken) => {
+  const cacheKey = "solution-categories";
+  const cachedData = cache.get(cacheKey);
+
+  if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
+    return cachedData.data;
+  }
+
+  try {
+    const categoriesResponse = await fetch(
+      `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
+      {
+        method: "GET",
+        headers: {
+          "X-Auth-Token": accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!categoriesResponse.ok) {
+      console.error(`Failed to fetch solution categories: ${categoriesResponse.status}`);
+      return [];
+    }
+
+    const categoriesData = await categoriesResponse.json();
+    
+    // Get all child categories of the solution parent category
+    const solutionCategories = categoriesData.data.filter(
+      (cat) => cat.parent_id === SOLUTION_PARENT_ID && cat.is_visible
+    );
+
+    console.log(`Found ${solutionCategories.length} solution categories under parent ${SOLUTION_PARENT_ID}`);
+    
+    cache.set(cacheKey, { data: solutionCategories, timestamp: Date.now() });
+    return solutionCategories;
+  } catch (error) {
+    console.error('Error fetching solution categories:', error);
+    return [];
+  }
+};
+
+// Helper function to determine which solution a product belongs to
+const getProductSolution = (productCategories, solutionCategories, productId) => {
+  if (!productCategories || !Array.isArray(productCategories)) {
+    return null;
+  }
+
+  // Extract category IDs from the product's categories
+  const productCategoryIds = productCategories.map(cat => cat.id || cat);
+  
+  // Find the first solution category that matches any of the product's categories
+  for (const solutionCategory of solutionCategories) {
+    const hasMatch = productCategoryIds.includes(solutionCategory.category_id);
+    if (hasMatch) {
+      console.log(`Product ${productId} matched solution category ${solutionCategory.category_id} (${solutionCategory.name})`);
+      return solutionCategory.category_id;
+    }
+  }
+
+  // Log when no solution is found for debugging
+  console.log(`Product ${productId} has categories [${productCategoryIds.join(', ')}] but no solution match found`);
+  return null;
+};
+
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
   const accessToken = process.env.BIGCOMMERCE_ACCESS_TOKEN;
@@ -80,6 +149,10 @@ export default async function handler(req, res) {
 
     const productsData = await productsResponse.json();
     let products = productsData.data || [];
+
+    // Fetch solution categories for mapping
+    const solutionCategories = await getSolutionCategories(storeHash, accessToken);
+    console.log('Solution categories:', solutionCategories.map(cat => `${cat.category_id}: ${cat.name}`));
 
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
@@ -157,6 +230,9 @@ export default async function handler(req, res) {
           }))
           .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
 
+        // Determine which solution this product belongs to
+        const solutionId = getProductSolution(product.categories, solutionCategories, product.id);
+
         return {
           id: product.id,
           name: product.name?.trim() || null,
@@ -167,6 +243,7 @@ export default async function handler(req, res) {
           brandId: product.brand_id,
           price: product.calculated_price,
           categories: product.categories,
+          solution: solutionId, // New solution property
           is_price_hidden: product.is_price_hidden,
           meta_description: product.meta_description?.trim() || null,
           meta_keywords: product.meta_keywords,
