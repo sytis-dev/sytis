@@ -1,5 +1,7 @@
 const cache = new Map();
-const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes in milliseconds
+const PRODUCTS_CACHE_TTL = 10 * 60 * 1000; // 10 minutes for products within solutions
+const IMAGES_CACHE_TTL = 30 * 60 * 1000; // 30 minutes for images
 
 // Helper function to parse tab content from bullet point format
 const parseTabContent = (value) => {
@@ -291,8 +293,8 @@ export default async function handler(req, res) {
   }
 }
 
-// Helper functions for caching
-function getCache(key) {
+// Enhanced cache helpers
+function getCache(key, ttl = CACHE_TTL) {
   const cached = cache.get(key);
   if (cached && cached.expiry > Date.now()) {
     return cached.value;
@@ -301,6 +303,6 @@ function getCache(key) {
   return null;
 }
 
-function setCache(key, value) {
-  cache.set(key, { value, expiry: Date.now() + CACHE_TTL });
+function setCache(key, value, ttl = CACHE_TTL) {
+  cache.set(key, { value, expiry: Date.now() + ttl });
 }

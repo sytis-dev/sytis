@@ -1,5 +1,7 @@
 const cache = new Map();
-const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes in milliseconds
+const IMAGES_CACHE_TTL = 30 * 60 * 1000; // 30 minutes for images (change less frequently)
+const METAFIELDS_CACHE_TTL = 30 * 60 * 1000; // 30 minutes for metafields
 
 // Hard-coded solution categories (same as in solutions API)
 const SOLUTION_PARENT_ID = 35;
@@ -46,6 +48,19 @@ const parseTabContent = (value) => {
       return items.length > 0 ? { items } : null;
     }
   }
+};
+
+// Enhanced cache helpers
+const getCachedData = (key, ttl = CACHE_TTL) => {
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.timestamp < ttl) {
+    return cached.data;
+  }
+  return null;
+};
+
+const setCachedData = (key, data, ttl = CACHE_TTL) => {
+  cache.set(key, { data, timestamp: Date.now() });
 };
 
 // Helper function to get solution categories (children of the hard-coded parent)
@@ -156,31 +171,13 @@ export default async function handler(req, res) {
 
     const productsWithImages = await Promise.all(
       products.map(async (product) => {
-        // Fetch images
-        const imagesResponse = await fetch(
-          `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
-          {
-            method: "GET",
-            headers: {
-              "X-Auth-Token": accessToken,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!imagesResponse.ok) {
-          throw new Error(
-            `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`
-          );
-        }
-
-        const imagesData = await imagesResponse.json();
-
-        // Fetch metafields
-        let tabs = [];
-        try {
-          const metafieldsResponse = await fetch(
-            `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/metafields`,
+        // Fetch images with caching
+        const imagesCacheKey = `images-${product.id}`;
+        let imagesData = getCachedData(imagesCacheKey, IMAGES_CACHE_TTL);
+        
+        if (!imagesData) {
+          const imagesResponse = await fetch(
+            `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
             {
               method: "GET",
               headers: {
@@ -190,8 +187,41 @@ export default async function handler(req, res) {
             }
           );
 
-          if (metafieldsResponse.ok) {
-            const metafieldsData = await metafieldsResponse.json();
+          if (!imagesResponse.ok) {
+            throw new Error(
+              `BigCommerce API error fetching images for product ${product.id}: ${imagesResponse.status} ${imagesResponse.statusText}`
+            );
+          }
+
+          imagesData = await imagesResponse.json();
+          setCachedData(imagesCacheKey, imagesData, IMAGES_CACHE_TTL);
+        }
+
+        // Fetch metafields with caching
+        let tabs = [];
+        try {
+          const metafieldsCacheKey = `metafields-${product.id}`;
+          let metafieldsData = getCachedData(metafieldsCacheKey, METAFIELDS_CACHE_TTL);
+          
+          if (!metafieldsData) {
+            const metafieldsResponse = await fetch(
+              `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/metafields`,
+              {
+                method: "GET",
+                headers: {
+                  "X-Auth-Token": accessToken,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (metafieldsResponse.ok) {
+              metafieldsData = await metafieldsResponse.json();
+              setCachedData(metafieldsCacheKey, metafieldsData, METAFIELDS_CACHE_TTL);
+            }
+          }
+
+          if (metafieldsData) {
             
             // Define the tab keys we're looking for
             const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources'];
