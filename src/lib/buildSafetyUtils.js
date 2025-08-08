@@ -124,5 +124,11 @@ export function shouldSkipBuildApiCalls() {
     return true;
   }
   
+  // Skip if we're in Vercel build environment (safer default)
+  if (process.env.VERCEL && process.env.VERCEL_ENV !== 'production') {
+    console.log('🚫 Skipping build-time API calls (Vercel build environment detected)');
+    return true;
+  }
+  
   return false;
 }

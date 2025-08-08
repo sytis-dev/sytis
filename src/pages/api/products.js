@@ -292,6 +292,18 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ data: productsWithImages });
   } catch (error) {
+    console.error('Products API error:', error);
+    
+    // During build or if we have cached data, return partial data instead of failing
+    const cachedData = cache.get("products");
+    if (cachedData || process.env.VERCEL_ENV !== 'production') {
+      console.log('Returning cached/fallback data due to API error');
+      return res.status(200).json({ 
+        data: cachedData?.data || [],
+        warning: 'Using cached data due to API unavailability'
+      });
+    }
+    
     return res.status(500).json({ error: `BigCommerce API error: ${error.message}` });
   }
 }
