@@ -24,6 +24,9 @@ import "react-cookie-manager/style.css";
 import "@/styles/style.css";
 import "@/styles/hover.css";
 import "@/styles/responsive.css";
+import "@/styles/product-category.css";
+import "@/styles/enhanced-product-category.css";
+import "@/styles/product-category-specs.css";
 
 const GTM_ID = "GTM-WL832HQN";
 

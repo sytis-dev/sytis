@@ -10,7 +10,7 @@ import SidebarPageContainer from "@/components/SidebarPageContainer/SidebarPageC
 import SYTISApplicationContainer from "@/components/SytisApplicationContainer/SytisApplicationContainer";
 import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
-import ShopPage from "@/components/ShopPage/ShopPage";
+import ProductCategory from "@/components/ShopPage/ProductCategory";
 import Head from "next/head";
 
 // Helper function for retry logic
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
       5,
       1000 * 30
     ); // Retries 5 times with 30-second delay
-    solutions = json.data;
+    solutions = json.data || [];
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
@@ -54,7 +54,7 @@ export async function getStaticPaths() {
   }
 
   const paths = solutions
-    .filter((solution) => solution.custom_url && solution.custom_url.url) // Filter out items without custom_url
+    .filter((solution) => solution && solution.custom_url && solution.custom_url.url) // Filter out items without custom_url
     .map((solution) => ({
       params: { slug: solution.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
     }));
@@ -75,7 +75,7 @@ export async function getStaticProps({ params }) {
       5,
       1000 * 60
     ); // Retries 5 times with 60-second delay
-    solutions = json.data;
+    solutions = json.data || [];
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(solutions)) {
@@ -87,7 +87,7 @@ export async function getStaticProps({ params }) {
   }
 
   const solution = solutions.find(
-    (a) =>
+    (a) => a && a.name &&
       a.name
         .toLowerCase()
         .replace(/&/g, "")
@@ -107,35 +107,40 @@ export async function getStaticProps({ params }) {
 }
 
 const Solution = ({ solution }) => {
+  // Safe fallbacks for solution data
+  const safeSolution = solution || {};
+  const safeName = safeSolution.name || 'Solution';
+  const safeMetaDescription = safeSolution.meta_description || safeSolution.description || `Learn more about ${safeName} and how it supports your operations.`;
+  const safeProducts = Array.isArray(safeSolution.products) ? safeSolution.products : [];
+  const safeDescription = safeSolution.description || '';
+
   return (
-    <Layout pageTitle={solution.name}>
+    <Layout pageTitle={safeName}>
       <Head>
         <meta
           name="description"
-          content={
-            solution.meta_description ||
-            `Learn more about ${solution.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
         <meta
           name="og:description"
-          content={
-            solution.meta_description ||
-            `Learn more about ${solution.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
-        <meta property="og:title" content={`Sytis | ${solution.name}`} />
+        <meta property="og:title" content={`Sytis | ${safeName}`} />
       </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
       <PageBanner
-        title={solution.name}
+        title={safeName}
         parent="Solutions"
         parentHref="/solutions"
       />
-      <ShopPage products={solution.products} />
+      <ProductCategory 
+        products={safeProducts} 
+        categoryName={safeName} 
+        categoryDescription={safeDescription} 
+      />
       <CallToSectionTwo className="alternate" />
       <MainFooter />
     </Layout>

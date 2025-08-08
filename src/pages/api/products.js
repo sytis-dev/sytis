@@ -171,6 +171,10 @@ export default async function handler(req, res) {
           meta_description: product.meta_description?.trim() || null,
           meta_keywords: product.meta_keywords,
           date_created: product.date_created,
+          weight: product.weight || null,
+          width: product.width || null,
+          depth: product.depth || null,
+          height: product.height || null,
           all_images: sortedImages || [],
           tabs: tabs,
         };

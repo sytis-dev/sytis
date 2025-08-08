@@ -40,7 +40,7 @@ export async function getStaticPaths() {
       5,
       1000 * 30
     ); // Retries 5 times with 30-second delay
-    products = json.data;
+    products = json.data || [];
   } catch (error) {
     console.error("Error fetching products:", error);
     return {
@@ -50,7 +50,7 @@ export async function getStaticPaths() {
   }
 
   const paths = products
-    .filter((product) => product.custom_url && product.custom_url.url) // Filter out items without custom_url
+    .filter((product) => product && product.custom_url && product.custom_url.url) // Filter out items without custom_url
     .map((product) => ({
       params: { slug: product.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
     }));
@@ -71,7 +71,7 @@ export async function getStaticProps({ params }) {
       5,
       1000 * 30
     ); // Retries 5 times with 30-second delay
-    products = json.data;
+    products = json.data || [];
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(products)) {
@@ -83,7 +83,7 @@ export async function getStaticProps({ params }) {
   }
 
   const product = products.find(
-    (p) => p.custom_url.url.replace(/\//g, "") === params.slug
+    (p) => p && p.custom_url && p.custom_url.url && p.custom_url.url.replace(/\//g, "") === params.slug
   );
 
   if (!product) {
@@ -97,31 +97,30 @@ export async function getStaticProps({ params }) {
 }
 
 const ProductDetails = ({ product }) => {
+  // Safe fallbacks for product data
+  const safeProduct = product || {};
+  const safeName = safeProduct.name || safeProduct.product_name || safeProduct.title || 'Product';
+  const safeMetaDescription = safeProduct.meta_description || safeProduct.description || `Learn more about ${safeName} and how it supports your operations.`;
+
   return (
-    <Layout pageTitle={product.name}>
+    <Layout pageTitle={safeName}>
       <Head>
         <meta
           name="description"
-          content={
-            product.meta_description ||
-            `Learn more about ${product.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
         <meta
           property="og:description"
-          content={
-            product.meta_description ||
-            `Learn more about ${product.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
-        <meta property="og:title" content={`Sytis | ${product.name}`} />
+        <meta property="og:title" content={`Sytis | ${safeName}`} />
       </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
-      <PageBanner title={product.name} page="Shop" />
-      <ProductDetailsPage product={product} />
+      <PageBanner title={safeName} page="Shop" />
+      <ProductDetailsPage product={safeProduct} />
       <MainFooter />
     </Layout>
   );
