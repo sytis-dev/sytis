@@ -296,48 +296,56 @@ const ProductCategory = ({ products, categoryName, categoryDescription }) => {
               {/* Call to Action Section */}
               <div className="cta-section" style={{ marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #e9ecef', clear: 'both', width: '100%' }}>
                 <div className="cta-buttons-container" style={{ display: 'flex', flexDirection: 'row', gap: '10px', width: '100%' }}>
-                  <a
+                  <Link
                     href={`/products/${getProductSlug(selectedProduct)}`}
-                    style={{
-                      flex: '1',
-                      display: 'block',
-                      textAlign: 'center',
-                      padding: '10px',
-                      backgroundColor: '#ff0000',
-                      color: 'white',
-                      textDecoration: 'none',
-                      borderRadius: '5px',
-                      fontSize: '12px',
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase',
-                      border: 'none',
-                      cursor: 'pointer',
-                      minWidth: '0'
-                    }}
+                    passHref
                   >
-                    View Details
-                  </a>
-                  <a
+                    <a
+                      style={{
+                        flex: '1',
+                        display: 'block',
+                        textAlign: 'center',
+                        padding: '10px',
+                        backgroundColor: '#ff0000',
+                        color: 'white',
+                        textDecoration: 'none',
+                        borderRadius: '5px',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        border: 'none',
+                        cursor: 'pointer',
+                        minWidth: '0'
+                      }}
+                    >
+                      View Details
+                    </a>
+                  </Link>
+                  <Link
                     href="/contact"
-                    style={{
-                      flex: '1',
-                      display: 'block',
-                      textAlign: 'center',
-                      padding: '10px',
-                      backgroundColor: 'white',
-                      color: '#ff0000',
-                      textDecoration: 'none',
-                      borderRadius: '5px',
-                      fontSize: '12px',
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase',
-                      border: '2px solid #ff0000',
-                      cursor: 'pointer',
-                      minWidth: '0'
-                    }}
+                    passHref
                   >
-                    Contact
-                  </a>
+                    <a
+                      style={{
+                        flex: '1',
+                        display: 'block',
+                        textAlign: 'center',
+                        padding: '10px',
+                        backgroundColor: 'white',
+                        color: '#ff0000',
+                        textDecoration: 'none',
+                        borderRadius: '5px',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        border: '2px solid #ff0000',
+                        cursor: 'pointer',
+                        minWidth: '0'
+                      }}
+                    >
+                      Contact
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

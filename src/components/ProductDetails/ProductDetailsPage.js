@@ -412,6 +412,7 @@ const ProductDetailsPage = ({ product }) => {
                 <Link
                   className="theme-btn btn-style-one demo-purchase-btn"
                   href="/contact"
+                  passHref
                 >
                   <a
                     className="theme-btn btn-style-one demo-purchase-btn contact-pricing-btn"

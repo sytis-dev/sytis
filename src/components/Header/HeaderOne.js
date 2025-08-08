@@ -4,6 +4,7 @@ import useScroll from "@/hooks/useScroll";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
+import NextImage from "next/image";
 import NavItem from "./NavItem";
 
 const {
@@ -175,7 +176,7 @@ const HeaderOne = ({
                 <div className="login-btn" style={{ marginRight: "30px" }}>
                   <Link href="/login">
                     <a className="theme-btn login-toggler">
-                      <img src="/user-icon.svg" alt="User Icon" style={{ width: 24, height: 24 }} />
+                      <NextImage src="/user-icon.svg" alt="User Icon" width={24} height={24} />
                     </a>
                   </Link>
                 </div>
@@ -185,7 +186,7 @@ const HeaderOne = ({
                     type="button"
                     className="theme-btn search-toggler"
                   >
-                    <img src="/search-icon.svg" alt="Search Icon" style={{ width: 24, height: 24 }} />
+                    <NextImage src="/search-icon.svg" alt="Search Icon" width={24} height={24} />
                   </button>
                 </div>
                 <div className="link-box">
