@@ -65,9 +65,11 @@ export async function getStaticPaths() {
 
 // getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  let solutions = [];
+
   try {
     // Use cached data from solutions index page - no additional API call needed!
-    const solutions = await BuildDataCache.getSolutions();
+    solutions = await BuildDataCache.getSolutions();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(solutions)) {

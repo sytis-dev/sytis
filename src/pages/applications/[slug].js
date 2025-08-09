@@ -64,9 +64,11 @@ export async function getStaticPaths() {
 
 // getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  let applications = [];
+
   try {
     // Use cached data from applications index page - no additional API call needed!
-    const applications = await BuildDataCache.getApplications();
+    applications = await BuildDataCache.getApplications();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(applications)) {
