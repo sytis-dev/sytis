@@ -1,4 +1,4 @@
-import rateLimiter from "@/utils/bigcommerceRateLimiter";
+import rateLimiter from "../../utils/bigcommerceRateLimiter.js";
 
 const cache = new Map();
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes in milliseconds
