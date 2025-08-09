@@ -65,7 +65,7 @@ const resources = [
     title: "PTZ Cameras",
     links: [
       {
-        href: "/resources/MINI-PTZ-Datasheet.pdf",
+        href: "/resources/MINI-PTZ-Datasheet-.pdf",
         text: "Bi-spectral Mini PTZ Camera 25mm/50mm (IIS-BPTM6451-F25/IIS-BPTM6451-F50)",
       },
       {
@@ -79,12 +79,28 @@ const resources = [
     title: "Bullet Cameras",
     links: [
       {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-low-res-bullet.pdf",
-        text: "Bi-spectral Bullet Camera (low-res) (IIS-BB2519-F8)",
+        href: "/resources/Bullet-Datasheet.pdf",
+        text: "Bi-Spectral Bullet Camera (IIS-BB2519-3.5, IIS-BB2519-7, IIS-BB2519-10)",
       },
+    ],
+  },
+  {
+    id: 4,
+    title: "Turret Cameras",
+    links: [
       {
-        href: "https://store-f8ph8pgqne.mybigcommerce.com/content/Datasheets/SYTIS/sytis-bullet.pdf",
-        text: "Bi-Spectrum Bullet Camera (IIS-BB6451-F)",
+        href: "/resources/Turret-Datasheet.pdf",
+        text: "Bi-spectral Turret Camera (IIS-BT2519-3.5, IIS-BT2519-7)",
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "NVR's",
+    links: [
+      {
+        href: "/resources/NVR-Rack-Pro-Datasheet.pdf",
+        text: "NVR Rack Pro (IIS-NVR64-8HD [standard], IIS-NVR64-8HD-P16 [PoE])",
       },
     ],
   },

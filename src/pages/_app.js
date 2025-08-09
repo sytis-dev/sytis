@@ -65,11 +65,20 @@ const MyApp = ({ Component, pageProps }) => {
     checkRegion();
   }, []);
 
-  // Show WombatToast on every page after 5 seconds
+  // Show WombatToast on specific pages after 5 seconds
   useEffect(() => {
     const hasShownToast = sessionStorage.getItem("wombatToastShown");
+    
+    // Define pages where wombat toast should appear
+    const allowedPages = [
+      //'/',              
+      //'/solutions',     
+      //'/services',      
+    ];
+    
+    const shouldShowToast = allowedPages.includes(router.asPath);
 
-    if (!hasShownToast) {
+    if (!hasShownToast && shouldShowToast) {
       const timer = setTimeout(() => {
         toast.custom(
           (t) => (

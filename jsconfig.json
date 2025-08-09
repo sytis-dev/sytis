@@ -9,7 +9,8 @@
       "@/context/*": ["src/context/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/data/*": ["src/data/*"],
-      "@/lib/*": ["src/lib/*"]
+      "@/lib/*": ["src/lib/*"],
+      "@/utils/*": ["src/utils/*"]
     }
   }
 }
