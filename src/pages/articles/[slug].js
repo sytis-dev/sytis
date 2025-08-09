@@ -47,7 +47,7 @@ export async function getStaticPaths() {
       console.log(`🔍 Blog Post ${index + 1}:`, {
         title: post.title,
         url: post.url,
-        slug_used: post.url
+        slug_used: post.url.replace(/^\//, '')
       });
     });
   } catch (error) {
@@ -61,7 +61,7 @@ export async function getStaticPaths() {
   const paths = blogPosts
     .filter((post) => post && post.url) // Ensure post has URL
     .map((post) => ({
-      params: { slug: post.url }, // Use URL directly - Next.js will handle encoding
+      params: { slug: post.url.replace(/^\//, '') }, // Remove leading slash to prevent double encoding
     }));
 
   console.log(`🔍 Articles getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
@@ -105,14 +105,15 @@ export async function getStaticProps({ params }) {
   const availableUrls = blogPosts.filter(p => p && p.url).map(p => p.url);
   console.log(`🔍 Articles getStaticProps: Available URLs:`, availableUrls);
 
-  // Find post by exact URL match
+  // Find post by matching with leading slash restored
   const post = blogPosts.find((p) => {
     if (!p.url) return false;
     
-    // Direct match should work now without double encoding
-    const exactMatch = p.url === params.slug;
+    // Add leading slash back for comparison
+    const slugWithSlash = '/' + params.slug;
+    const exactMatch = p.url === slugWithSlash;
     if (exactMatch) {
-      console.log(`✅ Articles getStaticProps: Found exact match with URL "${p.url}"`);
+      console.log(`✅ Articles getStaticProps: Found exact match with URL "${p.url}" for slug "${params.slug}"`);
       return true;
     }
     
