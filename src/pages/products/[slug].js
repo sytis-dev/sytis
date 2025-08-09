@@ -30,17 +30,15 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let products = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/products`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    products = json.data || [];
+    // Use cached data from products index page - no additional API call needed!
+    products = await BuildDataCache.getProducts();
   } catch (error) {
     console.error("Error fetching products:", error);
     return {
@@ -57,21 +55,17 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
   let products = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/products`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    products = json.data || [];
+    // Use cached data from products index page - no additional API call needed!
+    products = await BuildDataCache.getProducts();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(products)) {
@@ -92,7 +86,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { product },
-    revalidate: 60 * 60, // Revalidates every 60 minutes
+    // No revalidate property = static build at build time
   };
 }
 

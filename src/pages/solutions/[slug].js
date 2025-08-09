@@ -59,7 +59,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
