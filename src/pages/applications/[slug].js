@@ -37,9 +37,11 @@ import BuildDataCache from "../../utils/buildDataCache.js";
 
 // getStaticPaths with cached data
 export async function getStaticPaths() {
+  let applications = [];
+
   try {
     // Use cached data from applications index page - no additional API call needed!
-    const applications = await BuildDataCache.getApplications();
+    applications = await BuildDataCache.getApplications();
   } catch (error) {
     console.error("Error fetching applications:", error);
     return {

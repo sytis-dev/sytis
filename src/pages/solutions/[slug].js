@@ -36,11 +36,13 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
 
 import BuildDataCache from "../../utils/buildDataCache.js";
 
-// getStaticPaths with retry logic
+// getStaticPaths with cached data
 export async function getStaticPaths() {
+  let solutions = [];
+
   try {
     // Use cached data from solutions index page - no additional API call needed!
-    const solutions = await BuildDataCache.getSolutions();
+    solutions = await BuildDataCache.getSolutions();
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
