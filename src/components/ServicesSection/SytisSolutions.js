@@ -110,6 +110,7 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
                       </div>
                     </div>
                   </div>
+                </a>
                 </Link>
               </Col>
             );
@@ -180,6 +181,7 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
                       </div>
                     </div>
                   </div>
+                </a>
                 </Link>
               </Col>
             );
