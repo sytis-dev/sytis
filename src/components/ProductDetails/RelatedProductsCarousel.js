@@ -128,7 +128,8 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
                   key={product.id} 
                   href={`/products/${productSlug}`}
                 >
-                  <div className="related-product-card">
+                  <a>
+                    <div className="related-product-card">
                     <div className="related-product-card__image">
                       <Image 
                         src={productImage} 
@@ -147,7 +148,8 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
                         SKU: {product.sku || 'N/A'}
                       </p>
                     </div>
-                  </div>
+                    </div>
+                  </a>
                 </Link>
               );
             })}

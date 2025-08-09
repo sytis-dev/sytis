@@ -31,17 +31,25 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let blogPosts = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/blog-posts`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    blogPosts = json.data;
+    // Use cached data from articles index page - no additional API call needed!
+    blogPosts = await BuildDataCache.getBlogPosts();
+    console.log(`🔍 Articles getStaticPaths: Found ${blogPosts.length} blog posts`);
+    
+    // Debug: Log blog post data structure
+    blogPosts.forEach((post, index) => {
+      console.log(`🔍 Blog Post ${index + 1}:`, {
+        title: post.title,
+        url: post.url,
+        slug_used: post.url.replace(/^\//, '')
+      });
+    });
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     return {
@@ -50,30 +58,33 @@ export async function getStaticPaths() {
     };
   }
 
-  const paths = blogPosts.map((post) => ({
-    params: { slug: post.url }, // Generate slugs from custom URLs
-  }));
+  const paths = blogPosts
+    .filter((post) => post && post.url) // Ensure post has URL
+    .map((post) => ({
+      params: { slug: post.url.replace(/^\//, '') }, // Remove leading slash to prevent double encoding
+    }));
+
+  console.log(`🔍 Articles getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  console.log(`🔍 Articles getStaticProps: Looking for slug "${params.slug}"`);
   let blogPosts = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/blog-posts`,
-      5,
-      1000 * 15
-    ); // Retries 5 times with 60-second delay
-    blogPosts = json.data;
+    // Use cached data from articles index page - no additional API call needed!
+    blogPosts = await BuildDataCache.getBlogPosts();
+    console.log(`🔍 Articles getStaticProps: Found ${blogPosts.length} blog posts to search`);
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(blogPosts)) {
+      console.log("❌ Articles getStaticProps: blogPosts is not an array");
       return { notFound: true };
     }
   } catch (error) {
@@ -81,14 +92,49 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
-  const post = blogPosts.find((p) => p.url.includes(params.slug));
+  // Debug: Log incoming slug and decoding attempts
+  console.log(`🔍 Articles getStaticProps: Raw slug: "${params.slug}"`);
+  try {
+    const decodedSlug = decodeURIComponent(params.slug);
+    console.log(`🔍 Articles getStaticProps: Decoded slug: "${decodedSlug}"`);
+  } catch (e) {
+    console.log(`🔍 Articles getStaticProps: Failed to decode slug: ${e.message}`);
+  }
+
+  // Debug: Log all available URLs
+  const availableUrls = blogPosts.filter(p => p && p.url).map(p => p.url);
+  console.log(`🔍 Articles getStaticProps: Available URLs:`, availableUrls);
+
+  // Find post by matching with leading slash restored
+  const post = blogPosts.find((p) => {
+    if (!p.url) return false;
+    
+    // Add leading slash back for comparison
+    const slugWithSlash = '/' + params.slug;
+    const exactMatch = p.url === slugWithSlash;
+    if (exactMatch) {
+      console.log(`✅ Articles getStaticProps: Found exact match with URL "${p.url}" for slug "${params.slug}"`);
+      return true;
+    }
+    
+    return false;
+  });
 
   if (!post) {
+    console.log(`❌ Articles getStaticProps: No post found for slug "${params.slug}"`);
+    console.log(`❌ Available posts:`, blogPosts.map(p => ({
+      title: p.title,
+      url: p.url
+    })));
     return { notFound: true };
   }
 
+  console.log(`✅ Articles getStaticProps: Found post "${post.title}" for slug "${params.slug}"`);
+  
+
   return {
     props: { post, blogPosts },
+    // No revalidate property = static build at build time
   };
 }
 

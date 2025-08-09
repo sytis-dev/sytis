@@ -34,17 +34,25 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let solutions = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    solutions = json.data || [];
+    // Use cached data from solutions index page - no additional API call needed!
+    solutions = await BuildDataCache.getSolutions();
+    console.log(`🔍 Solutions getStaticPaths: Found ${solutions.length} solutions`);
+    
+    // Debug: Log solution data structure
+    solutions.forEach((solution, index) => {
+      console.log(`🔍 Solution ${index + 1}:`, {
+        name: solution.name,
+        custom_url: solution.custom_url,
+        generated_slug: solution.custom_url?.url?.replace(/\//g, "")
+      });
+    });
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
@@ -53,36 +61,41 @@ export async function getStaticPaths() {
     };
   }
 
+  // Since solutions don't have custom_url, use name-based slugs instead
   const paths = solutions
-    .filter((solution) => solution && solution.custom_url && solution.custom_url.url) // Filter out items without custom_url
+    .filter((solution) => solution && solution.name) // Filter out items without name
     .map((solution) => ({
-      params: { slug: solution.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
+      params: { 
+        slug: solution.name
+          .toLowerCase()
+          .replace(/&/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .trim()
+      },
     }));
+
+  console.log(`🔍 Solutions getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  console.log(`🔍 Solutions getStaticProps: Looking for slug "${params.slug}"`);
   let solutions = [];
 
   try {
-    // Add stagger delay before API call (random 0-10 seconds)
-    const staggerDelay = Math.random() * 10000;
-    await new Promise(resolve => setTimeout(resolve, staggerDelay));
-    
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    solutions = json.data || [];
+    // Use cached data from solutions index page - no additional API call needed!
+    solutions = await BuildDataCache.getSolutions();
+    console.log(`🔍 Solutions getStaticProps: Found ${solutions.length} solutions to search`);
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(solutions)) {
+      console.log("❌ Solutions getStaticProps: solutions is not an array");
       return { notFound: true };
     }
   } catch (error) {
@@ -90,9 +103,16 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  // Debug: Log all available slugs
+  const availableSlugs = solutions
+    .filter(s => s && s.name)
+    .map(s => s.name.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim());
+  console.log(`🔍 Solutions getStaticProps: Available slugs:`, availableSlugs);
+
+  // Find solution by matching the name-based slug generation logic
   const solution = solutions.find(
-    (a) => a && a.name &&
-      a.name
+    (s) => s && s.name &&
+      s.name
         .toLowerCase()
         .replace(/&/g, "")
         .replace(/\s+/g, "-")
@@ -101,8 +121,16 @@ export async function getStaticProps({ params }) {
   );
 
   if (!solution) {
+    console.log(`❌ Solutions getStaticProps: No solution found for slug "${params.slug}"`);
+    console.log(`❌ Available solutions:`, solutions.map(s => ({
+      name: s.name,
+      generated_slug: s.name?.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim()
+    })));
     return { notFound: true };
   }
+
+  console.log(`✅ Solutions getStaticProps: Found solution "${solution.name}" for slug "${params.slug}"`);
+  
 
   return {
     props: { solution },

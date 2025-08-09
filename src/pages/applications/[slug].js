@@ -33,52 +33,48 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let applications = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    applications = json.data;
+    // Use cached data from applications index page - no additional API call needed!
+    applications = await BuildDataCache.getApplications();
   } catch (error) {
     console.error("Error fetching applications:", error);
     return {
       paths: [],
-      fallback: "blocking", // fallback blocking if fetching fails
+      fallback: false, // Return 404 for missing pages instead of trying to generate at runtime
     };
   }
 
-  const paths = applications
-    .filter((application) => application.custom_url && application.custom_url.url) // Filter out items without custom_url
-    .map((application) => ({
-      params: { slug: application.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
-    }));
+  const validApplications = applications.filter((application) => application && application.name);
+  
+  const paths = validApplications.map((application) => {
+    const slug = application.name
+      .toLowerCase()
+      .replace(/&/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .trim();
+    return { params: { slug } };
+  });
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
   let applications = [];
 
   try {
-    // Add stagger delay before API call (random 0-10 seconds)
-    const staggerDelay = Math.random() * 10000;
-    await new Promise(resolve => setTimeout(resolve, staggerDelay));
-    
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    applications = json.data;
+    // Use cached data from applications index page - no additional API call needed!
+    applications = await BuildDataCache.getApplications();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(applications)) {
@@ -90,7 +86,7 @@ export async function getStaticProps({ params }) {
   }
 
   const application = applications.find(
-    (a) =>
+    (a) => a && a.name && 
       a.name
         .toLowerCase()
         .replace(/&/g, "")

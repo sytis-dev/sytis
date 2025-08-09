@@ -16,18 +16,20 @@ const Layout = ({
   const { scrollTop } = useScroll(100);
 
   useEffect(() => {
+    let timeoutId;
+    
     if (pageTitle === "Solution inquiry" || pageTitle === "Newsletter Signup") {
-      const timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setLoading(false);
       }, 1200);
     } else {
-      const timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setLoading(false);
       }, 400);
     }
 
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [pageTitle]);
 
   return (
     <>

@@ -9,8 +9,26 @@ import Style from "@/components/Reuseable/Style";
 import SearchPopup from "@/components/SearchPopup/SearchPopup";
 import React from "react";
 import Head from "next/head";
+import BuildDataCache from "../../utils/buildDataCache.js";
 
-const BlogGrid = () => {
+export async function getStaticProps() {
+  try {
+    // Use shared cache to fetch blog posts data
+    const blogPosts = await BuildDataCache.getBlogPosts();
+
+    return {
+      props: { blogPosts },
+      // No revalidate property = static build at build time
+    };
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return {
+      props: { blogPosts: [] },
+    };
+  }
+}
+
+const BlogGrid = ({ blogPosts = [] }) => {
   return (
     <Layout pageTitle="Articles">
       <Head>
@@ -31,7 +49,7 @@ const BlogGrid = () => {
       <MobileMenu />
       <SearchPopup />
       <PageBanner title="Articles" />
-      <SYTISBlog showTitle={false} />
+      <SYTISBlog showTitle={false} blogPosts={blogPosts} />
       <MainFooter />
     </Layout>
   );
