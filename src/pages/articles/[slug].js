@@ -40,6 +40,16 @@ export async function getStaticPaths() {
   try {
     // Use cached data from articles index page - no additional API call needed!
     blogPosts = await BuildDataCache.getBlogPosts();
+    console.log(`🔍 Articles getStaticPaths: Found ${blogPosts.length} blog posts`);
+    
+    // Debug: Log blog post data structure
+    blogPosts.forEach((post, index) => {
+      console.log(`🔍 Blog Post ${index + 1}:`, {
+        title: post.title,
+        url: post.url,
+        encoded_slug: encodeURIComponent(post.url || '')
+      });
+    });
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     return {
@@ -54,6 +64,8 @@ export async function getStaticPaths() {
       params: { slug: encodeURIComponent(post.url) }, // Encode URLs for Next.js routing
     }));
 
+  console.log(`🔍 Articles getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
+
   return {
     paths,
     fallback: false, // All valid pages must be generated at build time
@@ -62,14 +74,17 @@ export async function getStaticPaths() {
 
 // getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  console.log(`🔍 Articles getStaticProps: Looking for slug "${params.slug}"`);
   let blogPosts = [];
 
   try {
     // Use cached data from articles index page - no additional API call needed!
     blogPosts = await BuildDataCache.getBlogPosts();
+    console.log(`🔍 Articles getStaticProps: Found ${blogPosts.length} blog posts to search`);
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(blogPosts)) {
+      console.log("❌ Articles getStaticProps: blogPosts is not an array");
       return { notFound: true };
     }
   } catch (error) {
@@ -77,23 +92,57 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  // Debug: Log incoming slug and decoding attempts
+  console.log(`🔍 Articles getStaticProps: Raw slug: "${params.slug}"`);
+  try {
+    const decodedSlug = decodeURIComponent(params.slug);
+    console.log(`🔍 Articles getStaticProps: Decoded slug: "${decodedSlug}"`);
+  } catch (e) {
+    console.log(`🔍 Articles getStaticProps: Failed to decode slug: ${e.message}`);
+  }
+
+  // Debug: Log all available URLs
+  const availableUrls = blogPosts.filter(p => p && p.url).map(p => p.url);
+  console.log(`🔍 Articles getStaticProps: Available URLs:`, availableUrls);
+
   // Find post by exact URL match (handling URL encoding)
   const post = blogPosts.find((p) => {
     if (!p.url) return false;
+    
     // Try exact match first
-    if (p.url === params.slug) return true;
+    const exactMatch = p.url === params.slug;
+    if (exactMatch) {
+      console.log(`✅ Articles getStaticProps: Found exact match with URL "${p.url}"`);
+      return true;
+    }
+    
     // Try decoded match for URL-encoded slugs
     try {
       const decodedSlug = decodeURIComponent(params.slug);
-      return p.url === decodedSlug;
+      const decodedMatch = p.url === decodedSlug;
+      if (decodedMatch) {
+        console.log(`✅ Articles getStaticProps: Found decoded match with URL "${p.url}"`);
+        return true;
+      }
     } catch (e) {
-      return false;
+      console.log(`🔍 Articles getStaticProps: Failed to decode for comparison: ${e.message}`);
     }
+    
+    return false;
   });
 
   if (!post) {
+    console.log(`❌ Articles getStaticProps: No post found for slug "${params.slug}"`);
+    console.log(`❌ Available posts:`, blogPosts.map(p => ({
+      title: p.title,
+      url: p.url,
+      encoded: encodeURIComponent(p.url || '')
+    })));
     return { notFound: true };
   }
+
+  console.log(`✅ Articles getStaticProps: Found post "${post.title}" for slug "${params.slug}"`);
+  
 
   return {
     props: { post, blogPosts },
