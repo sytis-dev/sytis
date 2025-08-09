@@ -47,7 +47,7 @@ export async function getStaticPaths() {
       console.log(`🔍 Blog Post ${index + 1}:`, {
         title: post.title,
         url: post.url,
-        encoded_slug: encodeURIComponent(post.url || '')
+        slug_used: post.url
       });
     });
   } catch (error) {
@@ -61,7 +61,7 @@ export async function getStaticPaths() {
   const paths = blogPosts
     .filter((post) => post && post.url) // Ensure post has URL
     .map((post) => ({
-      params: { slug: encodeURIComponent(post.url) }, // Encode URLs for Next.js routing
+      params: { slug: post.url }, // Use URL directly - Next.js will handle encoding
     }));
 
   console.log(`🔍 Articles getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
@@ -105,27 +105,15 @@ export async function getStaticProps({ params }) {
   const availableUrls = blogPosts.filter(p => p && p.url).map(p => p.url);
   console.log(`🔍 Articles getStaticProps: Available URLs:`, availableUrls);
 
-  // Find post by exact URL match (handling URL encoding)
+  // Find post by exact URL match
   const post = blogPosts.find((p) => {
     if (!p.url) return false;
     
-    // Try exact match first
+    // Direct match should work now without double encoding
     const exactMatch = p.url === params.slug;
     if (exactMatch) {
       console.log(`✅ Articles getStaticProps: Found exact match with URL "${p.url}"`);
       return true;
-    }
-    
-    // Try decoded match for URL-encoded slugs
-    try {
-      const decodedSlug = decodeURIComponent(params.slug);
-      const decodedMatch = p.url === decodedSlug;
-      if (decodedMatch) {
-        console.log(`✅ Articles getStaticProps: Found decoded match with URL "${p.url}"`);
-        return true;
-      }
-    } catch (e) {
-      console.log(`🔍 Articles getStaticProps: Failed to decode for comparison: ${e.message}`);
     }
     
     return false;
@@ -135,8 +123,7 @@ export async function getStaticProps({ params }) {
     console.log(`❌ Articles getStaticProps: No post found for slug "${params.slug}"`);
     console.log(`❌ Available posts:`, blogPosts.map(p => ({
       title: p.title,
-      url: p.url,
-      encoded: encodeURIComponent(p.url || '')
+      url: p.url
     })));
     return { notFound: true };
   }

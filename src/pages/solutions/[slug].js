@@ -61,10 +61,18 @@ export async function getStaticPaths() {
     };
   }
 
+  // Since solutions don't have custom_url, use name-based slugs instead
   const paths = solutions
-    .filter((solution) => solution && solution.custom_url && solution.custom_url.url) // Filter out items without custom_url
+    .filter((solution) => solution && solution.name) // Filter out items without name
     .map((solution) => ({
-      params: { slug: solution.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
+      params: { 
+        slug: solution.name
+          .toLowerCase()
+          .replace(/&/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .trim()
+      },
     }));
 
   console.log(`🔍 Solutions getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
@@ -97,22 +105,26 @@ export async function getStaticProps({ params }) {
 
   // Debug: Log all available slugs
   const availableSlugs = solutions
-    .filter(s => s && s.custom_url && s.custom_url.url)
-    .map(s => s.custom_url.url.replace(/\//g, ""));
+    .filter(s => s && s.name)
+    .map(s => s.name.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim());
   console.log(`🔍 Solutions getStaticProps: Available slugs:`, availableSlugs);
 
-  // Find solution by matching the custom URL slug generation logic
+  // Find solution by matching the name-based slug generation logic
   const solution = solutions.find(
-    (s) => s && s.custom_url && s.custom_url.url &&
-      s.custom_url.url.replace(/\//g, "") === params.slug
+    (s) => s && s.name &&
+      s.name
+        .toLowerCase()
+        .replace(/&/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .trim() === params.slug
   );
 
   if (!solution) {
     console.log(`❌ Solutions getStaticProps: No solution found for slug "${params.slug}"`);
     console.log(`❌ Available solutions:`, solutions.map(s => ({
       name: s.name,
-      custom_url: s.custom_url,
-      generated_slug: s.custom_url?.url?.replace(/\//g, "")
+      generated_slug: s.name?.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim()
     })));
     return { notFound: true };
   }
