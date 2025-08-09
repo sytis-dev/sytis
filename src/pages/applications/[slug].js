@@ -50,11 +50,16 @@ export async function getStaticPaths() {
     };
   }
 
-  const paths = applications
-    .filter((application) => application.custom_url && application.custom_url.url) // Filter out items without custom_url
-    .map((application) => ({
-      params: { slug: application.custom_url.url.replace(/\//g, "") }, // Generate slugs from custom URLs
-    }));
+  console.log(`🔍 Applications found: ${applications.length}`);
+  
+  const validApplications = applications.filter((application) => application.custom_url && application.custom_url.url);
+  console.log(`✅ Valid applications with custom_url: ${validApplications.length}`);
+  
+  const paths = validApplications.map((application) => {
+    const slug = application.custom_url.url.replace(/\//g, "");
+    console.log(`📄 Generated application path: /applications/${slug} (from: ${application.name})`);
+    return { params: { slug } };
+  });
 
   return {
     paths,
@@ -79,19 +84,24 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  console.log(`🔍 Looking for application with slug: "${params.slug}"`);
+  console.log(`📊 Total applications available: ${applications.length}`);
+  
   const application = applications.find(
-    (a) =>
-      a.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim() === params.slug
+    (a) => a && a.custom_url && a.custom_url.url && 
+      a.custom_url.url.replace(/\//g, "") === params.slug
   );
 
   if (!application) {
+    console.log(`❌ No application found for slug: "${params.slug}"`);
+    console.log('Available application slugs:', applications
+      .filter(a => a && a.custom_url && a.custom_url.url)
+      .map(a => a.custom_url.url.replace(/\//g, ""))
+    );
     return { notFound: true };
   }
+  
+  console.log(`✅ Found application: ${application.name}`);
 
   return {
     props: { application },
