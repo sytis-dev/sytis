@@ -48,9 +48,11 @@ export async function getStaticPaths() {
     };
   }
 
-  const paths = blogPosts.map((post) => ({
-    params: { slug: post.url }, // Generate slugs from custom URLs
-  }));
+  const paths = blogPosts
+    .filter((post) => post && post.url) // Ensure post has URL
+    .map((post) => ({
+      params: { slug: encodeURIComponent(post.url) }, // Encode URLs for Next.js routing
+    }));
 
   return {
     paths,
@@ -75,7 +77,19 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
-  const post = blogPosts.find((p) => p.url.includes(params.slug));
+  // Find post by exact URL match (handling URL encoding)
+  const post = blogPosts.find((p) => {
+    if (!p.url) return false;
+    // Try exact match first
+    if (p.url === params.slug) return true;
+    // Try decoded match for URL-encoded slugs
+    try {
+      const decodedSlug = decodeURIComponent(params.slug);
+      return p.url === decodedSlug;
+    } catch (e) {
+      return false;
+    }
+  });
 
   if (!post) {
     return { notFound: true };

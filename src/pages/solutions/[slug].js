@@ -80,14 +80,10 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  // Find solution by matching the custom URL slug generation logic
   const solution = solutions.find(
-    (a) => a && a.name &&
-      a.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim() === params.slug
+    (s) => s && s.custom_url && s.custom_url.url &&
+      s.custom_url.url.replace(/\//g, "") === params.slug
   );
 
   if (!solution) {
