@@ -39,6 +39,11 @@ export async function getStaticPaths() {
   let solutions = [];
 
   try {
+    // Add 60-second delay before building solutions pages
+    const solutionsBuildDelay = 60000; // 60 seconds delay
+    console.log(`⏳ Solutions: Waiting ${solutionsBuildDelay}ms before building...`);
+    await new Promise(resolve => setTimeout(resolve, solutionsBuildDelay));
+    
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/solutions`,
       5,

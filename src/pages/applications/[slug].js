@@ -38,6 +38,11 @@ export async function getStaticPaths() {
   let applications = [];
 
   try {
+    // Add 60-second delay before building applications pages (after solutions)
+    const applicationsBuildDelay = 120000; // 120 seconds delay (60s + 60s offset)
+    console.log(`⏳ Applications: Waiting ${applicationsBuildDelay}ms before building...`);
+    await new Promise(resolve => setTimeout(resolve, applicationsBuildDelay));
+    
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/applications`,
       5,
@@ -48,7 +53,7 @@ export async function getStaticPaths() {
     console.error("Error fetching applications:", error);
     return {
       paths: [],
-      fallback: "blocking", // fallback blocking if fetching fails
+      fallback: false, // Return 404 for missing pages instead of trying to generate at runtime
     };
   }
 
@@ -60,7 +65,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: "blocking", // Ensures new pages are generated on request
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
