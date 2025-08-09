@@ -34,22 +34,13 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
+import BuildDataCache from "../../utils/buildDataCache.js";
+
 // getStaticPaths with retry logic
 export async function getStaticPaths() {
-  let solutions = [];
-
   try {
-    // Add 60-second delay before building solutions pages
-    const solutionsBuildDelay = 60000; // 60 seconds delay
-    console.log(`⏳ Solutions: Waiting ${solutionsBuildDelay}ms before building...`);
-    await new Promise(resolve => setTimeout(resolve, solutionsBuildDelay));
-    
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    solutions = json.data || [];
+    // Use cached data from solutions index page - no additional API call needed!
+    const solutions = await BuildDataCache.getSolutions();
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
@@ -70,21 +61,11 @@ export async function getStaticPaths() {
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
-  let solutions = [];
-
   try {
-    // Add stagger delay before API call (random 0-10 seconds)
-    const staggerDelay = Math.random() * 10000;
-    await new Promise(resolve => setTimeout(resolve, staggerDelay));
-    
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    solutions = json.data || [];
+    // Use cached data from solutions index page - no additional API call needed!
+    const solutions = await BuildDataCache.getSolutions();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(solutions)) {
