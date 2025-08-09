@@ -44,8 +44,9 @@ const SytisApplications = ({ applications: rawApplications = [] }) => {
         <Row>
           {applications.map(({ id, icon, title, href, image, description }, idx) => (
             <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-              <Link href={href} style={{ textDecoration: 'none' }}>
-                <div
+              <Link href={href}>
+                <a style={{ textDecoration: 'none' }}>
+                  <div
                   className="service-nine__card"
                   style={{
                     border: `2px solid ${hoveredIndex === idx ? '#d00' : '#e9ebee'}`,
@@ -102,7 +103,8 @@ const SytisApplications = ({ applications: rawApplications = [] }) => {
                       </h4>
                     </div>
                   </div>
-                </div>
+                  </div>
+                </a>
               </Link>
             </Col>
           ))}

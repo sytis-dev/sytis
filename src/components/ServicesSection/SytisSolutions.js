@@ -50,8 +50,9 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
             const globalIdx = idx;
             return (
               <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href} style={{ textDecoration: 'none' }}>
-                  <div
+                <Link href={href}>
+                  <a style={{ textDecoration: 'none' }}>
+                    <div
                     className="service-nine__card"
                     style={{
                       border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
@@ -119,8 +120,9 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
             const globalIdx = idx + solutions1.length;
             return (
               <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href} style={{ textDecoration: 'none' }}>
-                  <div
+                <Link href={href}>
+                  <a style={{ textDecoration: 'none' }}>
+                    <div
                     className="service-nine__card"
                     style={{
                       border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
