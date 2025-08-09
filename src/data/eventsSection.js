@@ -21,7 +21,7 @@ export const eventsOne = [
     endDate: "16 Sep 2025",
     image: "neca-2025.png",
     title: "NECA 2025",
-    time: "08:00am / 05:00pm",
+    time: "11:30am / 05:00pm",
     address: "Chicago, IL",
     link: "https://www.necaconvention.org/",
   },
