@@ -70,6 +70,10 @@ export async function getStaticProps({ params }) {
   let solutions = [];
 
   try {
+    // Add stagger delay before API call (random 0-10 seconds)
+    const staggerDelay = Math.random() * 10000;
+    await new Promise(resolve => setTimeout(resolve, staggerDelay));
+    
     const json = await fetchWithRetry(
       `${process.env.API_URL}/api/solutions`,
       5,
@@ -102,7 +106,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { solution },
-    revalidate: 60 * 60, // Revalidates every 60 minutes
+    // No revalidate property = static build at build time
   };
 }
 

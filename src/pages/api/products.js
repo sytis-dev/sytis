@@ -1,3 +1,5 @@
+import rateLimiter from "@/utils/bigcommerceRateLimiter";
+
 const cache = new Map();
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes in milliseconds
 const IMAGES_CACHE_TTL = 30 * 60 * 1000; // 30 minutes for images (change less frequently)
@@ -73,7 +75,7 @@ const getSolutionCategories = async (storeHash, accessToken) => {
   }
 
   try {
-    const categoriesResponse = await fetch(
+    const categoriesResponse = await rateLimiter.fetchWithRateLimit(
       `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
       {
         method: "GET",
@@ -145,7 +147,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ data: cachedData.data });
     }
 
-    const productsResponse = await fetch(
+    const productsResponse = await rateLimiter.fetchWithRateLimit(
       `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products`,
       {
         method: "GET",
@@ -176,7 +178,7 @@ export default async function handler(req, res) {
         let imagesData = getCachedData(imagesCacheKey, IMAGES_CACHE_TTL);
         
         if (!imagesData) {
-          const imagesResponse = await fetch(
+          const imagesResponse = await rateLimiter.fetchWithRateLimit(
             `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
             {
               method: "GET",
@@ -204,7 +206,7 @@ export default async function handler(req, res) {
           let metafieldsData = getCachedData(metafieldsCacheKey, METAFIELDS_CACHE_TTL);
           
           if (!metafieldsData) {
-            const metafieldsResponse = await fetch(
+            const metafieldsResponse = await rateLimiter.fetchWithRateLimit(
               `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/metafields`,
               {
                 method: "GET",

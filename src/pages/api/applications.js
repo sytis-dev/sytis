@@ -1,3 +1,5 @@
+import rateLimiter from "@/utils/bigcommerceRateLimiter";
+
 const cache = new Map();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
 
@@ -58,7 +60,7 @@ export default async function handler(req, res) {
     let categoriesData = getCache(cacheKeyCategories);
 
     if (!categoriesData) {
-      const categoriesResponse = await fetch(
+      const categoriesResponse = await rateLimiter.fetchWithRateLimit(
         `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
         {
           method: "GET",
@@ -89,7 +91,7 @@ export default async function handler(req, res) {
         let metafieldsData = getCache(cacheKeyMeta);
 
         if (!metafieldsData) {
-          const metafieldsResponse = await fetch(
+          const metafieldsResponse = await rateLimiter.fetchWithRateLimit(
             `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/categories/${category.category_id}/metafields`,
             {
               method: "GET",
@@ -126,7 +128,7 @@ export default async function handler(req, res) {
         var productsData = getCache(cacheKeyProducts);
 
         if (!productsData) {
-          const productsResponse = await fetch(
+          const productsResponse = await rateLimiter.fetchWithRateLimit(
             `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products?categories:in=${category.category_id}`,
             {
               method: "GET",
@@ -167,7 +169,7 @@ export default async function handler(req, res) {
             let imagesData = getCache(cacheKeyImages);
 
             if (!imagesData) {
-              const imagesResponse = await fetch(
+              const imagesResponse = await rateLimiter.fetchWithRateLimit(
                 `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
                 {
                   method: "GET",
@@ -191,7 +193,7 @@ export default async function handler(req, res) {
             // Fetch metafields for tabs
             let tabs = [];
             try {
-              const metafieldsResponse = await fetch(
+              const metafieldsResponse = await rateLimiter.fetchWithRateLimit(
                 `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/metafields`,
                 {
                   method: "GET",

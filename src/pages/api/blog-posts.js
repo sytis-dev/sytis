@@ -1,7 +1,7 @@
+import rateLimiter from "@/utils/bigcommerceRateLimiter";
+
 const cache = new Map();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes
-const FETCH_TIMEOUT = 10000; // 10 seconds
-const RETRIES = 3;
 
 // In-memory cache
 function getCache(key) {
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
 
   if (!postsData) {
     try {
-      const response = await fetchWithRetry(
+      const response = await rateLimiter.fetchWithRateLimit(
         `https://api.bigcommerce.com/stores/${storeHash}/v2/blog/posts`,
         {
           method: "GET",
