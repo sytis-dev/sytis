@@ -1,9 +1,52 @@
-// Cache warming endpoint to improve performance
+// Cache warming and development cache management endpoint
+// 
+// DEVELOPMENT MODE USAGE (no key required):
+// GET /api/cache-warm?action=status     - View cache status
+// GET /api/cache-warm?action=clear      - Clear development cache
+// GET /api/cache-warm?action=clear-all - Clear all caches
+//
+// PRODUCTION USAGE (requires key):
+// GET /api/cache-warm?key=warm-cache-2024
 export default async function handler(req, res) {
-  // Only allow warming from internal requests or with proper key
-  const { key } = req.query;
+  const { key, action } = req.query;
   const validKey = process.env.CACHE_WARM_KEY || 'warm-cache-2024';
   
+  // Development cache management (no key required in dev mode)
+  if (process.env.NODE_ENV === 'development' && action) {
+    try {
+      const BuildDataCache = (await import('../../utils/buildDataCache.js')).default;
+      
+      switch (action) {
+        case 'status':
+          return res.status(200).json({
+            success: true,
+            cacheStatus: BuildDataCache.getCacheStatus(),
+            message: 'Development cache status retrieved'
+          });
+          
+        case 'clear':
+          BuildDataCache.clearDevCache();
+          return res.status(200).json({
+            success: true,
+            message: 'Development cache cleared'
+          });
+          
+        case 'clear-all':
+          BuildDataCache.clearAllCaches();
+          return res.status(200).json({
+            success: true,
+            message: 'All caches cleared'
+          });
+          
+        default:
+          return res.status(400).json({ error: 'Invalid action. Use: status, clear, or clear-all' });
+      }
+    } catch (error) {
+      return res.status(500).json({ error: 'Cache management failed', details: error.message });
+    }
+  }
+  
+  // Production cache warming (requires key)
   if (key !== validKey) {
     return res.status(401).json({ error: 'Unauthorized' });
   }

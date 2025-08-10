@@ -1,15 +1,50 @@
 /**
- * Build-time data cache for sharing API responses between pages
- * This prevents duplicate API calls during static generation
+ * Build-time and development data cache for sharing API responses between pages
+ * This prevents duplicate API calls during static generation and provides fresh data in development
+ * 
+ * DEVELOPMENT MODE:
+ * - Data is cached for 10 minutes to provide fresh data without constant API calls
+ * - Restart dev server to get latest data immediately
+ * - Use BuildDataCache.getCacheStatus() to see cache state
+ * - Use BuildDataCache.clearDevCache() to force refresh
+ * 
+ * PRODUCTION BUILD:
+ * - Data is cached once during build and reused across all pages
+ * - No API calls during runtime
  */
 
 // In-memory cache for build-time data sharing
 const buildCache = new Map();
 
+// Development mode cache with timestamps for auto-refresh
+const devCache = new Map();
+const DEV_CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+// Helper to check if we're in development mode
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+// Helper to check if dev cache is expired
+const isDevCacheExpired = (cacheKey) => {
+  if (!devCache.has(cacheKey)) return true;
+  const { timestamp } = devCache.get(cacheKey);
+  return Date.now() - timestamp > DEV_CACHE_TTL;
+};
+
 export class BuildDataCache {
   static async getSolutions() {
     const cacheKey = 'solutions-build-data';
     
+    // Check development cache first (if in dev mode)
+    if (isDevelopment) {
+      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
+        const { data, timestamp } = devCache.get(cacheKey);
+        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+        console.log(`✅ Using dev cache for solutions (${ageMinutes} minutes old)`);
+        return data;
+      }
+    }
+    
+    // Check build cache (for production builds)
     if (buildCache.has(cacheKey)) {
       console.log('✅ Using cached solutions data from index page');
       return buildCache.get(cacheKey);
@@ -45,7 +80,14 @@ export class BuildDataCache {
       
       // Cache the data for reuse
       buildCache.set(cacheKey, solutions);
-      console.log(`✅ Cached ${solutions.length} solutions for reuse`);
+      
+      // Also cache in dev cache if in development mode
+      if (isDevelopment) {
+        devCache.set(cacheKey, { data: solutions, timestamp: Date.now() });
+        console.log(`✅ Cached ${solutions.length} solutions in dev cache (refreshes every 10 minutes)`);
+      } else {
+        console.log(`✅ Cached ${solutions.length} solutions for reuse`);
+      }
       
       return solutions;
     } catch (error) {
@@ -57,6 +99,17 @@ export class BuildDataCache {
   static async getApplications() {
     const cacheKey = 'applications-build-data';
     
+    // Check development cache first (if in dev mode)
+    if (isDevelopment) {
+      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
+        const { data, timestamp } = devCache.get(cacheKey);
+        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+        console.log(`✅ Using dev cache for applications (${ageMinutes} minutes old)`);
+        return data;
+      }
+    }
+    
+    // Check build cache (for production builds)
     if (buildCache.has(cacheKey)) {
       console.log('✅ Using cached applications data from index page');
       return buildCache.get(cacheKey);
@@ -97,7 +150,14 @@ export class BuildDataCache {
       
       // Cache the data for reuse
       buildCache.set(cacheKey, applications);
-      console.log(`✅ Cached ${applications.length} applications for reuse`);
+      
+      // Also cache in dev cache if in development mode
+      if (isDevelopment) {
+        devCache.set(cacheKey, { data: applications, timestamp: Date.now() });
+        console.log(`✅ Cached ${applications.length} applications in dev cache (refreshes every 10 minutes)`);
+      } else {
+        console.log(`✅ Cached ${applications.length} applications for reuse`);
+      }
       
       return applications;
     } catch (error) {
@@ -109,6 +169,17 @@ export class BuildDataCache {
   static async getBlogPosts() {
     const cacheKey = 'blog-posts-build-data';
     
+    // Check development cache first (if in dev mode)
+    if (isDevelopment) {
+      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
+        const { data, timestamp } = devCache.get(cacheKey);
+        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+        console.log(`✅ Using dev cache for blog posts (${ageMinutes} minutes old)`);
+        return data;
+      }
+    }
+    
+    // Check build cache (for production builds)
     if (buildCache.has(cacheKey)) {
       console.log('✅ Using cached blog posts data from index page');
       return buildCache.get(cacheKey);
@@ -149,7 +220,14 @@ export class BuildDataCache {
       
       // Cache the data for reuse
       buildCache.set(cacheKey, blogPosts);
-      console.log(`✅ Cached ${blogPosts.length} blog posts for reuse`);
+      
+      // Also cache in dev cache if in development mode
+      if (isDevelopment) {
+        devCache.set(cacheKey, { data: blogPosts, timestamp: Date.now() });
+        console.log(`✅ Cached ${blogPosts.length} blog posts in dev cache (refreshes every 10 minutes)`);
+      } else {
+        console.log(`✅ Cached ${blogPosts.length} blog posts for reuse`);
+      }
       
       return blogPosts;
     } catch (error) {
@@ -161,6 +239,17 @@ export class BuildDataCache {
   static async getProducts() {
     const cacheKey = 'products-build-data';
     
+    // Check development cache first (if in dev mode)
+    if (isDevelopment) {
+      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
+        const { data, timestamp } = devCache.get(cacheKey);
+        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+        console.log(`✅ Using dev cache for products (${ageMinutes} minutes old)`);
+        return data;
+      }
+    }
+    
+    // Check build cache (for production builds)
     if (buildCache.has(cacheKey)) {
       console.log('✅ Using cached products data from index page');
       return buildCache.get(cacheKey);
@@ -201,7 +290,14 @@ export class BuildDataCache {
       
       // Cache the data for reuse
       buildCache.set(cacheKey, products);
-      console.log(`✅ Cached ${products.length} products for reuse`);
+      
+      // Also cache in dev cache if in development mode
+      if (isDevelopment) {
+        devCache.set(cacheKey, { data: products, timestamp: Date.now() });
+        console.log(`✅ Cached ${products.length} products in dev cache (refreshes every 10 minutes)`);
+      } else {
+        console.log(`✅ Cached ${products.length} products for reuse`);
+      }
       
       return products;
     } catch (error) {
@@ -213,6 +309,38 @@ export class BuildDataCache {
   static clearCache() {
     buildCache.clear();
     console.log('🗑️  Build cache cleared');
+  }
+
+  static clearDevCache() {
+    devCache.clear();
+    console.log('🗑️  Development cache cleared');
+  }
+
+  static clearAllCaches() {
+    buildCache.clear();
+    devCache.clear();
+    console.log('🗑️  All caches cleared');
+  }
+
+  // Get cache status for debugging
+  static getCacheStatus() {
+    const status = {
+      buildCache: {
+        size: buildCache.size,
+        keys: Array.from(buildCache.keys())
+      },
+      devCache: {
+        size: devCache.size,
+        keys: Array.from(devCache.keys()).map(key => {
+          const entry = devCache.get(key);
+          const ageMinutes = Math.round((Date.now() - entry.timestamp) / 60000);
+          return { key, ageMinutes };
+        })
+      },
+      isDevelopment,
+      devCacheTTL: DEV_CACHE_TTL / 60000 // in minutes
+    };
+    return status;
   }
 }
 
