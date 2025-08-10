@@ -3,6 +3,7 @@
  * This prevents duplicate API calls during static generation and provides fresh data in development
  * 
  * DEVELOPMENT MODE:
+ * - Data is cached to a temporary file to persist between page compilations
  * - Data is cached for 10 minutes to provide fresh data without constant API calls
  * - Restart dev server to get latest data immediately
  * - Use BuildDataCache.getCacheStatus() to see cache state
@@ -12,6 +13,10 @@
  * - Data is cached once during build and reused across all pages
  * - No API calls during runtime
  */
+
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // In-memory cache for build-time data sharing
 const buildCache = new Map();
@@ -23,11 +28,77 @@ const DEV_CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
 // Helper to check if we're in development mode
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+// File-based cache for development mode (persists between page compilations)
+const getDevCacheFile = (cacheKey) => {
+  const cacheDir = path.join(os.tmpdir(), 'sytis-dev-cache');
+  if (!fs.existsSync(cacheDir)) {
+    fs.mkdirSync(cacheDir, { recursive: true });
+  }
+  return path.join(cacheDir, `${cacheKey}.json`);
+};
+
 // Helper to check if dev cache is expired
 const isDevCacheExpired = (cacheKey) => {
+  if (isDevelopment) {
+    // Check file-based cache first
+    const cacheFile = getDevCacheFile(cacheKey);
+    if (fs.existsSync(cacheFile)) {
+      try {
+        const cacheData = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+        return Date.now() - cacheData.timestamp > DEV_CACHE_TTL;
+      } catch (error) {
+        console.log(`⚠️ Error reading dev cache file for ${cacheKey}:`, error.message);
+        return true;
+      }
+    }
+    return true;
+  }
+  
+  // Fallback to in-memory cache
   if (!devCache.has(cacheKey)) return true;
   const { timestamp } = devCache.get(cacheKey);
   return Date.now() - timestamp > DEV_CACHE_TTL;
+};
+
+// Helper to get data from dev cache
+const getDevCacheData = (cacheKey) => {
+  if (isDevelopment) {
+    // Try file-based cache first
+    const cacheFile = getDevCacheFile(cacheKey);
+    if (fs.existsSync(cacheFile)) {
+      try {
+        const cacheData = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+        if (Date.now() - cacheData.timestamp <= DEV_CACHE_TTL) {
+          return cacheData;
+        }
+      } catch (error) {
+        console.log(`⚠️ Error reading dev cache file for ${cacheKey}:`, error.message);
+      }
+    }
+  }
+  
+  // Fallback to in-memory cache
+  return devCache.get(cacheKey);
+};
+
+// Helper to set data in dev cache
+const setDevCacheData = (cacheKey, data) => {
+  if (isDevelopment) {
+    // Set file-based cache
+    const cacheFile = getDevCacheFile(cacheKey);
+    try {
+      const cacheData = { data, timestamp: Date.now() };
+      fs.writeFileSync(cacheFile, JSON.stringify(cacheData, null, 2));
+      console.log(`✅ Cached ${data.length} items in dev cache file (refreshes every 10 minutes)`);
+    } catch (error) {
+      console.log(`⚠️ Error writing dev cache file for ${cacheKey}:`, error.message);
+      // Fallback to in-memory cache
+      devCache.set(cacheKey, { data, timestamp: Date.now() });
+    }
+  } else {
+    // Set in-memory cache for production
+    devCache.set(cacheKey, { data, timestamp: Date.now() });
+  }
 };
 
 export class BuildDataCache {
@@ -36,11 +107,11 @@ export class BuildDataCache {
     
     // Check development cache first (if in dev mode)
     if (isDevelopment) {
-      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
-        const { data, timestamp } = devCache.get(cacheKey);
-        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+      const cacheData = getDevCacheData(cacheKey);
+      if (cacheData) {
+        const ageMinutes = Math.round((Date.now() - cacheData.timestamp) / 60000);
         console.log(`✅ Using dev cache for solutions (${ageMinutes} minutes old)`);
-        return data;
+        return cacheData.data;
       }
     }
     
@@ -83,8 +154,7 @@ export class BuildDataCache {
       
       // Also cache in dev cache if in development mode
       if (isDevelopment) {
-        devCache.set(cacheKey, { data: solutions, timestamp: Date.now() });
-        console.log(`✅ Cached ${solutions.length} solutions in dev cache (refreshes every 10 minutes)`);
+        setDevCacheData(cacheKey, solutions);
       } else {
         console.log(`✅ Cached ${solutions.length} solutions for reuse`);
       }
@@ -101,11 +171,11 @@ export class BuildDataCache {
     
     // Check development cache first (if in dev mode)
     if (isDevelopment) {
-      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
-        const { data, timestamp } = devCache.get(cacheKey);
-        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+      const cacheData = getDevCacheData(cacheKey);
+      if (cacheData) {
+        const ageMinutes = Math.round((Date.now() - cacheData.timestamp) / 60000);
         console.log(`✅ Using dev cache for applications (${ageMinutes} minutes old)`);
-        return data;
+        return cacheData.data;
       }
     }
     
@@ -117,12 +187,12 @@ export class BuildDataCache {
 
     console.log('🔄 Fetching applications data for the first time...');
     
-    // Add stagger delay for applications
-    const delay = 15000; // 15 seconds after solutions
+    // Add stagger delay for applications (first to run)
+    const delay = 15000; // 15 seconds
     console.log(`⏳ Applications: Waiting ${delay}ms to avoid rate limits...`);
     await new Promise(resolve => setTimeout(resolve, delay));
     
-    // Retry utility function  
+    // Retry utility function
     const fetchWithRetry = async (url, retries = 3, delay = 5000) => {
       for (let i = 0; i < retries; i++) {
         try {
@@ -153,8 +223,7 @@ export class BuildDataCache {
       
       // Also cache in dev cache if in development mode
       if (isDevelopment) {
-        devCache.set(cacheKey, { data: applications, timestamp: Date.now() });
-        console.log(`✅ Cached ${applications.length} applications in dev cache (refreshes every 10 minutes)`);
+        setDevCacheData(cacheKey, applications);
       } else {
         console.log(`✅ Cached ${applications.length} applications for reuse`);
       }
@@ -171,11 +240,11 @@ export class BuildDataCache {
     
     // Check development cache first (if in dev mode)
     if (isDevelopment) {
-      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
-        const { data, timestamp } = devCache.get(cacheKey);
-        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+      const cacheData = getDevCacheData(cacheKey);
+      if (cacheData) {
+        const ageMinutes = Math.round((Date.now() - cacheData.timestamp) / 60000);
         console.log(`✅ Using dev cache for blog posts (${ageMinutes} minutes old)`);
-        return data;
+        return cacheData.data;
       }
     }
     
@@ -223,8 +292,7 @@ export class BuildDataCache {
       
       // Also cache in dev cache if in development mode
       if (isDevelopment) {
-        devCache.set(cacheKey, { data: blogPosts, timestamp: Date.now() });
-        console.log(`✅ Cached ${blogPosts.length} blog posts in dev cache (refreshes every 10 minutes)`);
+        setDevCacheData(cacheKey, blogPosts);
       } else {
         console.log(`✅ Cached ${blogPosts.length} blog posts for reuse`);
       }
@@ -241,11 +309,11 @@ export class BuildDataCache {
     
     // Check development cache first (if in dev mode)
     if (isDevelopment) {
-      if (!isDevCacheExpired(cacheKey) && devCache.has(cacheKey)) {
-        const { data, timestamp } = devCache.get(cacheKey);
-        const ageMinutes = Math.round((Date.now() - timestamp) / 60000);
+      const cacheData = getDevCacheData(cacheKey);
+      if (cacheData) {
+        const ageMinutes = Math.round((Date.now() - cacheData.timestamp) / 60000);
         console.log(`✅ Using dev cache for products (${ageMinutes} minutes old)`);
-        return data;
+        return cacheData.data;
       }
     }
     
@@ -293,8 +361,7 @@ export class BuildDataCache {
       
       // Also cache in dev cache if in development mode
       if (isDevelopment) {
-        devCache.set(cacheKey, { data: products, timestamp: Date.now() });
-        console.log(`✅ Cached ${products.length} products in dev cache (refreshes every 10 minutes)`);
+        setDevCacheData(cacheKey, products);
       } else {
         console.log(`✅ Cached ${products.length} products for reuse`);
       }
@@ -312,17 +379,37 @@ export class BuildDataCache {
   }
 
   static clearDevCache() {
+    // Clear in-memory cache
     devCache.clear();
-    console.log('🗑️  Development cache cleared');
+    
+    // Clear file-based cache
+    if (isDevelopment) {
+      try {
+        const cacheDir = path.join(os.tmpdir(), 'sytis-dev-cache');
+        if (fs.existsSync(cacheDir)) {
+          const files = fs.readdirSync(cacheDir);
+          files.forEach(file => {
+            if (file.endsWith('.json')) {
+              fs.unlinkSync(path.join(cacheDir, file));
+            }
+          });
+        }
+        console.log('🗑️  Development cache cleared (both memory and files)');
+      } catch (error) {
+        console.log('⚠️ Error clearing file cache:', error.message);
+        console.log('🗑️  Development memory cache cleared');
+      }
+    } else {
+      console.log('🗑️  Development cache cleared');
+    }
   }
 
   static clearAllCaches() {
     buildCache.clear();
-    devCache.clear();
+    this.clearDevCache();
     console.log('🗑️  All caches cleared');
   }
 
-  // Get cache status for debugging
   static getCacheStatus() {
     const status = {
       buildCache: {
@@ -340,6 +427,38 @@ export class BuildDataCache {
       isDevelopment,
       devCacheTTL: DEV_CACHE_TTL / 60000 // in minutes
     };
+
+    // Add file-based cache info for development mode
+    if (isDevelopment) {
+      try {
+        const cacheDir = path.join(os.tmpdir(), 'sytis-dev-cache');
+        if (fs.existsSync(cacheDir)) {
+          const files = fs.readdirSync(cacheDir);
+          status.fileCache = {
+            directory: cacheDir,
+            files: files.map(file => {
+              if (file.endsWith('.json')) {
+                try {
+                  const cacheData = JSON.parse(fs.readFileSync(path.join(cacheDir, file), 'utf8'));
+                  const ageMinutes = Math.round((Date.now() - cacheData.timestamp) / 60000);
+                  return { 
+                    file, 
+                    ageMinutes,
+                    dataLength: Array.isArray(cacheData.data) ? cacheData.data.length : 'unknown'
+                  };
+                } catch (error) {
+                  return { file, error: error.message };
+                }
+              }
+              return null;
+            }).filter(Boolean)
+          };
+        }
+      } catch (error) {
+        status.fileCache = { error: error.message };
+      }
+    }
+
     return status;
   }
 }

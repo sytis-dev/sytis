@@ -5,19 +5,23 @@ const useScroll = (scrollSize = 0) => {
   const [scrollTop, setScrollTop] = useState(false);
 
   const handleSet = useCallback(() => {
-    setScroll(window?.scrollY);
-    if (window?.scrollY > scrollSize) {
-      setScrollTop(true);
-    } else {
-      setScrollTop(false);
+    if (typeof window !== 'undefined') {
+      setScroll(window.scrollY);
+      if (window.scrollY > scrollSize) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
     }
   }, [scrollSize]);
 
   useEffect(() => {
-    handleSet();
-    window.addEventListener("scroll", handleSet);
+    if (typeof window !== 'undefined') {
+      handleSet();
+      window.addEventListener("scroll", handleSet);
 
-    return () => window.removeEventListener("scroll", handleSet);
+      return () => window.removeEventListener("scroll", handleSet);
+    }
   }, [handleSet]);
 
   return { scrollTop, scroll };

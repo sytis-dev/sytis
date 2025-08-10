@@ -5898,6 +5898,7 @@ img.lazy-image.loaded {
   position: relative;
 }
 
+/* General tab styles - base layout for all tab components */
 .tabs-box .tab-buttons {
   position: relative;
 }
@@ -5922,6 +5923,7 @@ img.lazy-image.loaded {
   display: block;
 }
 
+/* About Page Tabs - 3 tabs layout (original styling) */
 .default-tabs .tab-buttons .tab-btn {
   position: relative;
   line-height: 30px;
@@ -6563,7 +6565,7 @@ img.lazy-image.loaded {
 }
 
 .news-two__meta li::after {
-  content: "-";
+  content: "";
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -8696,7 +8698,7 @@ img.lazy-image.loaded {
 }
 
 .testimonials-six__meta span:not(:last-child)::after {
-  content: "-";
+  content: "";
   margin-left: 20px;
   margin-right: 20px;
   color: var(--thm-text) !important;
@@ -9931,6 +9933,7 @@ img.lazy-image.loaded {
   position: relative;
 }
 
+/* Product Details Page Tabs Container - 5 tabs layout */
 .work-tabs .tab-buttons {
   position: relative;
   display: block;
@@ -9939,12 +9942,15 @@ img.lazy-image.loaded {
   text-align: center;
   margin-bottom: 50px;
   overflow: hidden;
+  /* Ensure proper spacing for 5 tabs */
+  white-space: nowrap;
 }
 
+/* Product Details Page Tabs - 5 tabs layout */
 .work-tabs .tab-buttons .tab-btn {
   position: relative;
   float: left;
-  width: 25%; /* Changed from 33.333% to 25% to fit 4 tabs */
+  width: 20%; /* Changed from 25% to 20% to fit 5 tabs */
   line-height: 40px;
   font-size: 30px;
   font-weight: 400;
@@ -9956,6 +9962,43 @@ img.lazy-image.loaded {
   font-family: var(--thm-font);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  /* Ensure proper layout for 5 tabs */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+/* WeWorkSection Tabs Container - 3 tabs with product tab styling */
+.we-work-section .default-tabs .tab-buttons {
+  position: relative;
+  display: block;
+  background: #f4f5f8;
+  border-radius: 7px;
+  text-align: center;
+  margin-bottom: 50px;
+  overflow: hidden;
+  /* Ensure proper spacing for 3 tabs */
+  white-space: nowrap;
+}
+
+/* WeWorkSection Tabs - 3 tabs with product tab styling but full width */
+.we-work-section .default-tabs .tab-buttons .tab-btn {
+  position: relative;
+  float: left;
+  width: 33.333%; /* 3 tabs spanning full width */
+  line-height: 40px;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--thm-black);
+  padding: 30px 15px;
+  text-transform: uppercase;
+  margin: 0;
+  font-family: var(--thm-font);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  /* Ensure proper layout for 3 tabs */
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .work-tabs .tab-buttons .tab-btn span {
@@ -9982,6 +10025,99 @@ img.lazy-image.loaded {
 
 .work-tabs .tab-buttons .tab-btn.active-btn {
   color: #ffffff;
+}
+
+/* WeWorkSection Tabs - Hover and Active States */
+.we-work-section .default-tabs .tab-buttons .tab-btn:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0px;
+  background: #DC0509;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.we-work-section .default-tabs .tab-buttons .tab-btn.active-btn:before {
+  height: 100%;
+}
+
+.we-work-section .default-tabs .tab-buttons .tab-btn.active-btn {
+  color: #ffffff;
+}
+
+/* Responsive adjustments for Product Details Page Tabs - 5 tabs layout */
+@media only screen and (max-width: 1199px) {
+  .work-tabs .tab-buttons .tab-btn {
+    font-size: 26px;
+    padding: 25px 10px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .work-tabs .tab-buttons .tab-btn {
+    font-size: 22px;
+    padding: 20px 8px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .work-tabs .tab-buttons .tab-btn {
+    width: 100%;
+    float: none;
+    font-size: 20px;
+    padding: 15px 10px;
+    margin-bottom: 5px;
+  }
+  
+  .work-tabs .tab-buttons {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .work-tabs .tab-buttons .tab-btn {
+    font-size: 18px;
+    padding: 12px 8px;
+  }
+}
+
+/* Responsive adjustments for WeWorkSection Tabs - 3 tabs layout */
+@media only screen and (max-width: 1199px) {
+  .we-work-section .default-tabs .tab-buttons .tab-btn {
+    font-size: 26px;
+    padding: 25px 10px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .we-work-section .default-tabs .tab-buttons .tab-btn {
+    font-size: 22px;
+    padding: 20px 8px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .we-work-section .default-tabs .tab-buttons .tab-btn {
+    width: 100%;
+    float: none;
+    font-size: 20px;
+    padding: 15px 10px;
+    margin-bottom: 5px;
+  }
+  
+  .we-work-section .default-tabs .tab-buttons {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .we-work-section .default-tabs .tab-buttons .tab-btn {
+    font-size: 18px;
+    padding: 12px 8px;
+  }
 }
 
 .work-tabs .tabs-content {
@@ -11078,7 +11214,7 @@ img.lazy-image.loaded {
   font-size: 20px;
   line-height: 30px;
   font-weight: 400;
-  content: "-";
+  content: "";
 }
 
 .page-banner .bread-crumb li:last-child {
@@ -24639,6 +24775,322 @@ img.lazy-image.loaded {
   margin-bottom: 20px;
   border-bottom: 2px solid var(--thm-base);
   padding-bottom: 10px;
+}
+
+/* Enhanced HTML content styling for product description tabs */
+.product-tabs__panel-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Refined HTML content styles */
+.product-tabs__panel-text h1,
+.product-tabs__panel-text h2,
+.product-tabs__panel-text h3,
+.product-tabs__panel-text h4,
+.product-tabs__panel-text h5,
+.product-tabs__panel-text h6 {
+  font-family: var(--thm-font);
+  color: var(--thm-black);
+  font-weight: 600;
+  margin: 20px 0 15px 0;
+  line-height: 1.3;
+}
+
+.product-tabs__panel-text h1 { font-size: 32px; }
+.product-tabs__panel-text h2 { font-size: 28px; }
+.product-tabs__panel-text h3 { font-size: 24px; }
+.product-tabs__panel-text h4 { font-size: 20px; }
+.product-tabs__panel-text h5 { font-size: 18px; }
+.product-tabs__panel-text h6 { font-size: 16px; }
+
+.product-tabs__panel-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--thm-text);
+  margin: 0 0 15px 0;
+}
+
+.product-tabs__panel-text ul,
+.product-tabs__panel-text ol {
+  margin: 15px 0;
+  padding-left: 25px;
+  color: var(--thm-text);
+  list-style: none;
+}
+
+.product-tabs__panel-text li {
+  margin: 8px 0;
+  line-height: 1.5;
+  color: var(--thm-text);
+}
+
+.product-tabs__panel-text strong,
+.product-tabs__panel-text b {
+  font-weight: 600;
+  color: var(--thm-black);
+}
+
+.product-tabs__panel-text em,
+.product-tabs__panel-text i {
+  font-style: italic;
+  color: var(--thm-text);
+}
+
+.product-tabs__panel-text a {
+  color: var(--thm-base);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.product-tabs__panel-text a:hover {
+  text-decoration: underline;
+  color: var(--thm-black);
+}
+
+/* Additional styling to match other tabs */
+.product-tabs__panel-text > *:first-child {
+  margin-top: 0;
+}
+
+.product-tabs__panel-text > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Clean styling for description content */
+.product-tabs__panel-text h1,
+.product-tabs__panel-text h2,
+.product-tabs__panel-text h3,
+.product-tabs__panel-text h4,
+.product-tabs__panel-text h5,
+.product-tabs__panel-text h6 {
+  margin-bottom: 20px;
+}
+
+.product-tabs__panel-text p {
+  margin-bottom: 20px;
+}
+
+.product-tabs__panel-text ul,
+.product-tabs__panel-text ol {
+  margin-bottom: 20px;
+}
+
+/* Resources Tab - Datasheet Link Styling */
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  color: var(--thm-base);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:before {
+  content: "📄";
+  margin-right: 10px;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover {
+  background: linear-gradient(135deg, var(--thm-base) 0%, #b91c1c 100%);
+  color: white;
+  border-color: var(--thm-base);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 5, 9, 0.3);
+}
+
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover:before {
+  transform: scale(1.1);
+}
+
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(220, 5, 9, 0.2);
+}
+
+/* Resources Tab - List Item Styling */
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text li {
+  margin: 15px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text li:before {
+  display: none;
+}
+
+/* Resources Tab - Active State */
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:focus {
+  outline: 2px solid var(--thm-base);
+  outline-offset: 2px;
+}
+
+.product-tabs__panel-text table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border: 1px solid #e9ebee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-tabs__panel-text th {
+  background-color: var(--thm-base);
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  font-family: var(--thm-font);
+}
+
+.product-tabs__panel-text td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e9ebee;
+  color: var(--thm-text);
+}
+
+.product-tabs__panel-text blockquote {
+  margin: 20px 0;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--thm-base);
+  border-radius: 4px;
+  font-style: italic;
+  color: var(--thm-text);
+}
+
+.product-tabs__panel-text code {
+  background-color: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  color: var(--thm-black);
+}
+
+.product-tabs__panel-text pre {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  overflow: auto;
+  border: 1px solid #e9ebee;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.product-tabs__panel-text img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-tabs__panel-text hr {
+  border: none;
+  height: 2px;
+  background-color: var(--thm-base);
+  margin: 30px 0;
+  border-radius: 1px;
+}
+
+/* Responsive design for product tabs content */
+@media (max-width: 768px) {
+  .product-tabs__panel-text h1 { font-size: 24px; }
+  .product-tabs__panel-text h2 { font-size: 20px; }
+  .product-tabs__panel-text h3 { font-size: 18px; }
+  .product-tabs__panel-text h4 { font-size: 16px; }
+  .product-tabs__panel-text h5 { font-size: 15px; }
+  .product-tabs__panel-text h6 { font-size: 14px; }
+  
+  .product-tabs__panel-text p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .product-tabs__panel-text ul,
+  .product-tabs__panel-text ol {
+    padding-left: 20px;
+  }
+  
+  .product-tabs__panel-text table {
+    font-size: 14px;
+  }
+  
+  .product-tabs__panel-text th,
+  .product-tabs__panel-text td {
+    padding: 8px 10px;
+  }
+  
+  .product-tabs__panel-text blockquote {
+    padding: 12px 15px;
+    margin: 15px 0;
+  }
+  
+  .product-tabs__panel-text pre {
+    padding: 12px;
+    font-size: 13px;
+  }
+  
+  .product-tabs__panel-text code {
+    font-size: 13px;
+    padding: 1px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-tabs__panel-text h1 { font-size: 20px; }
+  .product-tabs__panel-text h2 { font-size: 18px; }
+  .product-tabs__panel-text h3 { font-size: 16px; }
+  .product-tabs__panel-text h4 { font-size: 15px; }
+  .product-tabs__panel-text h5 { font-size: 14px; }
+  .product-tabs__panel-text h6 { font-size: 13px; }
+  
+  .product-tabs__panel-text p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .product-tabs__panel-text ul,
+  .product-tabs__panel-text ol {
+    padding-left: 15px;
+  }
+  
+  .product-tabs__panel-text table {
+    font-size: 12px;
+  }
+  
+  .product-tabs__panel-text th,
+  .product-tabs__panel-text td {
+    padding: 6px 8px;
+  }
+  
+  .product-tabs__panel-text blockquote {
+    padding: 10px 12px;
+    margin: 12px 0;
+  }
+  
+  .product-tabs__panel-text pre {
+    padding: 10px;
+    font-size: 12px;
+  }
+  
+  .product-tabs__panel-text code {
+    font-size: 12px;
+    padding: 1px 3px;
+  }
 }
 
 .product-tabs__panel-list {

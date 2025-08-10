@@ -14,7 +14,7 @@ const WeWorkSection = () => {
           <h2>
           </h2>
         </div>
-        <div className="work-tabs tabs-box">
+        <div className="default-tabs tabs-box">
           <ul className="tab-btns tab-buttons clearfix">
             {tabBtns.map(({ id, title }) => (
               <li
