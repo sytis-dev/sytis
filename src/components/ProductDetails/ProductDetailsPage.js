@@ -26,10 +26,303 @@ const ProductDetailsPage = ({ product }) => {
     { key: 'tab_description', label: 'Description' },
     { key: 'tab_features', label: 'Features' },
     { key: 'tab_applications', label: 'Applications' },
+    { key: 'tab_specifications', label: 'Specifications' },
     { key: 'tab_resources', label: 'Resources' }
   ];
 
+  // Function to refine HTML content to match design system and remove duplicates
+  const refineHtmlContent = (htmlContent) => {
+    if (!htmlContent || typeof htmlContent !== 'string') return htmlContent;
+    
+    try {
+      // Create a temporary DOM element to parse and manipulate HTML
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      
+      // Get existing tab content to identify duplicates
+      const existingTabContent = [];
+      if (safeProduct?.tabs && Array.isArray(safeProduct.tabs)) {
+        safeProduct.tabs.forEach(tab => {
+          if (tab && tab.value && typeof tab.value === 'object') {
+            if (tab.value.title) {
+              existingTabContent.push(tab.value.title.toLowerCase());
+            }
+            if (tab.value.items && Array.isArray(tab.value.items)) {
+              tab.value.items.forEach(item => {
+                if (typeof item === 'string') {
+                  existingTabContent.push(item.toLowerCase());
+                }
+              });
+            }
+          }
+        });
+      }
+      
+      // Function to check if content is duplicate
+      const isDuplicateContent = (element) => {
+        const text = element.textContent?.toLowerCase() || '';
+        const tagName = element.tagName.toLowerCase();
+        
+        // Check for duplicate headings that match tab titles
+        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+          return existingTabContent.some(tabContent => 
+            tabContent.includes(text) || text.includes(tabContent)
+          );
+        }
+        
+        // Check for duplicate list items that match tab content
+        if (tagName === 'li') {
+          return existingTabContent.some(tabContent => 
+            tabContent.includes(text) || text.includes(tabContent)
+          );
+        }
+        
+        // Check for duplicate paragraphs that match tab content
+        if (tagName === 'p') {
+          return existingTabContent.some(tabContent => 
+            tabContent.includes(text) || text.includes(tabContent)
+          );
+        }
+        
+        // Check for specifications content that should be removed from description
+        if (text.includes('specifications') || text.includes('specs') || text.includes('technical specifications')) {
+          return true;
+        }
+        
+        return false;
+      };
+      
+      // Remove duplicate content elements
+      const elementsToRemove = [];
+      const allElements = tempDiv.querySelectorAll('*');
+      
+      allElements.forEach(element => {
+        if (isDuplicateContent(element)) {
+          elementsToRemove.push(element);
+        }
+      });
+      
+      // Remove duplicate elements
+      elementsToRemove.forEach(element => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      });
+      
+      // Clean up empty containers
+      const cleanupEmptyContainers = (container) => {
+        const children = Array.from(container.children);
+        children.forEach(child => {
+          if (child.children.length === 0 && 
+              (!child.textContent || child.textContent.trim() === '') &&
+              child.tagName.toLowerCase() !== 'img') {
+            container.removeChild(child);
+          } else if (child.children.length > 0) {
+            cleanupEmptyContainers(child);
+          }
+        });
+      };
+      
+      cleanupEmptyContainers(tempDiv);
+      
+      // No wrapper needed for clean description styling
+      
+      // Apply design system classes and styling
+      const elements = tempDiv.querySelectorAll('*');
+      
+      elements.forEach(element => {
+        const tagName = element.tagName.toLowerCase();
+        
+        // Headings - apply design system styling
+        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+          element.style.fontFamily = 'var(--thm-font)';
+          element.style.color = 'var(--thm-black)';
+          element.style.fontWeight = '600';
+          element.style.margin = '20px 0 15px 0';
+          element.style.lineHeight = '1.3';
+          
+          // Specific heading sizes
+          if (tagName === 'h1') element.style.fontSize = '32px';
+          else if (tagName === 'h2') element.style.fontSize = '28px';
+          else if (tagName === 'h3') element.style.fontSize = '24px';
+          else if (tagName === 'h4') element.style.fontSize = '20px';
+          else if (tagName === 'h5') element.style.fontSize = '18px';
+          else if (tagName === 'h6') element.style.fontSize = '16px';
+        }
+        
+        // Paragraphs
+        if (tagName === 'p') {
+          element.style.fontSize = '16px';
+          element.style.lineHeight = '1.6';
+          element.style.color = 'var(--thm-text)';
+          element.style.margin = '0 0 15px 0';
+          element.style.fontFamily = 'inherit';
+        }
+        
+        // Lists
+        if (['ul', 'ol'].includes(tagName)) {
+          element.style.margin = '15px 0';
+          element.style.paddingLeft = '25px';
+          element.style.color = 'var(--thm-text)';
+        }
+        
+        if (tagName === 'li') {
+          element.style.margin = '8px 0';
+          element.style.lineHeight = '1.5';
+          element.style.color = 'var(--thm-text)';
+        }
+        
+        // Strong/Bold text
+        if (['strong', 'b'].includes(tagName)) {
+          element.style.fontWeight = '600';
+          element.style.color = 'var(--thm-black)';
+        }
+        
+        // Italic text
+        if (['em', 'i'].includes(tagName)) {
+          element.style.fontStyle = 'italic';
+          element.style.color = 'var(--thm-text)';
+        }
+        
+        // Links
+        if (tagName === 'a') {
+          element.style.color = 'var(--thm-base)';
+          element.style.textDecoration = 'none';
+          element.style.transition = 'all 0.3s ease';
+          element.style.fontWeight = '500';
+          
+          // Add hover effect
+          element.addEventListener('mouseenter', () => {
+            element.style.textDecoration = 'underline';
+            element.style.color = 'var(--thm-black)';
+          });
+          
+          element.addEventListener('mouseleave', () => {
+            element.style.textDecoration = 'none';
+            element.style.color = 'var(--thm-base)';
+          });
+        }
+        
+        // Tables
+        if (tagName === 'table') {
+          element.style.width = '100%';
+          element.style.borderCollapse = 'collapse';
+          element.style.margin = '20px 0';
+          element.style.border = '1px solid #e9ebee';
+          element.style.borderRadius = '8px';
+          element.style.overflow = 'hidden';
+          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+        }
+        
+        if (tagName === 'th') {
+          element.style.backgroundColor = 'var(--thm-base)';
+          element.style.color = 'white';
+          element.style.padding = '12px 15px';
+          element.style.textAlign = 'left';
+          element.style.fontWeight = '600';
+          element.style.fontFamily = 'var(--thm-font)';
+        }
+        
+        if (tagName === 'td') {
+          element.style.padding = '12px 15px';
+          element.style.borderBottom = '1px solid #e9ebee';
+          element.style.color = 'var(--thm-text)';
+        }
+        
+        // Blockquotes
+        if (tagName === 'blockquote') {
+          element.style.margin = '20px 0';
+          element.style.padding = '15px 20px';
+          element.style.backgroundColor = '#f8f9fa';
+          element.style.borderLeft = '4px solid var(--thm-base)';
+          element.style.borderRadius = '4px';
+          element.style.fontStyle = 'italic';
+          element.style.color = 'var(--thm-text)';
+          element.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
+        }
+        
+        // Code blocks
+        if (tagName === 'code') {
+          element.style.backgroundColor = '#f8f9fa';
+          element.style.padding = '2px 6px';
+          element.style.borderRadius = '4px';
+          element.style.fontFamily = 'monospace';
+          element.style.fontSize = '14px';
+          element.style.color = 'var(--thm-black)';
+          element.style.border = '1px solid #e9ebee';
+        }
+        
+        // Pre blocks
+        if (tagName === 'pre') {
+          element.style.backgroundColor = '#f8f9fa';
+          element.style.padding = '15px';
+          element.style.borderRadius = '8px';
+          element.style.overflow = 'auto';
+          element.style.border = '1px solid #e9ebee';
+          element.style.fontFamily = 'monospace';
+          element.style.fontSize = '14px';
+          element.style.lineHeight = '1.4';
+          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+        }
+        
+        // Images
+        if (tagName === 'img') {
+          element.style.maxWidth = '100%';
+          element.style.height = 'auto';
+          element.style.borderRadius = '8px';
+          element.style.margin = '15px 0';
+          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+          element.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+        }
+        
+        // Add hover effect for images
+        if (tagName === 'img') {
+          element.addEventListener('mouseenter', () => {
+            element.style.transform = 'scale(1.02)';
+            element.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.15)';
+          });
+          
+          element.addEventListener('mouseleave', () => {
+            element.style.transform = 'scale(1)';
+            element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+          });
+        }
+        
+        // Horizontal rules
+        if (tagName === 'hr') {
+          element.style.border = 'none';
+          element.style.height = '2px';
+          element.style.backgroundColor = 'var(--thm-base)';
+          element.style.margin = '30px 0';
+          element.style.borderRadius = '1px';
+        }
+        
+        // Div containers - add some spacing
+        if (tagName === 'div' && !element.classList.contains('product-tabs__panel-text')) {
+          element.style.marginBottom = '15px';
+        }
+        
+        // Span elements - ensure proper text color inheritance
+        if (tagName === 'span') {
+          element.style.color = 'inherit';
+        }
+      });
+      
+      return tempDiv.innerHTML;
+    } catch (error) {
+      console.warn('Error refining HTML content:', error);
+      // Return original content if refinement fails
+      return htmlContent;
+    }
+  };
+
   const getTabContent = (tabKey) => {
+    // Special handling for description tab - use product.description directly
+    if (tabKey === 'tab_description' && safeProduct?.description) {
+      return refineHtmlContent(safeProduct.description);
+    }
+    
+    // For other tabs, look in the tabs array
     if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs)) return null;
     const tab = safeProduct.tabs.find(t => t && t.key === tabKey);
     return tab?.value;
@@ -37,6 +330,12 @@ const ProductDetailsPage = ({ product }) => {
 
   // Find the first available tab to set as default
   const getFirstAvailableTab = () => {
+    // If product has a description, prioritize the description tab
+    if (safeProduct?.description) {
+      return 'tab_description';
+    }
+    
+    // Otherwise, look for the first available tab
     if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs) || safeProduct.tabs.length === 0) return 'tab_description';
     for (const tab of tabs) {
       if (getTabContent(tab.key)) {
@@ -437,12 +736,15 @@ const ProductDetailsPage = ({ product }) => {
             <ul className="tab-btns tab-buttons clearfix">
               {tabs.map((tab) => {
                 const content = getTabContent(tab.key);
+                // For description tab, check if product.description exists
+                const isClickable = tab.key === 'tab_description' ? 
+                  (safeProduct?.description || content) : content;
                 return (
                   <li
                     key={tab.key}
-                    onClick={() => content && setActiveTab(tab.key)}
+                    onClick={() => isClickable && setActiveTab(tab.key)}
                     className={`tab-btn${activeTab === tab.key ? " active-btn" : ""}`}
-                    style={{ cursor: content ? 'pointer' : 'not-allowed', opacity: content ? 1 : 0.5 }}
+                    style={{ cursor: isClickable ? 'pointer' : 'not-allowed', opacity: isClickable ? 1 : 0.5 }}
                   >
                     <span>{tab.label}</span>
                   </li>
@@ -462,21 +764,27 @@ const ProductDetailsPage = ({ product }) => {
                     {content ? (
                       <div className="text-col">
                         <div className="inner">
-                          {content.title && (
+                          {/* For description tab, don't show title since it's just HTML content */}
+                          {tab.key !== 'tab_description' && content.title && (
                             <h3 className="product-tabs__panel-title">{content.title}</h3>
                           )}
                           {content.items && content.items.length > 0 ? (
                             <ul className="product-tabs__panel-list">
                               {content.items.map((item, index) => (
                                 <li key={index} className="product-tabs__panel-item">
-                                  {item}
+                                  <div 
+                                    dangerouslySetInnerHTML={{ __html: item }}
+                                  />
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <div className="product-tabs__panel-text">
-                              {typeof content === 'string' ? content : 'Content available'}
-                            </div>
+                            <div 
+                              className="product-tabs__panel-text"
+                              dangerouslySetInnerHTML={{ 
+                                __html: typeof content === 'string' ? content : 'Content available' 
+                              }}
+                            />
                           )}
                         </div>
                       </div>

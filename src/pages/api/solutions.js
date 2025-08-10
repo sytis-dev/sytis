@@ -211,7 +211,8 @@ export default async function handler(req, res) {
                   const metafieldsData = await metafieldsResponse.json();
                   
                   // Define the tab keys we're looking for
-                  const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources'];
+                  // Note: tab_specifications is optional and will be filtered out if not present
+                  const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources', 'tab_specifications'];
                   
                   tabs = tabKeys
                     .map(key => {

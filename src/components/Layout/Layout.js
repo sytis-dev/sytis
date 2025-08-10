@@ -46,7 +46,7 @@ const Layout = ({
       >
         {children}
       </main>
-      {scrollTop && (
+      {scrollTop && typeof window !== 'undefined' && (
         <ScrollLink
           to="wrapper"
           smooth={true}

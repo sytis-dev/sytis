@@ -226,7 +226,8 @@ export default async function handler(req, res) {
           if (metafieldsData) {
             
             // Define the tab keys we're looking for
-            const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources'];
+            // Note: tab_specifications is optional and will be filtered out if not present
+            const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources', 'tab_specifications'];
             
             tabs = tabKeys
               .map(key => {
@@ -264,6 +265,7 @@ export default async function handler(req, res) {
 
         // Determine which solution this product belongs to
         const solutionId = getProductSolution(product.categories, solutionCategories, product.id);
+        const solutionCategory = solutionCategories.find(cat => cat.category_id === solutionId);
 
         return {
           id: product.id,
@@ -275,7 +277,8 @@ export default async function handler(req, res) {
           brandId: product.brand_id,
           price: product.calculated_price,
           categories: product.categories,
-          solution: solutionId, // New solution property
+          solution: solutionId, // Solution ID for reference
+          solutionName: solutionCategory?.name || "Other Products", // Solution name for display
           is_price_hidden: product.is_price_hidden,
           meta_description: product.meta_description?.trim() || null,
           meta_keywords: product.meta_keywords,
