@@ -363,7 +363,7 @@ figure {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: #4682b4;
+  background: #dc3545;
   color: #ffffff;
   border-radius: 5px;
   overflow: hidden;
@@ -17675,6 +17675,478 @@ img.lazy-image.loaded {
 @media (min-width: 992px) {
   .events-details .events-one__title {
     font-size: 50px;
+  }
+}
+
+/* Events View Toggle Styles */
+.events-view-toggle {
+  margin-bottom: 40px;
+}
+
+.view-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-toggle-buttons {
+  display: flex;
+  background-color: #f4f5f8;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-family: var(--thm-font);
+  font-size: 16px;
+  color: var(--thm-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.view-toggle-btn:hover {
+  color: var(--thm-black);
+}
+
+.view-toggle-btn.active {
+  background-color: var(--thm-base);
+  color: #fff;
+}
+
+.toggle-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.toggle-label {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile responsive styles for view toggle */
+@media (max-width: 768px) {
+  .view-toggle-buttons {
+    padding: 6px;
+    gap: 6px;
+  }
+  
+  .view-toggle-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    gap: 6px;
+    min-width: 140px;
+  }
+  
+  .toggle-icon {
+    font-size: 16px;
+  }
+  
+  .toggle-label {
+    font-size: 13px;
+    font-weight: 600;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-toggle-buttons {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .view-toggle-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+    justify-content: center;
+    width: 100%;
+    min-width: 200px;
+  }
+  
+  .toggle-icon {
+    font-size: 18px;
+  }
+  
+  .toggle-label {
+    font-size: 14px;
+    font-weight: 600;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Force labels to always be visible on all screen sizes */
+.toggle-label {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
+/* Past Event Styles */
+.past-event {
+  position: relative;
+}
+
+.past-event .events-one__image img {
+  transition: all 0.3s ease;
+}
+
+.past-event .events-one__dates {
+  transition: all 0.3s ease;
+}
+
+.past-event .events-one__date {
+  transition: all 0.3s ease;
+}
+
+.past-event-indicator {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.past-event-badge {
+  display: inline-block;
+  background-color: #6c757d;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Event Modal Styles */
+.event-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-modal-image {
+  text-align: center;
+}
+
+.event-modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.event-modal-date {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.event-modal-date-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--thm-base);
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.event-modal-days {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.event-modal-month {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.event-modal-date-text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--thm-text);
+}
+
+.event-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-modal-time,
+.event-modal-address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--thm-text);
+}
+
+.event-modal-time i,
+.event-modal-address i {
+  color: var(--thm-base);
+  width: 16px;
+}
+
+/* Events Calendar Styles */
+.events-calendar {
+  padding-top: 20px;
+}
+
+.calendar-header {
+  margin-bottom: 30px;
+}
+
+.calendar-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.calendar-nav-btn {
+  background: var(--thm-base);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.calendar-nav-btn:hover {
+  background: var(--thm-black);
+  transform: scale(1.05);
+}
+
+.calendar-title {
+  text-align: center;
+}
+
+.calendar-title h3 {
+  font-family: var(--thm-font);
+  font-size: 32px;
+  color: var(--thm-black);
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+.current-month-btn {
+  background: var(--thm-black);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--thm-b-font);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.current-month-btn:hover {
+  background: var(--thm-base);
+}
+
+.calendar-grid {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--thm-base);
+}
+
+.weekday-header {
+  padding: 20px 10px;
+  text-align: center;
+  font-family: var(--thm-font);
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weekday-header:last-child {
+  border-right: none;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+  min-height: 120px;
+  border-right: 1px solid #e9ebee;
+  border-bottom: 1px solid #e9ebee;
+  padding: 10px;
+  position: relative;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.calendar-day:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-day:hover {
+  background: #f8f9fa;
+}
+
+.calendar-day.empty {
+  background: #f8f9fa;
+}
+
+.calendar-day.today {
+  background: rgba(255, 170, 23, 0.1);
+}
+
+.calendar-day.has-events {
+  background: rgba(255, 170, 23, 0.05);
+}
+
+.day-number {
+  font-family: var(--thm-font);
+  font-size: 20px;
+  color: var(--thm-black);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.day-event {
+  background: var(--thm-base);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.event-link {
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--thm-b-font);
+  font-size: 11px;
+  line-height: 1.2;
+  display: block;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.event-link:hover {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.more-events {
+  background: var(--thm-black);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--thm-b-font);
+  font-size: 10px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--thm-b-font);
+  font-size: 14px;
+  color: var(--thm-text);
+}
+
+.legend-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.legend-dot.has-events {
+  background: var(--thm-base);
+}
+
+.legend-dot.today {
+  background: var(--thm-black);
+}
+
+/* Responsive Calendar */
+@media (max-width: 768px) {
+  .calendar-day {
+    min-height: 100px;
+    padding: 8px 6px;
+  }
+  
+  .day-number {
+    font-size: 16px;
+  }
+  
+  .event-link {
+    font-size: 10px;
+  }
+  
+  .calendar-title h3 {
+    font-size: 24px;
+  }
+  
+  .view-toggle-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  .view-toggle-btn span {
+    display: none;
+  }
+  
+  .view-toggle-btn i {
+    font-size: 16px;
   }
 }
 
