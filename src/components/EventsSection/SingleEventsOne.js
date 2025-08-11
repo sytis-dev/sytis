@@ -26,7 +26,7 @@ const eventImages = {
   "nsc-2025.png": nsc2025,
 };
 
-const SingleEventsOne = ({ event = {} }) => {
+const SingleEventsOne = ({ event = {}, isPast = false }) => {
   const { title, image, date, endDate, time, address, link, days, month } =
     event;
 
@@ -36,11 +36,24 @@ const SingleEventsOne = ({ event = {} }) => {
   // Check if this is a wide logo that needs special handling
   const isWideLogo = image === "nsc-2025.png" || image === "neca-2025.png";
 
+  // Apply past event styling
+  const pastEventClass = isPast ? 'past-event' : '';
+  const pastEventStyle = isPast ? {
+    filter: 'grayscale(100%)',
+    opacity: 0.6
+  } : {};
+  
+  // Apply past event styling to date component
+  const pastDateStyle = isPast ? {
+    filter: 'grayscale(100%)',
+    opacity: 0.6
+  } : {};
+
   return (
     <Col md={6} lg={4}>
-      <div className="events-one__item">
+      <div className={`events-one__item ${pastEventClass}`}>
         <div className="events-one__image">
-          <div className="events-one__dates">
+          <div className="events-one__dates" style={pastDateStyle}>
             <div className="events-one__date">
               {days}
               <br />
@@ -63,6 +76,7 @@ const SingleEventsOne = ({ event = {} }) => {
                     backgroundColor: isWideLogo ? "#f8f9fa" : "transparent",
                     borderRadius: "8px",
                     padding: isWideLogo ? "20px" : "0",
+                    ...pastEventStyle
                   }}
                 />
               </a>
@@ -80,6 +94,7 @@ const SingleEventsOne = ({ event = {} }) => {
                 backgroundColor: isWideLogo ? "#f8f9fa" : "transparent",
                 borderRadius: "8px",
                 padding: isWideLogo ? "20px" : "0",
+                ...pastEventStyle
               }}
             />
           )}
@@ -103,6 +118,11 @@ const SingleEventsOne = ({ event = {} }) => {
               {address}
             </li>
           </ul>
+          {isPast && (
+            <div className="past-event-indicator">
+              <span className="past-event-badge">Past Event</span>
+            </div>
+          )}
         </div>
       </div>
     </Col>
