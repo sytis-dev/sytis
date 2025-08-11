@@ -2008,6 +2008,213 @@ img {
   display: none;
 }
 
+/* Mobile-specific alignment fixes */
+@media (max-width: 991px) {
+  .nav-outer .mobile-nav-toggler {
+    margin: 20px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+  }
+  
+  /* Ensure header elements are properly aligned on mobile */
+  .header-upper .inner-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo-box {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav-outer .mobile-nav-toggler {
+    margin: 15px 0px 0px;
+    height: 35px;
+    line-height: 35px;
+  }
+  
+  /* Better mobile header layout */
+  .header-upper .inner-container {
+    padding: 10px 15px;
+  }
+  
+  .nav-outer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 479px) {
+  .nav-outer .mobile-nav-toggler {
+    margin: 10px 0px 0px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 24px;
+  }
+  
+  /* Compact mobile header */
+  .header-upper .inner-container {
+    padding: 8px 10px;
+  }
+  
+  .logo-box .logo img {
+    max-height: 40px;
+    width: auto;
+  }
+}
+
+/* Fix hamburger menu alignment when header is fixed/sticky on mobile */
+@media (max-width: 991px) {
+  /* Override responsive.css conflicts with stronger selectors */
+  .main-header.fixed-header .nav-outer,
+  .main-header.sticky-header .nav-outer {
+    float: right !important;
+    position: relative !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    order: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+  
+  .main-header.fixed-header .nav-outer .mobile-nav-toggler,
+  .main-header.sticky-header .nav-outer .mobile-nav-toggler {
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    position: relative !important;
+    top: 0 !important;
+    transform: none !important;
+    line-height: normal !important;
+    float: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .main-header.fixed-header .header-upper .inner-container,
+  .main-header.sticky-header .header-upper .inner-container {
+    align-items: center !important;
+    min-height: 60px !important;
+    justify-content: space-between !important;
+    display: flex !important;
+  }
+  
+  .main-header.fixed-header .header-upper,
+  .main-header.sticky-header .header-upper {
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* Ensure smooth transitions for header elements */
+  .header-upper,
+  .header-upper .inner-container,
+  .nav-outer,
+  .nav-outer .mobile-nav-toggler {
+    transition: all 0.3s ease !important;
+  }
+  
+  /* Additional overrides for specific header styles */
+  .header-style-one.fixed-header .nav-outer,
+  .header-style-one.sticky-header .nav-outer,
+  .header-style-two.fixed-header .nav-outer,
+  .header-style-two.sticky-header .nav-outer {
+    float: right !important;
+    justify-content: flex-end !important;
+  }
+  
+  .header-style-one.fixed-header .nav-outer .mobile-nav-toggler,
+  .header-style-one.sticky-header .nav-outer .mobile-nav-toggler,
+  .header-style-two.fixed-header .nav-outer .mobile-nav-toggler,
+  .header-style-two.sticky-header .nav-outer .mobile-nav-toggler {
+    margin: 0 !important;
+    float: none !important;
+  }
+  
+  /* Force right positioning for all fixed/sticky headers on mobile */
+  .main-header.fixed-header .header-upper .inner-container,
+  .main-header.sticky-header .header-upper .inner-container {
+    position: relative !important;
+  }
+  
+  .main-header.fixed-header .nav-outer,
+  .main-header.sticky-header .nav-outer {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    float: none !important;
+    order: unset !important;
+  }
+  
+  .main-header.fixed-header .nav-outer .mobile-nav-toggler,
+  .main-header.sticky-header .nav-outer .mobile-nav-toggler {
+    position: relative !important;
+    top: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+  }
+  
+  /* Override any responsive.css rules that might interfere */
+  @media (max-width: 1199px) {
+    .main-header.fixed-header .nav-outer,
+    .main-header.sticky-header .nav-outer {
+      position: absolute !important;
+      right: 0 !important;
+      float: none !important;
+      order: unset !important;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .main-header.fixed-header .nav-outer,
+    .main-header.sticky-header .nav-outer {
+      position: absolute !important;
+      right: 0 !important;
+      float: none !important;
+      order: unset !important;
+    }
+  }
+  
+  @media (max-width: 479px) {
+    .main-header.fixed-header .nav-outer,
+    .main-header.sticky-header .nav-outer {
+      position: absolute !important;
+      right: 0 !important;
+      float: none !important;
+      order: unset !important;
+    }
+  }
+  
+  /* Final override to ensure hamburger menu is at the very right edge */
+  .main-header.fixed-header .nav-outer,
+  .main-header.sticky-header .nav-outer {
+    right: 0 !important;
+    right: 0px !important;
+    right: 0rem !important;
+    right: 0vw !important;
+    right: 0% !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    border-right: none !important;
+  }
+}
+
 .mobile-nav-toggler .txt {
   position: relative;
   display: inline-block;
@@ -6001,6 +6208,72 @@ img.lazy-image.loaded {
   color: var(--thm-text);
   font-size: 16px;
   line-height: 34px;
+}
+
+/* Product Tabs - 5 tabs in a row */
+.product-tabs-section .work-tabs .tab-buttons .tab-btn {
+  width: 20%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 0;
+  padding: 14px 20px 11px;
+  font-size: 16px !important; /* Override responsive.css */
+}
+
+/* Mobile responsive for product tabs - More specific to override responsive.css */
+@media (max-width: 768px) {
+  .product-tabs-section .work-tabs .tab-buttons .tab-btn {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    padding: 14px 20px 11px !important;
+    font-size: 16px !important;
+  }
+  
+  .product-tabs-section .work-tabs .tab-buttons {
+    flex-direction: column !important;
+  }
+}
+
+/* Additional specificity for very small screens */
+@media (max-width: 480px) {
+  .product-tabs-section .work-tabs .tab-buttons .tab-btn {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+    padding: 12px 16px 10px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Ensure tab buttons are always visible on mobile */
+@media (max-width: 768px) {
+  .product-tabs-section .work-tabs .tab-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .product-tabs-section .work-tabs .tab-buttons .tab-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    float: none !important;
+  }
+}
+
+/* Disabled tab styling */
+.product-tabs-section .work-tabs .tab-buttons .tab-btn.disabled-tab {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.product-tabs-section .work-tabs .tab-buttons .tab-btn.disabled-tab:hover {
+  background-color: transparent;
+  color: inherit;
 }
 
 .agency-section .right-col .text {
@@ -24878,7 +25151,9 @@ img.lazy-image.loaded {
 }
 
 /* Resources Tab - Datasheet Link Styling */
-.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a {
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a,
+.resource-link,
+.datasheet-link {
   display: inline-flex;
   align-items: center;
   padding: 12px 20px;
@@ -24893,16 +25168,23 @@ img.lazy-image.loaded {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
 }
 
-.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:before {
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:before,
+.resource-link:before,
+.datasheet-link:before {
   content: "📄";
   margin-right: 10px;
   font-size: 18px;
   transition: transform 0.3s ease;
 }
 
-.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover {
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover,
+.resource-link:hover,
+.datasheet-link:hover {
   background: linear-gradient(135deg, var(--thm-base) 0%, #b91c1c 100%);
   color: white;
   border-color: var(--thm-base);
@@ -24910,11 +25192,15 @@ img.lazy-image.loaded {
   box-shadow: 0 4px 12px rgba(220, 5, 9, 0.3);
 }
 
-.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover:before {
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:hover:before,
+.resource-link:hover:before,
+.datasheet-link:hover:before {
   transform: scale(1.1);
 }
 
-.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:active {
+.product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:active,
+.resource-link:active,
+.datasheet-link:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(220, 5, 9, 0.2);
 }
@@ -25589,6 +25875,305 @@ img.lazy-image.loaded {
 .product-category .cta-secondary:hover {
   background: var(--thm-base) !important;
   color: white !important;
+}
+
+/* PDF Modal Styles */
+.pdf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  /* Ensure modal is visible on all devices */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.pdf-modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 90vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.pdf-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  border-bottom: 2px solid #f0f0f0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.pdf-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--thm-black);
+  font-family: var(--thm-font);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pdf-modal-title i {
+  color: var(--thm-base);
+  font-size: 24px;
+}
+
+.pdf-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-modal-close:hover {
+  background: #f0f0f0;
+  color: var(--thm-base);
+  transform: scale(1.1);
+}
+
+.pdf-modal-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.pdf-modal-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Embed tag PDF viewer styles */
+.pdf-modal-body embed {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Ensure embed tag has proper fallback styling */
+.pdf-modal-body embed:not([src]) {
+  display: none;
+}
+
+.pdf-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  border-top: 2px solid #f0f0f0;
+  background: #f8f9fa;
+  gap: 15px;
+}
+
+.pdf-download-btn,
+.pdf-close-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--thm-font);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.pdf-download-btn {
+  background: linear-gradient(135deg, var(--thm-base) 0%, #b91c1c 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 5, 9, 0.3);
+}
+
+.pdf-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 5, 9, 0.4);
+}
+
+.pdf-close-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.pdf-close-btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* PDF Fallback Styles */
+.pdf-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.pdf-fallback p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.pdf-fallback-link {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--thm-base);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pdf-fallback-link:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* PDF Loading Indicator */
+.pdf-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.pdf-loading-spinner {
+  margin-bottom: 20px;
+}
+
+.pdf-loading-spinner i {
+  font-size: 48px;
+  color: var(--thm-base);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pdf-loading p {
+  margin: 0;
+  color: #666;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* PDF Timeout Styles */
+.pdf-timeout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.pdf-timeout i {
+  font-size: 48px;
+  color: #ffc107;
+  margin-bottom: 20px;
+}
+
+.pdf-timeout p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Responsive adjustments for PDF modal */
+@media (max-width: 768px) {
+  .pdf-modal-content {
+    max-width: 95vw;
+    height: 95vh;
+  }
+  
+  .pdf-modal-header,
+  .pdf-modal-footer {
+    padding: 15px 20px;
+  }
+  
+  .pdf-modal-title {
+    font-size: 18px;
+  }
+  
+  .pdf-download-btn,
+  .pdf-close-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  /* Mobile-specific iframe handling */
+  .pdf-modal-body iframe {
+    min-height: 300px;
+  }
+  
+  /* Ensure PDF modal is visible on mobile */
+  .pdf-modal-overlay {
+    z-index: 99999 !important;
+  }
+  
+  .pdf-modal-content {
+    z-index: 100000 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pdf-modal-overlay {
+    padding: 10px;
+  }
+  
+  .pdf-modal-content {
+    max-width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .pdf-modal-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .pdf-download-btn,
+  .pdf-close-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
