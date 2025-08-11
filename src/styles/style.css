@@ -26648,4 +26648,32 @@ img.lazy-image.loaded {
   }
 }
 
+/* Resource Link Styles */
+.resource-link {
+  color: var(--thm-base);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 8px 0;
+  position: relative;
+}
+
+.resource-link:hover {
+  color: var(--thm-black);
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
+.resource-link::before {
+  content: '📄';
+  margin-right: 8px;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.resource-link:hover::before {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
 /*# sourceMappingURL=style.css.map */
