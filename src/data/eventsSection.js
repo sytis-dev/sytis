@@ -3,10 +3,10 @@ import image from "@/images/update-09-06-2021/events/event-d-1.jpg";
 export const eventsOne = [
   {
     id: 10,
-    days: "14-16",
-    month: "Oct",
-    date: "14 Oct 2025",
-    endDate: "16 Oct 2025",
+    days: "15-17",
+    month: "Sep",
+    date: "15 Sep 2025",
+    endDate: "17 Sep 2025",
     image: "nsc-2025.png",
     title: "NSC Safety Congress and Expo",
     time: "09:30am / 04:00pm",
@@ -15,10 +15,10 @@ export const eventsOne = [
   },
   {
     id: 9,
-    days: "13-16",
+    days: "13-15",
     month: "Sep",
     date: "13 Sep 2025",
-    endDate: "16 Sep 2025",
+    endDate: "15 Sep 2025",
     image: "neca-2025.png",
     title: "NECA 2025",
     time: "11:30am / 05:00pm",
