@@ -1,7 +1,7 @@
 import { socials } from "@/data/header";
 import { productDetails } from "@/data/productDetails";
 import Link from "next/link";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import TextSplit from "../Reuseable/TextSplit";
 import weDOSection from "@/data/weDOSection";
@@ -13,10 +13,23 @@ const { image, title, price, stars, customerReviews, text, text2 } =
 
 const { currentFaq, faqs } = weDOSection;
 
-const ProductDetailsPage = ({ product }) => {
+const ProductDetailsPage = ({ product, applications, solutions }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showZoomModal, setShowZoomModal] = useState(false);
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState('');
+  const [pdfFileName, setPdfFileName] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [iframeError, setIframeError] = useState(false);
+  const [iframeTimeout, setIframeTimeout] = useState(false);
+  const [timeoutIds, setTimeoutIds] = useState([]);
+  
+  // Debug log for initial state - only log once
+  useEffect(() => {
+    console.log('ProductDetailsPage initial state:', { isMobile, showPdfModal, pdfUrl });
+  }, []);
   
   // Safety check for product
   const safeProduct = product || {};
@@ -30,296 +43,352 @@ const ProductDetailsPage = ({ product }) => {
     { key: 'tab_resources', label: 'Resources' }
   ];
 
-  // Function to refine HTML content to match design system and remove duplicates
-  const refineHtmlContent = (htmlContent) => {
-    if (!htmlContent || typeof htmlContent !== 'string') return htmlContent;
+  // Function to handle PDF link clicks
+  const handlePdfClick = (e, url) => {
+    console.log('handlePdfClick called with:', url);
+    console.log('Event object:', e);
+    console.log('Is mobile device:', isMobile, 'Type:', typeof isMobile);
     
-    try {
-      // Create a temporary DOM element to parse and manipulate HTML
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = htmlContent;
-      
-      // Get existing tab content to identify duplicates
-      const existingTabContent = [];
-      if (safeProduct?.tabs && Array.isArray(safeProduct.tabs)) {
-        safeProduct.tabs.forEach(tab => {
-          if (tab && tab.value && typeof tab.value === 'object') {
-            if (tab.value.title) {
-              existingTabContent.push(tab.value.title.toLowerCase());
-            }
-            if (tab.value.items && Array.isArray(tab.value.items)) {
-              tab.value.items.forEach(item => {
-                if (typeof item === 'string') {
-                  existingTabContent.push(item.toLowerCase());
-                }
-              });
+    // On mobile, just open PDF in new tab instead of modal
+    if (isMobile === true) {
+      console.log('Mobile device detected, opening PDF in new tab');
+      window.open(url, '_blank');
+      return;
+    }
+    
+    console.log('Desktop device detected, opening PDF in modal');
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Validate PDF URL
+    if (!url || typeof url !== 'string') {
+      console.error('Invalid PDF URL:', url);
+      return;
+    }
+    
+    // Clear any existing timeouts before setting new ones
+    timeoutIds.forEach(id => clearTimeout(id));
+    setTimeoutIds([]);
+    
+    console.log('Setting PDF modal with URL:', url);
+    setPdfUrl(url);
+    // Extract filename from URL for display
+    const fileName = url.split('/').pop() || 'Document';
+    setPdfFileName(fileName);
+    setShowPdfModal(true);
+    console.log('PDF modal state set to show');
+    console.log('PDF modal should now be visible');
+    console.log('PDF URL set to:', url);
+    console.log('PDF filename set to:', fileName);
+    console.log('Current state after setting:', { showPdfModal: true, pdfUrl: url, pdfFileName: fileName });
+    
+    // Set a timeout to show fallback if PDF takes too long to load
+    const timeoutId1 = setTimeout(() => {
+      if (!iframeLoaded && !iframeError) {
+        setIframeTimeout(true);
+        console.log('PDF loading timeout reached, showing fallback');
+      }
+    }, 10000); // 10 second timeout
+    
+    // Additional fallback: if PDF fails to load after 15 seconds, automatically open in new tab
+    const timeoutId2 = setTimeout(() => {
+      if (!iframeLoaded && !iframeError) {
+        console.log('PDF failed to load after 15 seconds, automatically opening in new tab');
+        window.open(url, '_blank');
+        handleClosePdfModal();
+      }
+    }, 15000); // 15 second fallback
+    
+    // Store the timeout IDs for cleanup
+    setTimeoutIds([timeoutId1, timeoutId2]);
+  };
+
+  // Function to close PDF modal
+  const handleClosePdfModal = () => {
+    setShowPdfModal(false);
+    setPdfUrl('');
+    setPdfFileName('');
+    setIframeLoaded(false);
+    setIframeError(false);
+    setIframeTimeout(false);
+    // Clear all timeout IDs associated with this modal
+    timeoutIds.forEach(id => clearTimeout(id));
+    setTimeoutIds([]);
+  };
+
+  // Function to download PDF
+  const handleDownloadPdf = () => {
+    if (pdfUrl) {
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = pdfFileName;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  // Function to process Resources tab content and add CSS classes to links
+  const processResourcesContent = (htmlContent) => {
+    // Check if htmlContent is a string and has content
+    if (typeof htmlContent !== 'string' || !htmlContent.trim()) {
+      console.log('processResourcesContent: htmlContent is not a string or is empty:', htmlContent);
+      return '';
+    }
+    
+    console.log('processResourcesContent called with:', htmlContent.substring(0, 200) + '...');
+
+    // Create a temporary div to parse and modify the HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+
+    // Process links in Resources tab
+    const links = tempDiv.querySelectorAll('a');
+    console.log('processResourcesContent: Found', links.length, 'links in HTML content');
+    
+    links.forEach((link, index) => {
+      const href = link.getAttribute('href');
+      if (href) {
+        // Check if this is a PDF link
+        console.log(`Processing Resources link ${index} with href:`, href);
+        if (href.toLowerCase().endsWith('.pdf') || href.toLowerCase().includes('pdf')) {
+          console.log('Found PDF link in Resources:', href);
+          // Always add PDF classes and attributes - mobile detection will be handled in click handlers
+          link.classList.add('pdf-link', 'resource-link', 'datasheet-link');
+          link.setAttribute('data-pdf-url', href);
+          link.setAttribute('target', '_blank');
+          console.log('Added PDF classes and attributes to Resources link:', link);
+          console.log('Link classes after modification:', link.className);
+        } else {
+          // For non-PDF links, add general resource link classes
+          link.classList.add('resource-link');
+          console.log('Added resource-link class to Resources link:', link);
+          console.log('Link classes after modification:', link.className);
+        }
+        
+        // Ensure the link is clickable by checking its properties
+        console.log(`Link ${index} final state:`, {
+          href: link.getAttribute('href'),
+          className: link.className,
+          hasClickHandler: !!link._resourceClickHandler,
+          isClickable: link.style.pointerEvents !== 'none'
+        });
+      }
+    });
+
+    const processedHtml = tempDiv.innerHTML;
+    console.log('processResourcesContent: Returning processed HTML:', processedHtml.substring(0, 200) + '...');
+    return processedHtml;
+  };
+
+  // Function to refine HTML content
+  const refineHtmlContent = (htmlContent) => {
+    if (!htmlContent) return '';
+    
+    console.log('refineHtmlContent called with:', htmlContent.substring(0, 200) + '...');
+
+    // Create a temporary div to parse and modify the HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+
+    // Remove duplicate content that's already in other tabs
+    const duplicateKeywords = ['applications', 'features', 'specifications', 'specs', 'technical specifications'];
+    
+    // Find and remove elements containing duplicate content
+    duplicateKeywords.forEach(keyword => {
+      const elements = tempDiv.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li');
+      elements.forEach(element => {
+        const text = element.textContent.toLowerCase();
+        if (text.includes(keyword)) {
+          // Check if this content exists in other tabs
+          let isDuplicate = false;
+          
+          if (keyword === 'applications' && applications && applications.length > 0) {
+            isDuplicate = true;
+          } else if (keyword === 'features' && solutions && solutions.length > 0) {
+            isDuplicate = true;
+          } else if (keyword === 'specifications' || keyword === 'specs' || keyword === 'technical specifications') {
+            // Check if specifications tab has content
+            const specsTab = document.querySelector('[data-tab="tab_specifications"]');
+            if (specsTab && specsTab.textContent.trim()) {
+              isDuplicate = true;
             }
           }
+          
+          if (isDuplicate) {
+            element.remove();
+          }
+        }
+      });
+    });
+
+    // Clean up empty containers
+    const cleanupEmptyContainers = (element) => {
+      const children = Array.from(element.children);
+      children.forEach(child => {
+        if (child.children.length === 0 && child.textContent.trim() === '') {
+          child.remove();
+        } else if (child.children.length > 0) {
+          cleanupEmptyContainers(child);
+        }
+      });
+    };
+    cleanupEmptyContainers(tempDiv);
+
+    // Apply styling to elements and process links
+    const links = tempDiv.querySelectorAll('a');
+    links.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href) {
+        // Check if this is a PDF link
+        console.log('Processing link with href:', href);
+        if (href.toLowerCase().endsWith('.pdf') || href.toLowerCase().includes('pdf')) {
+          console.log('Found PDF link:', href);
+          // Always add PDF classes and attributes - mobile detection will be handled in click handlers
+          link.classList.add('pdf-link', 'resource-link', 'datasheet-link');
+          link.setAttribute('data-pdf-url', href);
+          link.setAttribute('target', '_blank');
+          console.log('Added PDF classes and attributes to element:', link);
+        } else {
+          // For non-PDF links, add general resource link classes
+          link.classList.add('resource-link');
+          console.log('Added resource-link class to element:', link);
+        }
+      }
+    });
+
+    // Apply styling to elements
+    const elements = tempDiv.querySelectorAll('*');
+    elements.forEach(element => {
+      const tagName = element.tagName.toLowerCase();
+      
+      // Headings
+      if (tagName.match(/^h[1-6]$/)) {
+        element.style.fontFamily = 'var(--thm-font)';
+        element.style.fontWeight = '700';
+        element.style.color = 'var(--thm-black)';
+        element.style.marginBottom = '15px';
+        element.style.marginTop = '25px';
+        
+        if (tagName === 'h1') element.style.fontSize = '32px';
+        else if (tagName === 'h2') element.style.fontSize = '28px';
+        else if (tagName === 'h3') element.style.fontSize = '24px';
+        else if (tagName === 'h4') element.style.fontSize = '20px';
+        else if (tagName === 'h5') element.style.fontSize = '18px';
+        else if (tagName === 'h6') element.style.fontSize = '16px';
+      }
+      
+      // Paragraphs
+      if (tagName === 'p') {
+        element.style.fontFamily = 'var(--thm-font)';
+        element.style.fontSize = '16px';
+        element.style.lineHeight = '1.6';
+        element.style.color = 'var(--thm-text)';
+        element.style.marginBottom = '15px';
+      }
+      
+      // Lists
+      if (tagName === 'ul' || tagName === 'ol') {
+        element.style.marginLeft = '20px';
+        element.style.marginBottom = '15px';
+      }
+      
+      if (tagName === 'li') {
+        element.style.fontFamily = 'var(--thm-font)';
+        element.style.fontSize = '16px';
+        element.style.lineHeight = '1.6';
+        element.style.color = 'var(--thm-text)';
+        element.style.marginBottom = '8px';
+      }
+      
+      // Links
+      if (tagName === 'a') {
+        element.style.color = 'var(--thm-base)';
+        element.style.textDecoration = 'none';
+        element.style.transition = 'all 0.3s ease';
+        element.style.fontWeight = '500';
+        
+        // Check if this is a PDF link
+        const href = element.getAttribute('href');
+        console.log('Processing link with href:', href);
+        if (href && (href.toLowerCase().endsWith('.pdf') || href.toLowerCase().includes('pdf'))) {
+          console.log('Found PDF link:', href);
+          // Add PDF-specific styling
+          element.style.cursor = 'pointer';
+          element.setAttribute('data-pdf-url', href);
+          element.classList.add('pdf-link');
+          console.log('Added pdf-link class and data-pdf-url attribute to element:', element);
+          
+          // Add PDF icon to the link text
+          if (!element.innerHTML.includes('📄')) {
+            element.innerHTML = `📄 ${element.innerHTML}`;
+          }
+        }
+        
+        // Add hover effect
+        element.addEventListener('mouseenter', () => {
+          element.style.textDecoration = 'underline';
+          element.style.color = 'var(--thm-black)';
+        });
+        
+        element.addEventListener('mouseleave', () => {
+          element.style.textDecoration = 'none';
+          element.style.color = 'var(--thm-base)';
         });
       }
       
-      // Function to check if content is duplicate
-      const isDuplicateContent = (element) => {
-        const text = element.textContent?.toLowerCase() || '';
-        const tagName = element.tagName.toLowerCase();
+      // Images
+      if (tagName === 'img') {
+        element.style.maxWidth = '100%';
+        element.style.height = 'auto';
+        element.style.borderRadius = '8px';
+        element.style.margin = '15px 0';
+        element.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+        element.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
         
-        // Check for duplicate headings that match tab titles
-        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
-          return existingTabContent.some(tabContent => 
-            tabContent.includes(text) || text.includes(tabContent)
-          );
-        }
-        
-        // Check for duplicate list items that match tab content
-        if (tagName === 'li') {
-          return existingTabContent.some(tabContent => 
-            tabContent.includes(text) || text.includes(tabContent)
-          );
-        }
-        
-        // Check for duplicate paragraphs that match tab content
-        if (tagName === 'p') {
-          return existingTabContent.some(tabContent => 
-            tabContent.includes(text) || text.includes(tabContent)
-          );
-        }
-        
-        // Check for specifications content that should be removed from description
-        if (text.includes('specifications') || text.includes('specs') || text.includes('technical specifications')) {
-          return true;
-        }
-        
-        return false;
-      };
-      
-      // Remove duplicate content elements
-      const elementsToRemove = [];
-      const allElements = tempDiv.querySelectorAll('*');
-      
-      allElements.forEach(element => {
-        if (isDuplicateContent(element)) {
-          elementsToRemove.push(element);
-        }
-      });
-      
-      // Remove duplicate elements
-      elementsToRemove.forEach(element => {
-        if (element.parentNode) {
-          element.parentNode.removeChild(element);
-        }
-      });
-      
-      // Clean up empty containers
-      const cleanupEmptyContainers = (container) => {
-        const children = Array.from(container.children);
-        children.forEach(child => {
-          if (child.children.length === 0 && 
-              (!child.textContent || child.textContent.trim() === '') &&
-              child.tagName.toLowerCase() !== 'img') {
-            container.removeChild(child);
-          } else if (child.children.length > 0) {
-            cleanupEmptyContainers(child);
-          }
+        element.addEventListener('mouseenter', () => {
+          element.style.transform = 'scale(1.02)';
+          element.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
         });
-      };
-      
-      cleanupEmptyContainers(tempDiv);
-      
-      // No wrapper needed for clean description styling
-      
-      // Apply design system classes and styling
-      const elements = tempDiv.querySelectorAll('*');
-      
-      elements.forEach(element => {
-        const tagName = element.tagName.toLowerCase();
         
-        // Headings - apply design system styling
-        if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
-          element.style.fontFamily = 'var(--thm-font)';
-          element.style.color = 'var(--thm-black)';
-          element.style.fontWeight = '600';
-          element.style.margin = '20px 0 15px 0';
-          element.style.lineHeight = '1.3';
-          
-          // Specific heading sizes
-          if (tagName === 'h1') element.style.fontSize = '32px';
-          else if (tagName === 'h2') element.style.fontSize = '28px';
-          else if (tagName === 'h3') element.style.fontSize = '24px';
-          else if (tagName === 'h4') element.style.fontSize = '20px';
-          else if (tagName === 'h5') element.style.fontSize = '18px';
-          else if (tagName === 'h6') element.style.fontSize = '16px';
-        }
-        
-        // Paragraphs
-        if (tagName === 'p') {
-          element.style.fontSize = '16px';
-          element.style.lineHeight = '1.6';
-          element.style.color = 'var(--thm-text)';
-          element.style.margin = '0 0 15px 0';
-          element.style.fontFamily = 'inherit';
-        }
-        
-        // Lists
-        if (['ul', 'ol'].includes(tagName)) {
-          element.style.margin = '15px 0';
-          element.style.paddingLeft = '25px';
-          element.style.color = 'var(--thm-text)';
-        }
-        
-        if (tagName === 'li') {
-          element.style.margin = '8px 0';
-          element.style.lineHeight = '1.5';
-          element.style.color = 'var(--thm-text)';
-        }
-        
-        // Strong/Bold text
-        if (['strong', 'b'].includes(tagName)) {
-          element.style.fontWeight = '600';
-          element.style.color = 'var(--thm-black)';
-        }
-        
-        // Italic text
-        if (['em', 'i'].includes(tagName)) {
-          element.style.fontStyle = 'italic';
-          element.style.color = 'var(--thm-text)';
-        }
-        
-        // Links
-        if (tagName === 'a') {
-          element.style.color = 'var(--thm-base)';
-          element.style.textDecoration = 'none';
-          element.style.transition = 'all 0.3s ease';
-          element.style.fontWeight = '500';
-          
-          // Add hover effect
-          element.addEventListener('mouseenter', () => {
-            element.style.textDecoration = 'underline';
-            element.style.color = 'var(--thm-black)';
-          });
-          
-          element.addEventListener('mouseleave', () => {
-            element.style.textDecoration = 'none';
-            element.style.color = 'var(--thm-base)';
-          });
-        }
-        
-        // Tables
-        if (tagName === 'table') {
-          element.style.width = '100%';
-          element.style.borderCollapse = 'collapse';
-          element.style.margin = '20px 0';
-          element.style.border = '1px solid #e9ebee';
-          element.style.borderRadius = '8px';
-          element.style.overflow = 'hidden';
-          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-        }
-        
-        if (tagName === 'th') {
-          element.style.backgroundColor = 'var(--thm-base)';
-          element.style.color = 'white';
-          element.style.padding = '12px 15px';
-          element.style.textAlign = 'left';
-          element.style.fontWeight = '600';
-          element.style.fontFamily = 'var(--thm-font)';
-        }
-        
-        if (tagName === 'td') {
-          element.style.padding = '12px 15px';
-          element.style.borderBottom = '1px solid #e9ebee';
-          element.style.color = 'var(--thm-text)';
-        }
-        
-        // Blockquotes
-        if (tagName === 'blockquote') {
-          element.style.margin = '20px 0';
-          element.style.padding = '15px 20px';
-          element.style.backgroundColor = '#f8f9fa';
-          element.style.borderLeft = '4px solid var(--thm-base)';
-          element.style.borderRadius = '4px';
-          element.style.fontStyle = 'italic';
-          element.style.color = 'var(--thm-text)';
-          element.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
-        }
-        
-        // Code blocks
-        if (tagName === 'code') {
-          element.style.backgroundColor = '#f8f9fa';
-          element.style.padding = '2px 6px';
-          element.style.borderRadius = '4px';
-          element.style.fontFamily = 'monospace';
-          element.style.fontSize = '14px';
-          element.style.color = 'var(--thm-black)';
-          element.style.border = '1px solid #e9ebee';
-        }
-        
-        // Pre blocks
-        if (tagName === 'pre') {
-          element.style.backgroundColor = '#f8f9fa';
-          element.style.padding = '15px';
-          element.style.borderRadius = '8px';
-          element.style.overflow = 'auto';
-          element.style.border = '1px solid #e9ebee';
-          element.style.fontFamily = 'monospace';
-          element.style.fontSize = '14px';
-          element.style.lineHeight = '1.4';
-          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-        }
-        
-        // Images
-        if (tagName === 'img') {
-          element.style.maxWidth = '100%';
-          element.style.height = 'auto';
-          element.style.borderRadius = '8px';
-          element.style.margin = '15px 0';
-          element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-          element.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        }
-        
-        // Add hover effect for images
-        if (tagName === 'img') {
-          element.addEventListener('mouseenter', () => {
-            element.style.transform = 'scale(1.02)';
-            element.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.15)';
-          });
-          
-          element.addEventListener('mouseleave', () => {
-            element.style.transform = 'scale(1)';
-            element.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-          });
-        }
-        
-        // Horizontal rules
-        if (tagName === 'hr') {
-          element.style.border = 'none';
-          element.style.height = '2px';
-          element.style.backgroundColor = 'var(--thm-base)';
-          element.style.margin = '30px 0';
-          element.style.borderRadius = '1px';
-        }
-        
-        // Div containers - add some spacing
-        if (tagName === 'div' && !element.classList.contains('product-tabs__panel-text')) {
-          element.style.marginBottom = '15px';
-        }
-        
-        // Span elements - ensure proper text color inheritance
-        if (tagName === 'span') {
-          element.style.color = 'inherit';
-        }
-      });
-      
-      return tempDiv.innerHTML;
-    } catch (error) {
-      console.warn('Error refining HTML content:', error);
-      // Return original content if refinement fails
-      return htmlContent;
-    }
+        element.addEventListener('mouseleave', () => {
+          element.style.transform = 'scale(1)';
+          element.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+        });
+      }
+    });
+
+    return tempDiv.innerHTML;
   };
+
+
 
   const getTabContent = (tabKey) => {
     // Special handling for description tab - use product.description directly
     if (tabKey === 'tab_description' && safeProduct?.description) {
       return refineHtmlContent(safeProduct.description);
+    }
+    
+    // Special handling for resources tab - process links and add CSS classes
+    if (tabKey === 'tab_resources') {
+      if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs)) return null;
+      const tab = safeProduct.tabs.find(t => t && t.key === tabKey);
+      if (tab?.value) {
+        // Extract HTML content from the tab value object
+        if (tab.value.items && Array.isArray(tab.value.items)) {
+          // Join all items into a single HTML string
+          const htmlContent = tab.value.items.join('');
+          console.log('Resources tab: Extracted HTML content:', htmlContent.substring(0, 200) + '...');
+          return processResourcesContent(htmlContent);
+        } else if (typeof tab.value === 'string') {
+          // Fallback if value is already a string
+          return processResourcesContent(tab.value);
+        }
+        console.log('Resources tab: No valid content found in tab.value:', tab.value);
+        return null;
+      }
+      return null;
     }
     
     // For other tabs, look in the tabs array
@@ -347,9 +416,211 @@ const ProductDetailsPage = ({ product }) => {
 
   // Set initial active tab to first available tab
   const [activeTab, setActiveTab] = useState(getFirstAvailableTab());
+  
+  // Debug logging for tabs
+  useEffect(() => {
+    console.log('ProductDetailsPage: Initial state:', {
+      activeTab,
+      availableTabs: safeProduct?.tabs,
+      hasDescription: !!safeProduct?.description,
+      tabsArray: tabs
+    });
+  }, [activeTab, safeProduct?.tabs, safeProduct?.description]);
+
+  // Detect mobile devices
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      const isSmallScreen = window.innerWidth <= 768;
+      const shouldBeMobile = isMobileDevice || isSmallScreen;
+      setIsMobile(shouldBeMobile);
+      console.log('Mobile detection:', { isMobileDevice, isSmallScreen, shouldBeMobile });
+    };
+    
+    // Set initial state immediately
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Cleanup timeouts when component unmounts
+  useEffect(() => {
+    return () => {
+      // Clear all timeouts when component unmounts
+      timeoutIds.forEach(id => clearTimeout(id));
+    };
+  }, [timeoutIds]);
+  
   // const [magnifier, setMagnifier] = useState({ show: false, x: 0, y: 0 }); // Commented out magnifier
   const imageRef = useRef(null);
   const thumbnailRefs = useRef([]);
+  const descriptionRef = useRef(null);
+
+  // Use useEffect to attach event listeners to PDF links after HTML is rendered (desktop only)
+  useEffect(() => {
+    // Skip on mobile devices
+    if (isMobile === true) {
+      console.log('Mobile device detected, skipping PDF modal event listeners');
+      return;
+    }
+    
+    // Add a small delay to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      // Look for PDF links in the entire document since the ref might not be available yet
+      const pdfLinks = document.querySelectorAll('.pdf-link');
+      console.log('Found PDF links:', pdfLinks.length);
+
+      pdfLinks.forEach((link, index) => {
+        const url = link.getAttribute('data-pdf-url');
+        console.log(`PDF link ${index}:`, url);
+
+        if (url) {
+          // Remove any existing click listeners to prevent duplicates
+          if (link._pdfClickHandler) {
+            link.removeEventListener('click', link._pdfClickHandler);
+          }
+
+          // Create new click handler and store it for removal
+          const clickHandler = (e) => {
+            console.log('PDF link clicked, preventing default...');
+            e.preventDefault();
+            e.stopPropagation();
+            handlePdfClick(e, url);
+          };
+          link._pdfClickHandler = clickHandler;
+
+          // Add click listener
+          link.addEventListener('click', clickHandler);
+          console.log(`Event listener attached to PDF link ${index}`);
+        }
+      });
+    }, 200); // Increased delay to ensure DOM is fully rendered
+
+    return () => clearTimeout(timer); // Cleanup timer
+  }, [product?.description, applications, solutions, activeTab, isMobile]); // Re-run when description, tab data, active tab, or mobile status changes
+
+  // Additional useEffect specifically for when description tab becomes active (desktop only)
+  useEffect(() => {
+    if (activeTab === 'tab_description' && isMobile === false) {
+      console.log('Description tab is now active on desktop, looking for PDF links...');
+      const timer = setTimeout(() => {
+        const pdfLinks = document.querySelectorAll('.pdf-link');
+        console.log('Found PDF links in active description tab:', pdfLinks.length);
+        
+        pdfLinks.forEach((link, index) => {
+          const url = link.getAttribute('data-pdf-url');
+          console.log(`PDF link ${index} in description tab:`, url);
+          
+          if (url && !link._pdfClickHandler) {
+            const clickHandler = (e) => {
+              console.log('PDF link clicked in description tab, preventing default...');
+              e.preventDefault();
+              e.stopPropagation();
+              handlePdfClick(e, url);
+            };
+            link._pdfClickHandler = clickHandler;
+            link.addEventListener('click', clickHandler);
+            console.log(`Event listener attached to PDF link ${index} in description tab`);
+          }
+        });
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab, isMobile]);
+
+  // Additional useEffect specifically for when resources tab becomes active
+  useEffect(() => {
+    if (activeTab === 'tab_resources') {
+      console.log('Resources tab is now active, looking for resource links...');
+      const timer = setTimeout(() => {
+        // Look for both PDF links and general resource links in the resources tab
+        const resourceLinks = document.querySelectorAll('.resource-link, .datasheet-link');
+        console.log('Found resource links in active resources tab:', resourceLinks.length);
+        
+        resourceLinks.forEach((link, index) => {
+          const href = link.getAttribute('href');
+          const isPdfLink = link.classList.contains('pdf-link');
+          console.log(`Resource link ${index} in resources tab:`, href, 'isPdfLink:', isPdfLink);
+          
+          if (href && !link._resourceClickHandler) {
+            const clickHandler = (e) => {
+              console.log('Resource link clicked in resources tab:', href);
+              
+              if (isPdfLink && isMobile === false) {
+                // For PDF links on desktop, prevent default and open in modal
+                e.preventDefault();
+                e.stopPropagation();
+                const url = link.getAttribute('data-pdf-url') || href;
+                handlePdfClick(e, url);
+              } else if (isPdfLink && isMobile === true) {
+                // For PDF links on mobile, let them open normally in new tab
+                console.log('Mobile PDF link clicked, allowing normal navigation to new tab');
+              } else {
+                // For non-PDF links, allow normal navigation but ensure they're clickable
+                console.log('Non-PDF resource link clicked, allowing normal navigation');
+                // The link should work normally since it has href
+              }
+            };
+            link._resourceClickHandler = clickHandler;
+            link.addEventListener('click', clickHandler);
+            console.log(`Event listener attached to resource link ${index} in resources tab`);
+          }
+        });
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab, isMobile]);
+
+  // Additional useEffect to watch for Resources tab content changes
+  useEffect(() => {
+    // Get the Resources tab content
+    const resourcesContent = getTabContent('tab_resources');
+    if (resourcesContent) {
+      console.log('Resources tab content changed, processing links...');
+      const timer = setTimeout(() => {
+        // Look for resource links in the entire document
+        const resourceLinks = document.querySelectorAll('.resource-link, .datasheet-link');
+        console.log('Found resource links after content change:', resourceLinks.length);
+        
+        resourceLinks.forEach((link, index) => {
+          const href = link.getAttribute('href');
+          const isPdfLink = link.classList.contains('pdf-link');
+          console.log(`Processing resource link ${index}:`, href, 'isPdfLink:', isPdfLink);
+          
+          if (href && !link._resourceClickHandler) {
+            const clickHandler = (e) => {
+              console.log('Resource link clicked:', href);
+              
+              if (isPdfLink && isMobile === false) {
+                // For PDF links on desktop, prevent default and open modal
+                e.preventDefault();
+                e.stopPropagation();
+                const url = link.getAttribute('data-pdf-url') || href;
+                handlePdfClick(e, url);
+              } else if (isPdfLink && isMobile === true) {
+                // For PDF links on mobile, let them open normally in new tab
+                console.log('Mobile PDF link clicked, allowing normal navigation to new tab');
+              } else {
+                // For non-PDF links, allow normal navigation
+                console.log('Non-PDF resource link clicked, allowing normal navigation');
+              }
+            };
+            link._resourceClickHandler = clickHandler;
+            link.addEventListener('click', clickHandler);
+            console.log(`Event listener attached to resource link ${index}`);
+          }
+        });
+      }, 200);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [safeProduct?.tabs, isMobile]); // Watch for changes in the tabs data and mobile status
 
   // Get all images from the product, sorted by sort_order with safety checks
   const allImages = Array.isArray(safeProduct?.all_images) ? safeProduct.all_images : [];
@@ -736,15 +1007,26 @@ const ProductDetailsPage = ({ product }) => {
             <ul className="tab-btns tab-buttons clearfix">
               {tabs.map((tab) => {
                 const content = getTabContent(tab.key);
-                // For description tab, check if product.description exists
-                const isClickable = tab.key === 'tab_description' ? 
-                  (safeProduct?.description || content) : content;
+                const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
+                const isClickable = hasContent;
+                
+                console.log(`Tab ${tab.key}:`, {
+                  hasContent: !!hasContent,
+                  isClickable,
+                  label: tab.label,
+                  contentType: typeof content,
+                  contentLength: typeof content === 'string' ? content.length : 'N/A'
+                });
+                
                 return (
                   <li
                     key={tab.key}
-                    onClick={() => isClickable && setActiveTab(tab.key)}
-                    className={`tab-btn${activeTab === tab.key ? " active-btn" : ""}`}
-                    style={{ cursor: isClickable ? 'pointer' : 'not-allowed', opacity: isClickable ? 1 : 0.5 }}
+                    onClick={isClickable ? () => setActiveTab(tab.key) : undefined}
+                    className={`tab-btn${activeTab === tab.key ? " active-btn" : ""}${!isClickable ? " disabled-tab" : ""}`}
+                    style={{ 
+                      cursor: isClickable ? 'pointer' : 'not-allowed',
+                      opacity: isClickable ? 1 : 0.6
+                    }}
                   >
                     <span>{tab.label}</span>
                   </li>
@@ -756,12 +1038,22 @@ const ProductDetailsPage = ({ product }) => {
             <div className="tabs-content">
               {tabs.map((tab) => {
                 const content = getTabContent(tab.key);
+                const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
+                
+                console.log(`Rendering tab ${tab.key}:`, {
+                  hasContent: !!hasContent,
+                  contentType: typeof content,
+                  contentLength: typeof content === 'string' ? content.length : 'N/A',
+                  isActive: activeTab === tab.key,
+                  tabValue: safeProduct?.tabs?.find(t => t?.key === tab.key)?.value
+                });
+                
                 return (
                   <div
                     key={tab.key}
                     className={`tab animated${activeTab === tab.key ? " active-tab fadeInUp" : ""}`}
                   >
-                    {content ? (
+                    {hasContent ? (
                       <div className="text-col">
                         <div className="inner">
                           {/* For description tab, don't show title since it's just HTML content */}
@@ -784,6 +1076,7 @@ const ProductDetailsPage = ({ product }) => {
                               dangerouslySetInnerHTML={{ 
                                 __html: typeof content === 'string' ? content : 'Content available' 
                               }}
+                              ref={tab.key === 'tab_description' ? descriptionRef : null}
                             />
                           )}
                         </div>
@@ -831,6 +1124,117 @@ const ProductDetailsPage = ({ product }) => {
                   e.target.src = '/product_images/uploaded_images/picture1.jpg';
                 }}
               />
+            </div>
+          </div>
+        </div>
+      )}
+
+            {/* PDF Modal - Only show on desktop */}
+      {showPdfModal && isMobile === false && (
+        <div className="pdf-modal-overlay" onClick={handleClosePdfModal}>
+          <div className="pdf-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="pdf-modal-header">
+              <h3 className="pdf-modal-title">
+                <i className="fa fa-file-pdf-o"></i>
+                {pdfFileName}
+              </h3>
+              <button className="pdf-modal-close" onClick={handleClosePdfModal}>
+                <i className="fa fa-times"></i>
+              </button>
+            </div>
+            <div className="pdf-modal-body">
+              {/* Loading indicator */}
+              {!iframeLoaded && !iframeError && !iframeTimeout && (
+                <div className="pdf-loading">
+                  <div className="pdf-loading-spinner">
+                    <i className="fa fa-spinner fa-spin"></i>
+                  </div>
+                  <p>Loading PDF...</p>
+                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                    Trying to load: {pdfUrl}
+                  </p>
+                </div>
+              )}
+              
+              {/* Timeout message */}
+              {iframeTimeout && !iframeLoaded && !iframeError && (
+                <div className="pdf-timeout">
+                  <i className="fa fa-clock-o"></i>
+                  <p>PDF is taking longer than expected to load.</p>
+                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                    URL: {pdfUrl}
+                  </p>
+                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
+                    Open PDF in new tab
+                  </a>
+                </div>
+              )}
+              
+              {/* Primary PDF viewer using embed tag - most browser friendly */}
+              <embed
+                src={`${pdfUrl}#view=FitH`}
+                type="application/pdf"
+                width="100%"
+                height="100%"
+                style={{ border: 'none', display: iframeError ? 'none' : 'block' }}
+                onLoad={() => {
+                  console.log('PDF embed loaded successfully:', pdfUrl);
+                  setIframeLoaded(true);
+                  setIframeError(false);
+                }}
+                onError={(e) => {
+                  console.log('PDF embed failed to load:', pdfUrl);
+                  setIframeError(true);
+                  setIframeLoaded(false);
+                }}
+              />
+              
+              {/* Fallback iframe if embed tag fails */}
+              {iframeError && (
+                <iframe
+                  src={`${pdfUrl}#view=FitH`}
+                  title={pdfFileName}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none' }}
+                  onLoad={() => {
+                    console.log('PDF iframe fallback loaded successfully:', pdfUrl);
+                    setIframeLoaded(true);
+                    setIframeError(false);
+                  }}
+                  onError={(e) => {
+                    console.log('PDF iframe fallback failed to load:', e.target.src);
+                    setIframeError(true);
+                    setIframeLoaded(false);
+                  }}
+                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
+                  allow="fullscreen"
+                  referrerPolicy="no-referrer"
+                />
+              )}
+              
+              {/* Final fallback message */}
+              {iframeError && (
+                <div className="pdf-fallback" style={{ display: 'block' }}>
+                  <p>PDF failed to load in viewer.</p>
+                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                    URL: {pdfUrl}
+                  </p>
+                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
+                    Open PDF in new tab
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className="pdf-modal-footer">
+              <button className="pdf-download-btn" onClick={handleDownloadPdf}>
+                <i className="fa fa-download"></i>
+                Download PDF
+              </button>
+              <button className="pdf-close-btn" onClick={handleClosePdfModal}>
+                <i className="fa fa-times"></i>
+                Close
+              </button>
             </div>
           </div>
         </div>

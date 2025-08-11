@@ -19,7 +19,7 @@ const SytisApplications = ({ applications: rawApplications = [] }) => {
     href: `/applications/${slugify(app.name, { lower: true })}`,
     image: app.image_url,
     title: app.name,
-    icon: app.iconUrl || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
+    icon: app.iconUrl + '?t=1754791877' || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
     description:
       app.description ||
       "Lorem ipsum is simply free sed qui magni dolores eos qui voptam.",
