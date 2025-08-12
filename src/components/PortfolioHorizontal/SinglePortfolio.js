@@ -6,7 +6,7 @@ const SinglePortfolio = ({ portfolio = {} }, ref) => {
   const { image, category, title } = portfolio;
 
   return (
-    <div ref={ref} className="item">
+    (<div ref={ref} className="item">
       <div className="portfolio-horizontal__card">
         <a className="lightbox-image">
           <Image
@@ -19,10 +19,10 @@ const SinglePortfolio = ({ portfolio = {} }, ref) => {
         </a>
         <span className="portfolio-horizontal__category">{category}</span>
         <h3 className="portfolio-horizontal__card__title">
-          <Link href="/portfolio-single-3">{title}</Link>
+          <Link href="/portfolio-single-3" legacyBehavior>{title}</Link>
         </h3>
       </div>
-    </div>
+    </div>)
   );
 };
 

@@ -37,7 +37,7 @@ const EventModal = ({ show, onHide, event }) => {
   const isWideLogo = image === "nsc-2025.png" || image === "neca-2025.png";
 
   return (
-    <Modal show={show} onHide={onHide} size="lg" centered>
+    (<Modal show={show} onHide={onHide} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
@@ -92,16 +92,17 @@ const EventModal = ({ show, onHide, event }) => {
           Close
         </Button>
         {link && (
-          <Link href={link} passHref>
+          <Link href={link} passHref legacyBehavior>
             <Button variant="primary" as="a" target="_blank" rel="noopener noreferrer">
               Visit Event Website
             </Button>
           </Link>
         )}
       </Modal.Footer>
-    </Modal>
+    </Modal>)
   );
 };
 
 export default EventModal;
+
 

@@ -22,7 +22,7 @@ const DemoGallery = () => {
   const filteredPortfolios = getFilteredPortfolios(currentFilter);
 
   return (
-    <section className="portfolio-masonary demo-gallery">
+    (<section className="portfolio-masonary demo-gallery">
       <div className="auto-container">
         <div className="sec-title text-center">
           <h2>{title}</h2>
@@ -49,15 +49,13 @@ const DemoGallery = () => {
         </Row>
 
         <div className="text-center">
-          <Link href="/about">
-            <a className="theme-btn btn-style-one">
-              <i className="btn-curve"></i>
-              <span className="btn-title">Discover More</span>
-            </a>
+          <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+            <i className="btn-curve"></i>
+            <span className="btn-title">Discover More</span>
           </Link>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

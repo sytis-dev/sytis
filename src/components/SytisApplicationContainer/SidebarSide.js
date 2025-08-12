@@ -10,7 +10,7 @@ const SidebarSide = () => {
   const { pathname } = useRouter();
 
   return (
-    <aside className="sidebar blog-sidebar">
+    (<aside className="sidebar blog-sidebar">
       <div className="sidebar-widget services">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -19,13 +19,12 @@ const SidebarSide = () => {
           <ul>
             {navItems.map(({ id, href, title }) => (
               <li key={id} className={pathname === href ? "active" : ""}>
-                <Link href={href}>{title}</Link>
+                <Link href={href} legacyBehavior>{title}</Link>
               </li>
             ))}
           </ul>
         </div>
       </div>
-
       <div className="sidebar-widget call-up">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -40,7 +39,7 @@ const SidebarSide = () => {
           </div>
         </div>
       </div>
-    </aside>
+    </aside>)
   );
 };
 

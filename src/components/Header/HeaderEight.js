@@ -14,7 +14,7 @@ const HeaderEight = () => {
   const { toggleMenu, toggleSearch } = useRootContext();
 
   return (
-    <header className="header-eight">
+    (<header className="header-eight">
       <div className="header-eight__topbar">
         <div className="auto-container">
           <ul className="header-eight__topbar__info">
@@ -37,7 +37,6 @@ const HeaderEight = () => {
           </div>
         </div>
       </div>
-
       <nav
         className={`mainmenu-eight main-header${
           scrollTop ? " fixed-header" : ""
@@ -46,10 +45,8 @@ const HeaderEight = () => {
         <div className="auto-container">
           <div className="nav-outer mainmenu-eight__inner ">
             <div className="mainmenu-eight__left">
-              <Link href="/index-main">
-                <a>
-                  <Image src={logo8.src} width={134} alt={title} />
-                </a>
+              <Link href="/index-main" legacyBehavior>
+                <Image src={logo8.src} width={134} alt={title} />
               </Link>
               <div onClick={toggleMenu} className="mobile-nav-toggler">
                 <span className="icon flaticon-menu-2"></span>
@@ -96,7 +93,7 @@ const HeaderEight = () => {
           </div>
         </div>
       </nav>
-    </header>
+    </header>)
   );
 };
 

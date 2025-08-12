@@ -52,7 +52,7 @@ const CartPage = () => {
   const total = shipping + subtotal;
 
   return (
-    <section className="cart-page">
+    (<section className="cart-page">
       <div className="auto-container">
         <div className="table-responsive">
           <table className="table cart-table">
@@ -109,23 +109,19 @@ const CartPage = () => {
               </li>
             </ul>
             <div className="cart-page__buttons">
-              <Link href="/cart">
-                <a className="theme-btn btn-style-two">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">update</span>
-                </a>
+              <Link href="/cart" className="theme-btn btn-style-two" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">update</span>
               </Link>
-              <Link href="/checkout">
-                <a className="theme-btn btn-style-one">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Checkout</span>
-                </a>
+              <Link href="/checkout" className="theme-btn btn-style-one" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Checkout</span>
               </Link>
             </div>
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

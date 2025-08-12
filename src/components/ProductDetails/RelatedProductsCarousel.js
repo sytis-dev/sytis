@@ -76,7 +76,7 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
   }
 
   return (
-    <section className="related-products-section">
+    (<section className="related-products-section">
       <div className="auto-container">
         <div className="related-products__header">
           <h3></h3>
@@ -124,33 +124,33 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
                                 product.id?.toString();
               
               return (
-                <Link 
+                (<Link 
                   key={product.id} 
                   href={`/products/${productSlug}`}
                 >
-                  <a>
-                    <div className="related-product-card">
-                    <div className="related-product-card__image">
-                      <Image 
-                        src={productImage} 
-                        alt={product.name || 'Product'}
-                        fluid
-                        onError={(e) => {
-                          e.target.src = '/product_images/uploaded_images/picture1.jpg';
-                        }}
-                      />
-                    </div>
-                    <div className="related-product-card__content">
-                      <h4 className="related-product-card__title">
-                        {product.name || 'Product Name'}
-                      </h4>
-                      <p className="related-product-card__sku">
-                        SKU: {product.sku || 'N/A'}
-                      </p>
-                    </div>
-                    </div>
-                  </a>
-                </Link>
+
+                  <div className="related-product-card">
+                  <div className="related-product-card__image">
+                    <Image 
+                      src={productImage} 
+                      alt={product.name || 'Product'}
+                      fluid
+                      onError={(e) => {
+                        e.target.src = '/product_images/uploaded_images/picture1.jpg';
+                      }}
+                    />
+                  </div>
+                  <div className="related-product-card__content">
+                    <h4 className="related-product-card__title">
+                      {product.name || 'Product Name'}
+                    </h4>
+                    <p className="related-product-card__sku">
+                      SKU: {product.sku || 'N/A'}
+                    </p>
+                  </div>
+                  </div>
+
+                </Link>)
               );
             })}
           </div>
@@ -169,7 +169,7 @@ const RelatedProductsCarousel = ({ currentProduct }) => {
           )}
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

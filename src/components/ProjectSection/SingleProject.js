@@ -7,7 +7,7 @@ const SingleProject = ({ project = {} }) => {
   const { image, title, category } = project;
 
   return (
-    <SwiperSlide>
+    (<SwiperSlide>
       <div className="project-seven__item">
         <Image
           src={
@@ -16,18 +16,16 @@ const SingleProject = ({ project = {} }) => {
           alt=""
         />
         <div className="project-seven__content">
-          <Link href="/portfolio-single">
-            <a className="project-seven__link">
-              <i className="flaticon-right-arrow"></i>
-            </a>
+          <Link href="/portfolio-single" className="project-seven__link" legacyBehavior>
+            <i className="flaticon-right-arrow"></i>
           </Link>
           <p className="project-seven__category">{category}</p>
           <h3 className="project-seven__title">
-            <Link href="/portfolio-single">{title}</Link>
+            <Link href="/portfolio-single" legacyBehavior>{title}</Link>
           </h3>
         </div>
       </div>
-    </SwiperSlide>
+    </SwiperSlide>)
   );
 };
 

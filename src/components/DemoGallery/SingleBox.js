@@ -6,7 +6,7 @@ const SingleBox = ({ box = {} }) => {
   const { image, tagline, title, isNew, href, filter, col = 4 } = box;
 
   return (
-    <Col md={6} lg={col} className={`all ${filter} animated fadeInUp`}>
+    (<Col md={6} lg={col} className={`all ${filter} animated fadeInUp`}>
       <div className="portfolio-masonary__box-outer">
         {isNew && <span className="portfolio-masonary__box__new">New</span>}
         <div className="portfolio-masonary__box">
@@ -17,19 +17,17 @@ const SingleBox = ({ box = {} }) => {
             alt=""
           />
           <div className="portfolio-masonary__box-content">
-            <Link href={href}>
-              <a className="link">
-                <i className="flaticon-right-arrow"></i>
-              </a>
+            <Link href={href} className="link" legacyBehavior>
+              <i className="flaticon-right-arrow"></i>
             </Link>
             <p>{tagline}</p>
             <h4>
-              <Link href={href}>{title}</Link>
+              <Link href={href} legacyBehavior>{title}</Link>
             </h4>
           </div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

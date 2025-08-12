@@ -6,7 +6,7 @@ const SingleBlogSix = ({ blog = {} }) => {
   const { image, admin, date, title, text } = blog;
 
   return (
-    <Col md={12} lg={4}>
+    (<Col md={12} lg={4}>
       <div className="blog-six__item">
         <div className="blog-six__image">
           <Image
@@ -28,12 +28,12 @@ const SingleBlogSix = ({ blog = {} }) => {
             </a>
           </div>
           <h3 className="blog-six__title">
-            <Link href="/blog-single">{title}</Link>
+            <Link href="/blog-single" legacyBehavior>{title}</Link>
           </h3>
           <p className="blog-six__text">{text}</p>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

@@ -6,7 +6,7 @@ const CommentBox = ({ comment = {} }) => {
   const { image, name, date, text } = comment;
 
   return (
-    <div className="comment-box">
+    (<div className="comment-box">
       <div className="comment">
         <div className="author-thumb">
           <figure className="thumb">
@@ -22,15 +22,13 @@ const CommentBox = ({ comment = {} }) => {
         </div>
         <div className="text">{text}</div>
         <div className="reply-btn">
-          <Link href="/about">
-            <a className="theme-btn btn-style-one">
-              <i className="btn-curve"></i>
-              <span className="btn-title">Reply</span>
-            </a>
+          <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+            <i className="btn-curve"></i>
+            <span className="btn-title">Reply</span>
           </Link>
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

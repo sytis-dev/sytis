@@ -9,7 +9,7 @@ const SingleTestimonial = (
   const { image, name, text, designation } = testimonial;
 
   return (
-    <div
+    (<div
       ref={ref}
       style={{ userSelect: userSelect ? "auto" : "none" }}
       className={`testi-block ${className}`}
@@ -20,13 +20,11 @@ const SingleTestimonial = (
         </div>
         <div className="info">
           <div className="image">
-            <Link href="/team">
-              <a>
-                <Image
-                  src={require(`@/images/resource/${image}`).default.src}
-                  alt=""
-                />
-              </a>
+            <Link href="/team" legacyBehavior>
+              <Image
+                src={require(`@/images/resource/${image}`).default.src}
+                alt=""
+              />
             </Link>
           </div>
           <div className="name">{name}</div>
@@ -34,7 +32,7 @@ const SingleTestimonial = (
         </div>
         <div className="text">{text}</div>
       </div>
-    </div>
+    </div>)
   );
 };
 

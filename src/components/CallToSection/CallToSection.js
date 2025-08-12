@@ -3,7 +3,7 @@ import React from "react";
 
 const CallToSection = ({ className = "", container = true }) => {
   return (
-    <section className={`call-to-section ${className}`}>
+    (<section className={`call-to-section ${className}`}>
       <div className={container ? "auto-container" : "inner clearfix"}>
         <div className={container ? "inner clearfix" : ""}>
           <div className="shape-1 animated slideInRight"></div>
@@ -14,17 +14,18 @@ const CallToSection = ({ className = "", container = true }) => {
               help!
             </h2>
             <div className="link-box">
-              <Link href="/solution-inquiry">
-                <a className="theme-btn btn-style-two">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Contact us</span>
-                </a>
+              <Link
+                href="/solution-inquiry"
+                className="theme-btn btn-style-two"
+                legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Contact us</span>
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

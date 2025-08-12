@@ -6,16 +6,14 @@ const NewsBlockTwo = ({ news = {}, handleOpen }) => {
   const { image, date, admin, comments, title, text, showVideo } = news;
 
   return (
-    <div className="news-block-two">
+    (<div className="news-block-two">
       <div className="inner-box">
         <div className="image-box">
-          <Link href="/blog-single">
-            <a>
-              <Image
-                src={require(`@/images/resource/${image}`).default.src}
-                alt=""
-              />
-            </a>
+          <Link href="/blog-single" legacyBehavior>
+            <Image
+              src={require(`@/images/resource/${image}`).default.src}
+              alt=""
+            />
           </Link>
           {showVideo && (
             <a onClick={handleOpen} className="vid-link lightbox-image">
@@ -40,17 +38,15 @@ const NewsBlockTwo = ({ news = {}, handleOpen }) => {
             </ul>
           </div>
           <h4>
-            <Link href="/blog-single">{title}</Link>
+            <Link href="/blog-single" legacyBehavior>{title}</Link>
           </h4>
           <div className="text">{text}</div>
           <div className="link-box">
-            <Link href="/blog-single">
-              <a className="theme-btn">Read More</a>
-            </Link>
+            <Link href="/blog-single" className="theme-btn">Read More</Link>
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

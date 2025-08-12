@@ -10,13 +10,11 @@ const HeaderSix = () => {
   const { toggleMenu } = useRootContext();
 
   return (
-    <header className="header-six">
+    (<header className="header-six">
       <div className="auto-container">
         <div className="header-six__logo">
-          <Link href="/index-main">
-            <a>
-              <Image src={logo6.src} width={134} alt={title} />
-            </a>
+          <Link href="/index-main" legacyBehavior>
+            <Image src={logo6.src} width={134} alt={title} />
           </Link>
 
           <div onClick={toggleMenu} className="mobile-nav-toggler">
@@ -48,7 +46,7 @@ const HeaderSix = () => {
           </a>
         </div>
       </div>
-    </header>
+    </header>)
   );
 };
 

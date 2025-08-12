@@ -6,7 +6,7 @@ const BlogEightSingle = ({ blog = {} }) => {
   const { image, date, title, text, admin, comments } = blog;
 
   return (
-    <Col md={12} lg={4}>
+    (<Col md={12} lg={4}>
       <div className="blog-eight__card">
         <div className="blog-eight__image">
           <Image
@@ -19,7 +19,7 @@ const BlogEightSingle = ({ blog = {} }) => {
         <div className="blog-eight__content">
           <div className="blog-eight__date">{date}</div>
           <h3 className="blog-eight__title">
-            <Link href="/blog-single">{title}</Link>
+            <Link href="/blog-single" legacyBehavior>{title}</Link>
           </h3>
           <p className="blog-eight__text">{text}</p>
           <div className="blog-eight__meta">
@@ -33,7 +33,7 @@ const BlogEightSingle = ({ blog = {} }) => {
           </div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

@@ -6,7 +6,7 @@ const SingleServiceSix = ({ service = {} }) => {
   const { image, title, href, icon, text } = service;
 
   return (
-    <Col sm={12} md={6} lg={4} className="animated fadeInUp">
+    (<Col sm={12} md={6} lg={4} className="animated fadeInUp">
       <div className="service-six__item">
         <div className="service-six__image">
           <Image
@@ -22,12 +22,12 @@ const SingleServiceSix = ({ service = {} }) => {
             <i className={icon}></i>
           </div>
           <h3 className="service-six__title">
-            <Link href={href}>{title}</Link>
+            <Link href={href} legacyBehavior>{title}</Link>
           </h3>
           <div className="service-six__text">{text}</div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

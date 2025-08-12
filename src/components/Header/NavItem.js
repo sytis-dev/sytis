@@ -15,36 +15,32 @@ const SubItem = ({ subItem = {} }) => {
   };
 
   return (
-    <li
+    (<li
       className={`${subItems?.length ? "dropdown" : ""} ${
         pathname === href ? "current" : ""
       }`}
     >
-      <Link href={href}>
-        <a href={href}>
-          {name} {isNew && <span>new</span>}
-          {subItems?.length && (
-            <div
-              onClick={handleActive}
-              className={`dropdown-btn${active ? " open" : ""}`}
-            >
-              <span className="fa fa-angle-right"></span>
-            </div>
-          )}
-        </a>
+      <Link href={href} legacyBehavior>
+        {name} {isNew && <span>new</span>}
+        {subItems?.length && (
+          <div
+            onClick={handleActive}
+            className={`dropdown-btn${active ? " open" : ""}`}
+          >
+            <span className="fa fa-angle-right"></span>
+          </div>
+        )}
       </Link>
       <ul style={{ display: !menuStatus || active ? "block" : "none" }}>
         {subItems?.map((item) => (
           <li key={item.id}>
-            <Link href={item.href}>
-              <a href={item.href}>
-                {item.name} {item.isNew && <span>new</span>}
-              </a>
+            <Link href={item.href} legacyBehavior>
+              {item.name} {item.isNew && <span>new</span>}
             </Link>
           </li>
         ))}
       </ul>
-    </li>
+    </li>)
   );
 };
 
@@ -66,22 +62,20 @@ const NavItem = ({ navItem = {}, mobile = false, onePage = false }) => {
   };
 
   return (
-    <li className={`dropdown${current ? " current" : ""}`}>
-      <Link href={href}>
-        <a
-          onClick={() => mobile && href.includes("#") && toggleMenu()}
-          href={href}
-        >
-          {name}{" "}
-          {subNavItems.length > 0 && (
-            <div
-              onClick={handleActive}
-              className={`dropdown-btn${active ? " open" : ""}`}
-            >
-              <span className="fa fa-angle-right"></span>
-            </div>
-          )}
-        </a>
+    (<li className={`dropdown${current ? " current" : ""}`}>
+      <Link
+        href={href}
+        onClick={() => mobile && href.includes("#") && toggleMenu()}
+        legacyBehavior>
+        {name}{" "}
+        {subNavItems.length > 0 && (
+          <div
+            onClick={handleActive}
+            className={`dropdown-btn${active ? " open" : ""}`}
+          >
+            <span className="fa fa-angle-right"></span>
+          </div>
+        )}
       </Link>
       {subNavItems.length > 0 && (
         <ul
@@ -94,7 +88,7 @@ const NavItem = ({ navItem = {}, mobile = false, onePage = false }) => {
           ))}
         </ul>
       )}
-    </li>
+    </li>)
   );
 };
 

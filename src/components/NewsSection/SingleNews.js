@@ -6,16 +6,14 @@ const SingleNews = ({ news = {} }) => {
   const { image, date, admin, comments, title, text } = news;
 
   return (
-    <Col lg={4} md={6} sm={12} className="news-block animated fadeInUp">
+    (<Col lg={4} md={6} sm={12} className="news-block animated fadeInUp">
       <div className="inner-box">
         <div className="image-box">
-          <Link href="/blog-single">
-            <a>
-              <Image
-                src={require(`@/images/resource/${image}`).default.src}
-                alt=""
-              />
-            </a>
+          <Link href="/blog-single" legacyBehavior>
+            <Image
+              src={require(`@/images/resource/${image}`).default.src}
+              alt=""
+            />
           </Link>
         </div>
         <div className="lower-box">
@@ -33,19 +31,17 @@ const SingleNews = ({ news = {} }) => {
             </ul>
           </div>
           <h5>
-            <Link href="/blog-single">{title}</Link>
+            <Link href="/blog-single" legacyBehavior>{title}</Link>
           </h5>
           <div className="text">{text}</div>
           <div className="link-box">
-            <Link href="/blog-single">
-              <a className="theme-btn">
-                <span className="flaticon-next-1"></span>
-              </a>
+            <Link href="/blog-single" className="theme-btn" legacyBehavior>
+              <span className="flaticon-next-1"></span>
             </Link>
           </div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

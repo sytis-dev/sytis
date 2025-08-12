@@ -7,15 +7,13 @@ const SYTISBlogPost = ({ post = {} }) => {
   const { image, date, author, title, summary, href } = post;
 
   return (
-    <Col lg={4} md={6} sm={12} className="news-block animated fadeInUp">
+    (<Col lg={4} md={6} sm={12} className="news-block animated fadeInUp">
       <div className="inner-box">
         <div className="image-box">
-          <Link href={`${href}`}>
-            <a>
-              {image && (
-                <Image width={500} height={500} src={image} alt={title} />
-              )}
-            </a>
+          <Link href={`${href}`} legacyBehavior>
+            {image && (
+              <Image width={500} height={500} src={image} alt={title} />
+            )}
           </Link>
         </div>
         <div className="lower-box">
@@ -30,21 +28,19 @@ const SYTISBlogPost = ({ post = {} }) => {
             </ul>
           </div>
           <h5>
-            <Link href={`${href}`} style={{ fontSize: "30%" }}>
+            <Link href={`${href}`} style={{ fontSize: "30%" }} legacyBehavior>
               {title}
             </Link>{" "}
           </h5>
           {/* <div className="summary">{summary}</div> */}
           <div className="link-box">
-            <Link href={`${href}`}>
-              <a className="theme-btn">
-                <span className="flaticon-next-1"></span>
-              </a>
+            <Link href={`${href}`} className="theme-btn" legacyBehavior>
+              <span className="flaticon-next-1"></span>
             </Link>
           </div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

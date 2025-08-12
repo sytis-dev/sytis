@@ -19,16 +19,14 @@ const {
 
 const MainFooterTwo = () => {
   return (
-    <footer className="main-footer__three">
+    (<footer className="main-footer__three">
       <div className="auto-container">
         <Row>
           <Col md={6} lg={3}>
             <div className="footer-widget">
               <h3>About</h3>
               <p>{about}</p>
-              <Link href="/contact">
-                <a className="theme-btn btn-style-three">Get Started</a>
-              </Link>
+              <Link href="/contact" className="theme-btn btn-style-three">Get Started</Link>
             </div>
           </Col>
           <Col md={6} lg={3}>
@@ -37,7 +35,7 @@ const MainFooterTwo = () => {
               <ul className="list-unstyled footer-widget__links">
                 {links.map(({ id, href, title }) => (
                   <li key={id}>
-                    <Link href={href}>{title}</Link>
+                    <Link href={href} legacyBehavior>{title}</Link>
                   </li>
                 ))}
               </ul>
@@ -61,7 +59,7 @@ const MainFooterTwo = () => {
                     <div className="content">
                       <p>{date}</p>
                       <h4>
-                        <Link href="/blog-single">{title}</Link>
+                        <Link href="/blog-single" legacyBehavior>{title}</Link>
                       </h4>
                     </div>
                   </li>
@@ -93,10 +91,8 @@ const MainFooterTwo = () => {
       <div className="bottom-footer">
         <div className="auto-container">
           <div className="left-content">
-            <Link href="/index-main">
-              <a>
-                <Image src={logo3.src} width={134} height={34} alt="" />
-              </a>
+            <Link href="/index-main" legacyBehavior>
+              <Image src={logo3.src} width={134} height={34} alt="" />
             </Link>
             <p>
               © copyright {year} by {author}
@@ -113,7 +109,7 @@ const MainFooterTwo = () => {
           </ul>
         </div>
       </div>
-    </footer>
+    </footer>)
   );
 };
 

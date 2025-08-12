@@ -71,7 +71,7 @@ const HeaderOne = ({
   }
 
   return (
-    <header
+    (<header
       className={`main-header${scrollTop ? " fixed-header" : ""} ${headerStyle}`}
     >
       {topBar && (
@@ -131,15 +131,13 @@ const HeaderOne = ({
           >
             <div className="logo-box">
               <div className="logo">
-                <Link href="/">
-                  <a title={title}>
-                    <Image
-                      id="thm-logo"
-                      src={Logo.src}
-                      alt={title}
-                      title={title}
-                    />
-                  </a>
+                <Link href="/" title={title} legacyBehavior>
+                  <Image
+                    id="thm-logo"
+                    src={Logo.src}
+                    alt={title}
+                    title={title}
+                  />
                 </Link>
               </div>
             </div>
@@ -174,10 +172,8 @@ const HeaderOne = ({
             {links && (
               <div className="other-links clearfix">
                 <div className="login-btn" style={{ marginRight: "30px" }}>
-                  <Link href="/login">
-                    <a className="theme-btn login-toggler">
-                      <NextImage src="/user-icon.svg" alt="User Icon" width={24} height={24} />
-                    </a>
+                  <Link href="/login" className="theme-btn login-toggler" legacyBehavior>
+                    <NextImage src="/user-icon.svg" alt="User Icon" width={24} height={24} />
                   </Link>
                 </div>
                 <div className="search-btn">
@@ -194,14 +190,10 @@ const HeaderOne = ({
                     <Link
                       className="theme-btn btn-style-one demo-purchase-btn"
                       href="/contact"
-                    >
-                      <a
-                        className="theme-btn btn-style-one demo-purchase-btn"
-                        style={{ color: "white !important" }}
-                      >
-                        <i className="btn-curve"></i>
-                        <span className="btn-title">Contact Us</span>
-                      </a>
+                      style={{ color: "white !important" }}
+                      legacyBehavior>
+                      <i className="btn-curve"></i>
+                      <span className="btn-title">Contact Us</span>
                     </Link>
                   </div>
                 </div>
@@ -229,7 +221,7 @@ const HeaderOne = ({
           </div>
         </div>
       </div>
-    </header>
+    </header>)
   );
 };
 

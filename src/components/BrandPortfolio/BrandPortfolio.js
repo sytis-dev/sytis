@@ -5,7 +5,7 @@ import { Image } from "react-bootstrap";
 
 const BrandPortfolio = () => {
   return (
-    <section className="brand-portfolio" id="brand-portfolio">
+    (<section className="brand-portfolio" id="brand-portfolio">
       {brandPortfolio.map(({ id, bg, image, title }) => (
         <div key={id} className="brand-portfolio__item">
           <div
@@ -24,17 +24,15 @@ const BrandPortfolio = () => {
             </div>
             <div className="brand-portfolio__content">
               <h2 className="brand-portfolio__title">{title}</h2>
-              <Link href="/portfolio-single">
-                <a className="brand-portfolio__link">
-                  checkout some of our recent work
-                  <span className="flaticon-arrows-10"></span>
-                </a>
+              <Link href="/portfolio-single" className="brand-portfolio__link" legacyBehavior>
+                checkout some of our recent work
+                <span className="flaticon-arrows-10"></span>
               </Link>
             </div>
           </div>
         </div>
       ))}
-    </section>
+    </section>)
   );
 };
 

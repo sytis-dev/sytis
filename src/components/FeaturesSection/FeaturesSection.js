@@ -10,7 +10,7 @@ const { bg, title, features } = featuresSection;
 
 const FeaturesSection = () => {
   return (
-    <Jarallax speed={0.3} imgPosition="50% 50%" className="features-section">
+    (<Jarallax speed={0.3} imgPosition="50% 50%" className="features-section">
       <JarallaxImage src={bg.src} />
       <div className="auto-container">
         <div className="content-box">
@@ -33,16 +33,14 @@ const FeaturesSection = () => {
             ))}
           </div>
           <div className="link-box">
-            <Link href="/about">
-              <a className="theme-btn btn-style-one">
-                <i className="btn-curve"></i>
-                <span className="btn-title">Discover More</span>
-              </a>
+            <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+              <i className="btn-curve"></i>
+              <span className="btn-title">Discover More</span>
             </Link>
           </div>
         </div>
       </div>
-    </Jarallax>
+    </Jarallax>)
   );
 };
 

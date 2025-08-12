@@ -14,7 +14,7 @@ const SidebarSide = () => {
   };
 
   return (
-    <aside className="sidebar blog-sidebar">
+    (<aside className="sidebar blog-sidebar">
       <div className="sidebar-widget search-box">
         <div className="widget-inner">
           <form onSubmit={handleSubmit}>
@@ -32,7 +32,6 @@ const SidebarSide = () => {
           </form>
         </div>
       </div>
-
       <div className="sidebar-widget recent-posts">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -54,7 +53,6 @@ const SidebarSide = () => {
           ))}
         </div>
       </div>
-
       <div className="sidebar-widget archives">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -63,13 +61,12 @@ const SidebarSide = () => {
           <ul>
             {categories.map(({ id, title, href }) => (
               <li key={id}>
-                <Link href={href}>{title}</Link>
+                <Link href={href} legacyBehavior>{title}</Link>
               </li>
             ))}
           </ul>
         </div>
       </div>
-
       <div className="sidebar-widget popular-tags">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -85,7 +82,6 @@ const SidebarSide = () => {
           </div>
         </div>
       </div>
-
       <div className="sidebar-widget recent-comments">
         <div className="widget-inner">
           <div className="sidebar-title">
@@ -105,7 +101,7 @@ const SidebarSide = () => {
           ))}
         </div>
       </div>
-    </aside>
+    </aside>)
   );
 };
 

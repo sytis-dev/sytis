@@ -43,31 +43,30 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
   const solutions2 = solutions.slice(2, 4);
 
   return (
-    <section className="service-nine">
+    (<section className="service-nine">
       <div className="auto-container">
         <Row className="g-1 justify-content-center">
           {solutions1.map(({ id, icon, title, href, description }, idx) => {
             const globalIdx = idx;
             return (
-              <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href}>
-                  <a style={{ textDecoration: 'none' }}>
-                    <div
-                    className="service-nine__card"
-                    style={{
-                      border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
-                      boxShadow: '0 2px 12px 0 rgba(0,0,0,0.04)',
-                      borderRadius: 10,
-                      cursor: 'pointer',
-                      transition: 'box-shadow 0.3s, border-color 0.3s',
-                      position: 'relative',
-                      width: '100%',
-                      overflow: 'hidden',
-                      padding: 0,
-                    }}
-                    onMouseEnter={() => setHoveredIndex(globalIdx)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
+              (<Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
+                <Link href={href} style={{ textDecoration: 'none' }} legacyBehavior>
+                  <div
+                  className="service-nine__card"
+                  style={{
+                    border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
+                    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.04)',
+                    borderRadius: 10,
+                    cursor: 'pointer',
+                    transition: 'box-shadow 0.3s, border-color 0.3s',
+                    position: 'relative',
+                    width: '100%',
+                    overflow: 'hidden',
+                    padding: 0,
+                  }}
+                  onMouseEnter={() => setHoveredIndex(globalIdx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
                     <div style={{
                       width: '100%',
                       height: 0,
@@ -110,9 +109,8 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
                       </div>
                     </div>
                   </div>
-                </a>
                 </Link>
-              </Col>
+              </Col>)
             );
           })}
         </Row>
@@ -120,25 +118,24 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
           {solutions2.map(({ id, icon, title, href, description }, idx) => {
             const globalIdx = idx + solutions1.length;
             return (
-              <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href}>
-                  <a style={{ textDecoration: 'none' }}>
-                    <div
-                    className="service-nine__card"
-                    style={{
-                      border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
-                      boxShadow: '0 2px 12px 0 rgba(0,0,0,0.04)',
-                      borderRadius: 10,
-                      cursor: 'pointer',
-                      transition: 'box-shadow 0.3s, border-color 0.3s',
-                      position: 'relative',
-                      width: '100%',
-                      overflow: 'hidden',
-                      padding: 0,
-                    }}
-                    onMouseEnter={() => setHoveredIndex(globalIdx)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
+              (<Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
+                <Link href={href} style={{ textDecoration: 'none' }} legacyBehavior>
+                  <div
+                  className="service-nine__card"
+                  style={{
+                    border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
+                    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.04)',
+                    borderRadius: 10,
+                    cursor: 'pointer',
+                    transition: 'box-shadow 0.3s, border-color 0.3s',
+                    position: 'relative',
+                    width: '100%',
+                    overflow: 'hidden',
+                    padding: 0,
+                  }}
+                  onMouseEnter={() => setHoveredIndex(globalIdx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
                     <div style={{
                       width: '100%',
                       height: 0,
@@ -181,14 +178,13 @@ const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
                       </div>
                     </div>
                   </div>
-                </a>
                 </Link>
-              </Col>
+              </Col>)
             );
           })}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

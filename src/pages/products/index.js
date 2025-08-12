@@ -80,7 +80,7 @@ const Products = ({ products = [] }) => {
   }, [filteredProducts, selectedSolution]);
 
   return (
-    <Layout pageTitle="Products">
+    (<Layout pageTitle="Products">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SYTIS | Products</title>
@@ -99,7 +99,6 @@ const Products = ({ products = [] }) => {
       <MobileMenu />
       <SearchPopup />
       <PageBanner title="Products" />
-      
       <section className="service-nine" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
         <div className="auto-container">
           {/* Filter Buttons */}
@@ -295,8 +294,10 @@ const Products = ({ products = [] }) => {
               <Row className="g-3">
                 {groupProducts.map((product) => (
                   <Col key={product.id} xs={12} sm={6} lg={4} style={{ marginBottom: '24px' }}>
-                    <Link href={`/products/${product.custom_url?.url?.replace(/\//g, '') || product.id}`}>
-                      <a style={{ textDecoration: 'none' }}>
+                    <Link
+                      href={`/products/${product.custom_url?.url?.replace(/\//g, '') || product.id}`}
+                      style={{ textDecoration: 'none' }}
+                      legacyBehavior>
                         <div
                           className="service-nine__card"
                           style={{
@@ -398,7 +399,6 @@ const Products = ({ products = [] }) => {
                             </div>
                           </div>
                         </div>
-                      </a>
                     </Link>
                   </Col>
                 ))}
@@ -435,9 +435,8 @@ const Products = ({ products = [] }) => {
           )}
         </div>
       </section>
-      
       <MainFooter />
-    </Layout>
+    </Layout>)
   );
 };
 

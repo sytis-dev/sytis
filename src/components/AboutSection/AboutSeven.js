@@ -35,9 +35,7 @@ const AboutSeven = () => {
                   </li>
                 ))}
               </ul>
-              <Link href="/about">
-                <a className="about-seven__btn thm-btn__six">Discover More</a>
-              </Link>
+              <Link href="/about" className="about-seven__btn thm-btn__six">Discover More</Link>
             </div>
           </Col>
         </Row>

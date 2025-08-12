@@ -40,7 +40,7 @@ const EventsOne = () => {
   };
 
   return (
-    <section className="events-one">
+    (<section className="events-one">
       <div className="auto-container">
         <EventsViewToggle 
           currentView={currentView} 
@@ -60,11 +60,9 @@ const EventsOne = () => {
             </Row>
 
             <div className="more-box text-center">
-              <Link href="/events">
-                <a className="theme-btn btn-style-one">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Load more events</span>
-                </a>
+              <Link href="/events" className="theme-btn btn-style-one" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Load more events</span>
               </Link>
             </div>
           </>
@@ -72,7 +70,7 @@ const EventsOne = () => {
           <EventsCalendar />
         )}
       </div>
-    </section>
+    </section>)
   );
 };
 

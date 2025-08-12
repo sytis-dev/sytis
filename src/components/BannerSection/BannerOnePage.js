@@ -32,53 +32,49 @@ const BannerOnePage = () => {
 
   const ref = useActive("#home");
 
-  return (
-    <>
-      <section
-        ref={ref}
-        className="banner-section banner-one banner-one-page"
-        id="home"
-      >
-        <div className="banner-carousel">
-          <TinySlider options={settings} ref={listRef}>
-            {bannerOnePage.map(({ id, title, bg, subtitle }) => (
-              <div key={id} ref={listRef}>
-                <div className="slide-item">
-                  <div
-                    className="image-layer"
-                    style={{
-                      backgroundImage: `url(${
-                        require(`@/images/main-slider/${bg}`).default.src
-                      })`,
-                    }}
-                  ></div>
+  return (<>
+    <section
+      ref={ref}
+      className="banner-section banner-one banner-one-page"
+      id="home"
+    >
+      <div className="banner-carousel">
+        <TinySlider options={settings} ref={listRef}>
+          {bannerOnePage.map(({ id, title, bg, subtitle }) => (
+            <div key={id} ref={listRef}>
+              <div className="slide-item">
+                <div
+                  className="image-layer"
+                  style={{
+                    backgroundImage: `url(${
+                      require(`@/images/main-slider/${bg}`).default.src
+                    })`,
+                  }}
+                ></div>
 
-                  <div className="auto-container">
-                    <div className="content-box">
-                      <div className="content">
-                        <div className="inner text-center">
-                          <div className="sub-title">{subtitle}</div>
-                          <h1>
-                            Discover <br /> <span>{title}</span>
-                          </h1>
-                          <div className="link-box">
-                            <Link href="/about">
-                              <a className="theme-btn btn-style-one">
-                                <i className="btn-curve"></i>
-                                <span className="btn-title">Discover More</span>
-                              </a>
-                            </Link>
-                            <div className="vid-link">
-                              <a
-                                onClick={() => setOpen(true)}
-                                className="lightbox-image"
-                              >
-                                <div className="icon">
-                                  <span className="flaticon-play-button-1"></span>
-                                  <i className="ripple"></i>
-                                </div>
-                              </a>
-                            </div>
+                <div className="auto-container">
+                  <div className="content-box">
+                    <div className="content">
+                      <div className="inner text-center">
+                        <div className="sub-title">{subtitle}</div>
+                        <h1>
+                          Discover <br /> <span>{title}</span>
+                        </h1>
+                        <div className="link-box">
+                          <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+                            <i className="btn-curve"></i>
+                            <span className="btn-title">Discover More</span>
+                          </Link>
+                          <div className="vid-link">
+                            <a
+                              onClick={() => setOpen(true)}
+                              className="lightbox-image"
+                            >
+                              <div className="icon">
+                                <span className="flaticon-play-button-1"></span>
+                                <i className="ripple"></i>
+                              </div>
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -86,21 +82,21 @@ const BannerOnePage = () => {
                   </div>
                 </div>
               </div>
-            ))}
-          </TinySlider>
-          <div className="tns-controls">
-            <button className="tns-prev">
-              <span className="icon fa fa-angle-left"></span>
-            </button>
-            <button className="tns-next">
-              <span className="icon fa fa-angle-right"></span>
-            </button>
-          </div>
+            </div>
+          ))}
+        </TinySlider>
+        <div className="tns-controls">
+          <button className="tns-prev">
+            <span className="icon fa fa-angle-left"></span>
+          </button>
+          <button className="tns-next">
+            <span className="icon fa fa-angle-right"></span>
+          </button>
         </div>
-      </section>
-      <VideoModal isOpen={isOpen} setOpen={setOpen} id={"Get7rqXYrbQ"} />
-    </>
-  );
+      </div>
+    </section>
+    <VideoModal isOpen={isOpen} setOpen={setOpen} id={"Get7rqXYrbQ"} />
+  </>);
 };
 
 export default BannerOnePage;

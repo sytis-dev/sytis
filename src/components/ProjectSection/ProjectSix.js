@@ -2,13 +2,15 @@ import { projectSix } from "@/data/projectSection";
 import Link from "next/link";
 import React from "react";
 import { Image } from "react-bootstrap";
-import SwiperCore, { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-SwiperCore.use([Autoplay]);
+// Import Swiper styles
+import "swiper/css";
 
 const options = {
-  spaceBetween: 2,
+  modules: [Autoplay],
+  spaceBetween: 30,
   slidesPerView: 2,
   autoplay: { delay: 5000 },
   breakpoints: {
@@ -34,7 +36,7 @@ const { tagline, title, projects } = projectSix;
 
 const ProjectSix = () => {
   return (
-    <section className="project-six">
+    (<section className="project-six">
       <div className="auto-container">
         <div className="sec-title-six text-center">
           <p className="sec-title-six__text">
@@ -58,7 +60,7 @@ const ProjectSix = () => {
                   <div className="project-six__content">
                     <p className="project-six__category">{category}</p>
                     <h3 className="project-six__title">
-                      <Link href="/portfolio-single">{title}</Link>
+                      <Link href="/portfolio-single" legacyBehavior>{title}</Link>
                     </h3>
                   </div>
                 </div>
@@ -67,7 +69,7 @@ const ProjectSix = () => {
           </div>
         </Swiper>
       </div>
-    </section>
+    </section>)
   );
 };
 

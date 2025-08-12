@@ -9,7 +9,7 @@ const { title, text, counters, image, since, ctaTitle } = aboutSectionTwo;
 
 const AboutSectionTwo = () => {
   return (
-    <section className="about-section-two">
+    (<section className="about-section-two">
       <div className="auto-container">
         <Row className="clearfix">
           <Col lg={6} md={12} sm={12} className="left-col">
@@ -30,11 +30,9 @@ const AboutSectionTwo = () => {
                     <CounterBlock key={counter.id} counter={counter} />
                   ))}
                   <div className="link-box">
-                    <Link href={`/articles`}>
-                      <a className="theme-btn btn-style-two">
-                        <i className="btn-curve"></i>
-                        <span className="btn-title">{ctaTitle}</span>
-                      </a>
+                    <Link href={`/articles`} className="theme-btn btn-style-two" legacyBehavior>
+                      <i className="btn-curve"></i>
+                      <span className="btn-title">{ctaTitle}</span>
                     </Link>
                   </div>
                 </Row>
@@ -55,7 +53,7 @@ const AboutSectionTwo = () => {
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

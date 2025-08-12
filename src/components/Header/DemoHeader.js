@@ -8,7 +8,7 @@ const DemoHeader = () => {
   const { scrollTop } = useScroll(120);
 
   return (
-    <header
+    (<header
       className={`main-header${
         scrollTop ? " fixed-header" : ""
       } header-style-one header-style-five header-style-six demo-header`}
@@ -17,18 +17,16 @@ const DemoHeader = () => {
         <div className="inner-container clearfix">
           <div className="logo-box">
             <div className="logo">
-              <Link href="/">
-                <a title="Linoor - DIgital Agency HTML Template">
-                  <Image
-                    src={logo.src}
-                    width={133}
-                    height={34}
-                    id="dLogo"
-                    className="main-logo"
-                    alt="Linoor - DIgital Agency HTML Template"
-                    title="Linoor - DIgital Agency HTML Template"
-                  />
-                </a>
+              <Link href="/" title="Linoor - DIgital Agency HTML Template" legacyBehavior>
+                <Image
+                  src={logo.src}
+                  width={133}
+                  height={34}
+                  id="dLogo"
+                  className="main-logo"
+                  alt="Linoor - DIgital Agency HTML Template"
+                  title="Linoor - DIgital Agency HTML Template"
+                />
               </Link>
             </div>
           </div>
@@ -41,7 +39,7 @@ const DemoHeader = () => {
           </div>
         </div>
       </div>
-    </header>
+    </header>)
   );
 };
 

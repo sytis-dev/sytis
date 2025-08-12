@@ -69,7 +69,7 @@ const ProductTab = ({ tab = {}, current, carousel = "" }) => {
   const { id, items } = tab;
 
   return (
-    <div className={`p-tab${current === id ? " active-tab" : ""}`} id={id}>
+    (<div className={`p-tab${current === id ? " active-tab" : ""}`} id={id}>
       <div className={carousel || "project-carousel"}>
         <TinySlider
           options={{
@@ -100,7 +100,7 @@ const ProductTab = ({ tab = {}, current, carousel = "" }) => {
                     </div>
                     <div className="title">
                       <h5>
-                        <Link href="/portfolio-single">{title}</Link>
+                        <Link href="/portfolio-single" legacyBehavior>{title}</Link>
                       </h5>
                     </div>
                   </div>
@@ -110,7 +110,7 @@ const ProductTab = ({ tab = {}, current, carousel = "" }) => {
           ))}
         </TinySlider>
       </div>
-    </div>
+    </div>)
   );
 };
 

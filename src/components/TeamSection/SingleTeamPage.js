@@ -7,16 +7,14 @@ const SingleTeamPage = ({ team = {} }) => {
   const { image, name, designation } = team;
 
   return (
-    <Col lg={4} md={6} sm={12} className="team-block">
+    (<Col lg={4} md={6} sm={12} className="team-block">
       <div className="inner-box">
         <div className="image-box">
-          <Link href="/about">
-            <a>
-              <Image
-                src={require(`@/images/resource/${image}`).default.src}
-                alt=""
-              />
-            </a>
+          <Link href="/about" legacyBehavior>
+            <Image
+              src={require(`@/images/resource/${image}`).default.src}
+              alt=""
+            />
           </Link>
           <ul className="social-links clearfix">
             {socials.map(({ id, icon, href }) => (
@@ -35,7 +33,7 @@ const SingleTeamPage = ({ team = {} }) => {
           <div className="designation">{designation}</div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

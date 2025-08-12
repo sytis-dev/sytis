@@ -6,7 +6,7 @@ const CallToSectionTwo = ({
   btnClassName = "btn-style-two",
 }) => {
   return (
-    <section className={`call-to-section-two ${className}`}>
+    (<section className={`call-to-section-two ${className}`}>
       <div className="auto-container">
         <div className="inner clearfix">
           <h2 style={{ color: 'white' }}>
@@ -14,16 +14,17 @@ const CallToSectionTwo = ({
             help
           </h2>
           <div className="link-box">
-            <Link href="/solution-inquiry">
-              <a className={`theme-btn ${btnClassName}`}>
-                <i className="btn-curve"></i>
-                <span className="btn-title">Contact us</span>
-              </a>
+            <Link
+              href="/solution-inquiry"
+              className={`theme-btn ${btnClassName}`}
+              legacyBehavior>
+              <i className="btn-curve"></i>
+              <span className="btn-title">Contact us</span>
             </Link>
           </div>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

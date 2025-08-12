@@ -7,18 +7,16 @@ const { socials, logo5 } = mainFooter;
 
 const FooterFour = () => {
   return (
-    <section className="footer-four">
+    (<section className="footer-four">
       <div className="auto-container">
         <div className="logo-box">
-          <Link href="/index-main">
-            <a>
-              <Image
-                src={logo5.src}
-                width={136}
-                height={35}
-                alt="Linoor HTML Template"
-              />
-            </a>
+          <Link href="/index-main" legacyBehavior>
+            <Image
+              src={logo5.src}
+              width={136}
+              height={35}
+              alt="Linoor HTML Template"
+            />
           </Link>
         </div>
         <div className="footer-four__social">
@@ -29,7 +27,7 @@ const FooterFour = () => {
           ))}
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

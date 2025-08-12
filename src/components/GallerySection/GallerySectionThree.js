@@ -7,7 +7,7 @@ const { tagline, title, items } = gallerySectionThree;
 
 const GallerySectionThree = () => {
   return (
-    <section className="gallery-block-three">
+    (<section className="gallery-block-three">
       <div className="auto-container">
         <div className="sec-title-two text-center">
           <p>{tagline}</p>
@@ -27,7 +27,7 @@ const GallerySectionThree = () => {
                 <div className="gallery-item-three__content">
                   <p>{tagline}</p>
                   <h3>
-                    <Link href="/portfolio-single">{title}</Link>
+                    <Link href="/portfolio-single" legacyBehavior>{title}</Link>
                   </h3>
                 </div>
               </div>
@@ -35,7 +35,7 @@ const GallerySectionThree = () => {
           ))}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

@@ -7,7 +7,7 @@ const { allFeatures, pricing } = pricingOne;
 
 const PricingOne = () => {
   return (
-    <section className="pricing-one">
+    (<section className="pricing-one">
       <div className="auto-container">
         <Row>
           {pricing.map(({ id, name, icon, amount, features }) => (
@@ -33,11 +33,9 @@ const PricingOne = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/contact">
-                    <a className="theme-btn btn-style-one">
-                      <i className="btn-curve"></i>
-                      <span className="btn-title">Choose a plan</span>
-                    </a>
+                  <Link href="/contact" className="theme-btn btn-style-one" legacyBehavior>
+                    <i className="btn-curve"></i>
+                    <span className="btn-title">Choose a plan</span>
                   </Link>
                 </div>
               </div>
@@ -45,7 +43,7 @@ const PricingOne = () => {
           ))}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

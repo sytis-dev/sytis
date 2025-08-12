@@ -8,7 +8,7 @@ const { title, sponsors } = sponsorsSectionFour;
 
 const SponsorsSectionFour = () => {
   return (
-    <section className="sponsors-section-four">
+    (<section className="sponsors-section-four">
       <div className="auto-container">
         <Row>
           {sponsors.map((image, i) => (
@@ -32,15 +32,13 @@ const SponsorsSectionFour = () => {
           <h3>
             <TextSplit text={title} />
           </h3>
-          <Link href="/contact">
-            <a className="theme-btn btn-style-one">
-              <i className="btn-curve"></i>
-              <span className="btn-title">Contact us</span>
-            </a>
+          <Link href="/contact" className="theme-btn btn-style-one" legacyBehavior>
+            <i className="btn-curve"></i>
+            <span className="btn-title">Contact us</span>
           </Link>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

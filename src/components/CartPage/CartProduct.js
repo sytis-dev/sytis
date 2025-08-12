@@ -7,7 +7,7 @@ const CartProduct = ({ product = {}, handleQuantity, handleRemove }) => {
   const total = (price * quantity).toFixed(2);
 
   return (
-    <tr>
+    (<tr>
       <td>
         <div className="product-box">
           <Image
@@ -17,7 +17,7 @@ const CartProduct = ({ product = {}, handleQuantity, handleRemove }) => {
             alt=""
           />
           <h3>
-            <Link href="/product-details">{title}</Link>
+            <Link href="/product-details" legacyBehavior>{title}</Link>
           </h3>
         </div>
       </td>
@@ -50,7 +50,7 @@ const CartProduct = ({ product = {}, handleQuantity, handleRemove }) => {
       <td onClick={() => handleRemove(id)}>
         <i className="flaticon-delete remove-icon"></i>
       </td>
-    </tr>
+    </tr>)
   );
 };
 

@@ -7,7 +7,7 @@ const { image, title, text, features } = featuredSection;
 
 const FeaturedSection = ({ className = "" }) => {
   return (
-    <section className={`featured-section ${className}`}>
+    (<section className={`featured-section ${className}`}>
       <div className="auto-container">
         <Row className="row clearfix">
           <Col lg={6} md={12} sm={12} className="left-col">
@@ -35,11 +35,9 @@ const FeaturedSection = ({ className = "" }) => {
                     <Col key={id} md={6} sm={12} className="">
                       <div className="inner-box">
                         {href.trim() !== "" ? (
-                          <Link href={href} legacyBehavior>
-                            <a className="theme-btn btn-style-two">
-                              <i className="btn-curve"></i>
-                              <span className="btn-title">{title}</span>
-                            </a>
+                          <Link href={href} className="theme-btn btn-style-two" legacyBehavior>
+                            <i className="btn-curve"></i>
+                            <span className="btn-title">{title}</span>
                           </Link>
                         ) : (
                           <>
@@ -56,7 +54,7 @@ const FeaturedSection = ({ className = "" }) => {
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

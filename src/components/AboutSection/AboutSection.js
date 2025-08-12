@@ -12,7 +12,7 @@ const AboutSection = () => {
   const ref = useActive("#about");
 
   return (
-    <section ref={ref} className="about-section" id="about">
+    (<section ref={ref} className="about-section" id="about">
       <div className="auto-container">
         <Row className="clearfix">
           <Col xl={6} lg={12} md={12} sm={12} className="image-column">
@@ -51,18 +51,16 @@ const AboutSection = () => {
                 </div>
               </div>
               <div className="link-box">
-                <Link href="/about">
-                  <a className="theme-btn btn-style-one">
-                    <i className="btn-curve"></i>
-                    <span className="btn-title">Discover More</span>
-                  </a>
+                <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+                  <i className="btn-curve"></i>
+                  <span className="btn-title">Discover More</span>
                 </Link>
               </div>
             </div>
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

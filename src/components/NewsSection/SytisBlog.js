@@ -87,7 +87,7 @@ const SYTISBlog = ({ className = "", showTitle = true, isMore = false }) => {
   }
 
   return (
-    <section ref={ref} className={`news-section ${className}`} id="blog">
+    (<section ref={ref} className={`news-section ${className}`} id="blog">
       <div className="auto-container">
         {showTitle && (
           <div className="sec-title centered">
@@ -105,16 +105,14 @@ const SYTISBlog = ({ className = "", showTitle = true, isMore = false }) => {
         </Row>
         {isMore && (
           <div className="more-box">
-            <Link href="/blog">
-              <a className="theme-btn btn-style-one">
-                <i className="btn-curve"></i>
-                <span className="btn-title">Load more post</span>
-              </a>
+            <Link href="/blog" className="theme-btn btn-style-one" legacyBehavior>
+              <i className="btn-curve"></i>
+              <span className="btn-title">Load more post</span>
             </Link>
           </div>
         )}
       </div>
-    </section>
+    </section>)
   );
 };
 

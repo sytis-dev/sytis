@@ -7,7 +7,7 @@ const { title, features } = featureSeven;
 
 const FeatureSeven = () => {
   return (
-    <section className="feature-seven">
+    (<section className="feature-seven">
       <div className="auto-container">
         <div className="sec-title centered">
           <h2>
@@ -31,7 +31,7 @@ const FeatureSeven = () => {
                   </div>
                   <div className="feature-seven-card__content">
                     <h3 className="feature-seven-card__title">
-                      <Link href={href}>{title}</Link>
+                      <Link href={href} legacyBehavior>{title}</Link>
                     </h3>
                     <p className="feature-seven-card__text">{text}</p>
                   </div>
@@ -42,7 +42,7 @@ const FeatureSeven = () => {
         </Row>
       </div>
       <hr />
-    </section>
+    </section>)
   );
 };
 

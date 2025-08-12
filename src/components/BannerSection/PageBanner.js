@@ -21,7 +21,7 @@ const PageBanner = ({
   }, []);
 
   return (
-    <section className="page-banner">
+    (<section className="page-banner">
       <div
         className="image-layer"
         style={{ backgroundImage: `url(${bg.src})` }}
@@ -57,11 +57,11 @@ const PageBanner = ({
                 }}
               >
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" legacyBehavior>Home</Link>
                 </li>
                 {parent && (
                   <li>
-                    <Link href={parentHref}>{parent}</Link>
+                    <Link href={parentHref} legacyBehavior>{parent}</Link>
                   </li>
                 )}
               </ul>
@@ -69,7 +69,7 @@ const PageBanner = ({
           </div>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

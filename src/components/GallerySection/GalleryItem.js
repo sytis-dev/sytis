@@ -6,7 +6,7 @@ const GalleryItem = ({ item = {} }) => {
   const { image, title, tagline, filter } = item;
 
   return (
-    <Col
+    (<Col
       lg={4}
       md={6}
       sm={12}
@@ -27,13 +27,13 @@ const GalleryItem = ({ item = {} }) => {
             </div>
             <div className="title">
               <h5>
-                <Link href="/portfolio-single">{title}</Link>
+                <Link href="/portfolio-single" legacyBehavior>{title}</Link>
               </h5>
             </div>
           </div>
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

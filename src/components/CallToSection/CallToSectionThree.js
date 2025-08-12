@@ -18,9 +18,7 @@ const CallToSectionThree = () => {
       <div className="auto-container">
         <h3>{title}</h3>
         <div className="button-wrap">
-          <Link href="/about">
-            <a className="theme-btn btn-style-three">Discover More</a>
-          </Link>
+          <Link href="/about" className="theme-btn btn-style-three">Discover More</Link>
         </div>
       </div>
     </Jarallax>

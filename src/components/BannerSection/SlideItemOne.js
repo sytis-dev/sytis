@@ -6,7 +6,7 @@ const SlideItemOne = ({ slide = {} }, ref) => {
   const { bg, subtitle, title } = slide;
 
   return (
-    <div ref={ref} style={{ userSelect: "none" }} className="slide-item">
+    (<div ref={ref} style={{ userSelect: "none" }} className="slide-item">
       <div
         className="image-layer"
         style={{
@@ -27,18 +27,16 @@ const SlideItemOne = ({ slide = {} }, ref) => {
                 <TextSplit text={title} />
               </h1>
               <div className="link-box">
-                <Link href="/about">
-                  <a className="theme-btn btn-style-one">
-                    <i className="btn-curve"></i>
-                    <span className="btn-title">Discover More</span>
-                  </a>
+                <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+                  <i className="btn-curve"></i>
+                  <span className="btn-title">Discover More</span>
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

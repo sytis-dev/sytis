@@ -19,7 +19,7 @@ const {
 
 const EventsDetails = () => {
   return (
-    <section className="events-details">
+    (<section className="events-details">
       <div className="auto-container">
         <div className="events-one__image">
           <div className="events-one__date">{date}</div>
@@ -32,11 +32,9 @@ const EventsDetails = () => {
               {texts.map((text, i) => (
                 <p key={i}>{text}</p>
               ))}
-              <Link href="/contact">
-                <a className="theme-btn btn-style-one">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Register Now</span>
-                </a>
+              <Link href="/contact" className="theme-btn btn-style-one" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Register Now</span>
               </Link>
             </div>
           </Col>
@@ -95,7 +93,7 @@ const EventsDetails = () => {
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

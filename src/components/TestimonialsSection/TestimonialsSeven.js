@@ -1,12 +1,15 @@
 import { testimonialsSeven } from "@/data/testimonialsSection";
 import React from "react";
-import SwiperCore, { Autoplay, Navigation } from "swiper";
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
 import SingleTestimonialSeven from "./SingleTestimonialSeven";
 
-SwiperCore.use([Autoplay, Navigation]);
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 const options = {
+  modules: [Autoplay, Navigation],
   spaceBetween: 30,
   loop: true,
   slidesPerGroup: 3,
@@ -63,10 +66,11 @@ const TestimonialsSeven = () => {
           <Swiper {...options} className="thm-swiper__slider">
             <div className="swiper-wrapper">
               {testimonialsSeven.map((testimonial) => (
-                <SingleTestimonialSeven
-                  key={testimonial.id}
-                  testimonial={testimonial}
-                />
+                <SwiperSlide key={testimonial.id}>
+                  <SingleTestimonialSeven
+                    testimonial={testimonial}
+                  />
+                </SwiperSlide>
               ))}
             </div>
           </Swiper>

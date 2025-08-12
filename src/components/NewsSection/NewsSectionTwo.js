@@ -1,12 +1,15 @@
 import { newsSectionTwo } from "@/data/newsSection";
 import React from "react";
-import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
 import SingleNewsTwo from "./SingleNewsTwo";
 
-SwiperCore.use([Pagination, Autoplay]);
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 const options = {
+  modules: [Pagination, Autoplay],
   slidesPerView: 1,
   spaceBetween: 0,
   loop: true,

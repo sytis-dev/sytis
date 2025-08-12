@@ -7,7 +7,7 @@ const { text, title, services } = serviceEight;
 
 const ServiceEight = () => {
   return (
-    <section className="service-eight">
+    (<section className="service-eight">
       <div className="auto-container">
         <div className="sec-title-eight text-center">
           <p className="sec-title-eight__text">{text}</p>
@@ -19,7 +19,7 @@ const ServiceEight = () => {
               <div className="service-eight__card">
                 <div className="service-eight__card__inner">
                   <h3 className="service-eight__title">
-                    <Link href={href}>{title}</Link>
+                    <Link href={href} legacyBehavior>{title}</Link>
                   </h3>
                   <div className="service-eight__icon">
                     <i className={icon}></i>
@@ -30,7 +30,7 @@ const ServiceEight = () => {
           ))}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

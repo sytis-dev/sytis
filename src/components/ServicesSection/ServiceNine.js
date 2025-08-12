@@ -5,7 +5,7 @@ import { Col, Image, Row } from "react-bootstrap";
 
 const ServiceNine = () => {
   return (
-    <section className="service-nine">
+    (<section className="service-nine">
       <div className="auto-container">
         <Row>
           {serviceNine.map(({ id, icon, title, href, image, text }) => (
@@ -26,13 +26,11 @@ const ServiceNine = () => {
                       <i className={icon}></i>
                     </div>
                     <h3 className="service-nine__title">
-                      <Link href={href}>{title}</Link>
+                      <Link href={href} legacyBehavior>{title}</Link>
                     </h3>
                     <p className="service-nine__text">{text}</p>
-                    <Link href={href}>
-                      <a className="service-nine__link">
-                        <i className="fa fa-angle-right"></i>
-                      </a>
+                    <Link href={href} className="service-nine__link" legacyBehavior>
+                      <i className="fa fa-angle-right"></i>
                     </Link>
                   </div>
                 </div>
@@ -41,7 +39,7 @@ const ServiceNine = () => {
           ))}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

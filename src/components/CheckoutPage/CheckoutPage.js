@@ -25,7 +25,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <section className="checkout-page">
+    (<section className="checkout-page">
       <div className="auto-container">
         <p className="checkout-page__returning">
           Returning Customer? <Link href="/login">Click here to Login</Link>
@@ -172,17 +172,15 @@ const CheckoutPage = () => {
               ))}
             </div>
             <div className="text-right d-flex justify-content-end">
-              <Link href="/checkout">
-                <a className="theme-btn btn-style-one">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Place your order</span>
-                </a>
+              <Link href="/checkout" className="theme-btn btn-style-one" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Place your order</span>
               </Link>
             </div>
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

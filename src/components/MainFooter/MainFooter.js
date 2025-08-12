@@ -26,7 +26,7 @@ const MainFooter = ({ normalPadding = true }) => {
   };
 
   return (
-    <footer className={`main-footer${normalPadding ? " normal-padding" : ""}`}>
+    (<footer className={`main-footer${normalPadding ? " normal-padding" : ""}`}>
       <div className="auto-container">
         <div className="widgets-section">
           <Row className="clearfix">
@@ -34,10 +34,8 @@ const MainFooter = ({ normalPadding = true }) => {
               <div className="footer-widget logo-widget">
                 <div className="widget-content">
                   <div className="logo">
-                    <Link href="/">
-                      <a>
-                        <Image id="fLogo" src={logo.src} alt="" />
-                      </a>
+                    <Link href="/" legacyBehavior>
+                      <Image id="fLogo" src={logo.src} alt="" />
                     </Link>
                   </div>
                   <div className="text">{text}</div>
@@ -62,7 +60,7 @@ const MainFooter = ({ normalPadding = true }) => {
                       <ul>
                         {links.slice(0, 5).map(({ id, href, title }) => (
                           <li key={id}>
-                            <Link href={href}>{title}</Link>
+                            <Link href={href} legacyBehavior>{title}</Link>
                           </li>
                         ))}
                       </ul>
@@ -71,7 +69,7 @@ const MainFooter = ({ normalPadding = true }) => {
                       <ul>
                         {links.slice(5).map(({ id, href, title }) => (
                           <li key={id}>
-                            <Link href={href}>{title}</Link>
+                            <Link href={href} legacyBehavior>{title}</Link>
                           </li>
                         ))}
                       </ul>
@@ -104,7 +102,7 @@ const MainFooter = ({ normalPadding = true }) => {
                     </li>
                     <li>
                       <span
-                        className="icon flaticon-email-2"
+                        className="icon flaticon-call"
                         style={{ color: "#4682B4" }}
                       ></span>
                       <a href={`mailto:${email}`}>{email}</a>
@@ -120,11 +118,9 @@ const MainFooter = ({ normalPadding = true }) => {
                   <div className="text" style={{ marginBottom: "25px" }}>{textBottom}</div>
                   <div className="newsletter-form">
                     <div className="link-box" style={{ marginBottom: "15px" }}>
-                      <Link href="/newsletter">
-                        <a className="theme-btn btn-style-two">
-                          <i className="btn-curve"></i>
-                          <span className="btn-title">Sign Up Now</span>
-                        </a>
+                      <Link href="/newsletter" className="theme-btn btn-style-two" legacyBehavior>
+                        <i className="btn-curve"></i>
+                        <span className="btn-title">Sign Up Now</span>
                       </Link>
                     </div>
                     <div className="privacy-notice" style={{ 
@@ -132,10 +128,8 @@ const MainFooter = ({ normalPadding = true }) => {
                       color: "#999b9f", 
                       lineHeight: "1.4" 
                     }}>
-                      <Link href="/privacy-policy">
-                        <a style={{ color: "#999b9f", textDecoration: "underline" }}>
-                          We do not sell or share your personal information.
-                        </a>
+                      <Link href="/privacy-policy" style={{ color: "#999b9f", textDecoration: "underline" }}>
+                        We do not sell or share your personal information.
                       </Link>
                     </div>
                   </div>
@@ -160,7 +154,7 @@ const MainFooter = ({ normalPadding = true }) => {
           </div>
         </div>
       </div>
-    </footer>
+    </footer>)
   );
 };
 

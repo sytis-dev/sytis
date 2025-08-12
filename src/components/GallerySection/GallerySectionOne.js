@@ -2,11 +2,13 @@ import { gallerySectionOne } from "@/data/gallerySection";
 import useActive from "@/hooks/useActive";
 import Link from "next/link";
 import React, { useState } from "react";
-import Masonry from "react-masonry-component";
+import Masonry from "react-masonry-css";
 import GalleryItem from "./GalleryItem";
 
-const masonryOptions = {
-  transitionDuration: 500,
+const breakpointColumns = {
+  default: 3,
+  1100: 2,
+  700: 1,
 };
 
 const { title, tabBtns, items } = gallerySectionOne;
@@ -22,7 +24,7 @@ const GallerySectionOne = ({ portfolio = false, similar = false }) => {
   const ref = useActive("#portfolio");
 
   return (
-    <section
+    (<section
       ref={ref}
       className={`gallery-section${similar ? " similar-gallery" : ""}`}
       id="portfolio"
@@ -59,8 +61,9 @@ const GallerySectionOne = ({ portfolio = false, similar = false }) => {
             )}
           </div>
           <Masonry
-            options={masonryOptions}
+            breakpointCols={breakpointColumns}
             className="row position-relative filter-list"
+            columnClassName="masonry-grid_column"
           >
             {currentItems.slice(similar ? 3 : 0).map((item) => (
               <GalleryItem item={item} key={item.id} />
@@ -68,17 +71,15 @@ const GallerySectionOne = ({ portfolio = false, similar = false }) => {
           </Masonry>
           {portfolio && (
             <div className="more-box">
-              <Link href="/portfolio">
-                <a className="theme-btn btn-style-one">
-                  <i className="btn-curve"></i>
-                  <span className="btn-title">Load more work</span>
-                </a>
+              <Link href="/portfolio" className="theme-btn btn-style-one" legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Load more work</span>
               </Link>
             </div>
           )}
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

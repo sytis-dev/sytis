@@ -50,7 +50,7 @@ const SingleEventsOne = ({ event = {}, isPast = false }) => {
   } : {};
 
   return (
-    <Col md={6} lg={4}>
+    (<Col md={6} lg={4}>
       <div className={`events-one__item ${pastEventClass}`}>
         <div className="events-one__image">
           <div className="events-one__dates" style={pastDateStyle}>
@@ -62,24 +62,22 @@ const SingleEventsOne = ({ event = {}, isPast = false }) => {
           </div>
 
           {hasValidAddress ? (
-            <Link href={link}>
-              <a>
-                <Image
-                  src={eventImage?.src || ""}
-                  alt=""
-                  style={{
-                    width: "100%",
-                    minHeight: "250px",
-                    maxHeight: "275px",
-                    objectFit: isWideLogo ? "contain" : "cover",
-                    objectPosition: isWideLogo ? "center" : "center",
-                    backgroundColor: isWideLogo ? "#f8f9fa" : "transparent",
-                    borderRadius: "8px",
-                    padding: isWideLogo ? "20px" : "0",
-                    ...pastEventStyle
-                  }}
-                />
-              </a>
+            <Link href={link} legacyBehavior>
+              <Image
+                src={eventImage?.src || ""}
+                alt=""
+                style={{
+                  width: "100%",
+                  minHeight: "250px",
+                  maxHeight: "275px",
+                  objectFit: isWideLogo ? "contain" : "cover",
+                  objectPosition: isWideLogo ? "center" : "center",
+                  backgroundColor: isWideLogo ? "#f8f9fa" : "transparent",
+                  borderRadius: "8px",
+                  padding: isWideLogo ? "20px" : "0",
+                  ...pastEventStyle
+                }}
+              />
             </Link>
           ) : (
             <Image
@@ -103,7 +101,7 @@ const SingleEventsOne = ({ event = {}, isPast = false }) => {
         <div className="events-one__content">
           <h3 className="events-one__title">
             {hasValidAddress ? (
-              <Link href={link}>{title}</Link>
+              <Link href={link} legacyBehavior>{title}</Link>
             ) : (
               <span>{title}</span>
             )}
@@ -125,7 +123,7 @@ const SingleEventsOne = ({ event = {}, isPast = false }) => {
           )}
         </div>
       </div>
-    </Col>
+    </Col>)
   );
 };
 

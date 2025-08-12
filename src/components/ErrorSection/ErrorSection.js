@@ -13,7 +13,7 @@ const ErrorSection = () => {
   };
 
   return (
-    <section className="error-section">
+    (<section className="error-section">
       <div className="auto-container">
         <div className="content">
           <div className="big-text">
@@ -42,16 +42,14 @@ const ErrorSection = () => {
             </form>
           </div> */}
           <div className="link-box">
-            <Link href="">
-              <a className="theme-btn btn-style-one">
-                <i className="btn-curve"></i>
-                <span className="btn-title">Back to home</span>
-              </a>
+            <Link href="" className="theme-btn btn-style-one" legacyBehavior>
+              <i className="btn-curve"></i>
+              <span className="btn-title">Back to home</span>
             </Link>
           </div>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

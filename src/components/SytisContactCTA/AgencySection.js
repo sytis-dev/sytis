@@ -10,7 +10,7 @@ const AgencySection = () => {
   const [current, setCurrent] = useState("tab-1");
 
   return (
-    <section className="agency-section">
+    (<section className="agency-section">
       <div className="auto-container">
         <Row className="clearfix">
           <Col xl={6} lg={12} md={12} sm={12} className="left-col">
@@ -51,11 +51,9 @@ const AgencySection = () => {
                       <div className="content">
                         <div className="text">{text}</div>
                         <div className="link-box">
-                          <Link href={ctaLink}>
-                            <a className="theme-btn btn-style-two">
-                              <i className="btn-curve"></i>
-                              <span className="btn-title">{ctaText}</span>
-                            </a>
+                          <Link href={ctaLink} className="theme-btn btn-style-two" legacyBehavior>
+                            <i className="btn-curve"></i>
+                            <span className="btn-title">{ctaText}</span>
                           </Link>
                         </div>
                       </div>
@@ -84,7 +82,7 @@ const AgencySection = () => {
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

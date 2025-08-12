@@ -7,7 +7,7 @@ const SingleNewsTwo = ({ news = {} }) => {
   const { image, date, comments, title } = news;
 
   return (
-    <SwiperSlide>
+    (<SwiperSlide>
       <div className="news-two__box">
         <div className="news-two__image">
           <Image
@@ -18,20 +18,18 @@ const SingleNewsTwo = ({ news = {} }) => {
         <div className="news-two__content">
           <ul className="list-unstyled news-two__meta">
             <li>
-              <Link href="/blog-single">{date}</Link>
+              <Link href="/blog-single" legacyBehavior>{date}</Link>
             </li>
             <li>
-              <Link href="/blog-single">
-                <a>{comments} Comments</a>
-              </Link>
+              <Link href="/blog-single" legacyBehavior>{comments} Comments</Link>
             </li>
           </ul>
           <h3>
-            <Link href="/blog-single">{title}</Link>
+            <Link href="/blog-single" legacyBehavior>{title}</Link>
           </h3>
         </div>
       </div>
-    </SwiperSlide>
+    </SwiperSlide>)
   );
 };
 

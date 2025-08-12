@@ -9,24 +9,22 @@ const { bg, logo, logoTitle, tagline, title, text } = underConstructionSection;
 
 const UnderConstructionSection = () => {
   return (
-    <section className="under-construction">
+    (<section className="under-construction">
       <div
         className="under-construction__bg"
         style={{ backgroundImage: `url(${bg.src})` }}
       ></div>
       <div className="auto-container text-center">
         <div className="logo">
-          <Link href="/">
-            <a title={logoTitle}>
-              <Image
-                src={logo.src}
-                width={134}
-                id="dLogo"
-                className="main-logo"
-                alt={logoTitle}
-                title={logoTitle}
-              />
-            </a>
+          <Link href="/" title={logoTitle} legacyBehavior>
+            <Image
+              src={logo.src}
+              width={134}
+              id="dLogo"
+              className="main-logo"
+              alt={logoTitle}
+              title={logoTitle}
+            />
           </Link>
         </div>
         <h3 className="under-construction__tagline">{tagline}</h3>
@@ -43,7 +41,7 @@ const UnderConstructionSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

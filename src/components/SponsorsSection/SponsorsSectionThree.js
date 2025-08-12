@@ -1,13 +1,15 @@
 import { sponsorsSectionThree } from "@/data/sponsorsSection";
 import React from "react";
 import { Image } from "react-bootstrap";
-import SwiperCore, { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-SwiperCore.use([Autoplay]);
+// Import Swiper styles
+import "swiper/css";
 
 const options = {
-  spaceBetween: 140,
+  modules: [Autoplay],
+  spaceBetween: 100,
   slidesPerView: 5,
   autoplay: { delay: 5000 },
   breakpoints: {

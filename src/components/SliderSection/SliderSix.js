@@ -1,30 +1,30 @@
 import { sliderSix } from "@/data/slider";
 import React from "react";
-import SwiperCore, {
-  Autoplay,
-  EffectFade,
-  Navigation,
-  Pagination,
-} from "swiper";
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import SingleSlideSix from "./SingleSlideSix";
 
-SwiperCore.use([Autoplay, Pagination, Navigation, EffectFade]);
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 
 const options = {
+  modules: [Autoplay, Pagination, Navigation, EffectFade],
   slidesPerView: 1,
   loop: true,
   effect: "fade",
+  autoplay: { delay: 5000 },
   pagination: {
-    el: "#main-slider-pagination",
+    el: "#slider-six-pagination",
     type: "bullets",
     clickable: true,
   },
   navigation: {
-    nextEl: "#main-slider__swiper-button-next",
-    prevEl: "#main-slider__swiper-button-prev",
+    nextEl: "#slider-six__swiper-button-next",
+    prevEl: "#slider-six__swiper-button-prev",
   },
-  autoplay: { delay: 5000 },
 };
 
 const SliderSix = () => {
@@ -45,7 +45,9 @@ const SliderSix = () => {
       <Swiper {...options} className="thm-swiper__slider">
         <div className="swiper-wrapper">
           {sliderSix.map((slide) => (
-            <SingleSlideSix key={slide.id} slide={slide} />
+            <SwiperSlide key={slide.id}>
+              <SingleSlideSix slide={slide} />
+            </SwiperSlide>
           ))}
         </div>
         <div className="slider-bottom-box clearfix">

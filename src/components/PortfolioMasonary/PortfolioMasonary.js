@@ -2,10 +2,11 @@ import portfolioMasonary from "@/data/portfolioMasonary";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Image } from "react-bootstrap";
-import Masonry from "react-masonry-component";
+import Masonry from "react-masonry-css";
 
-const masonryOptions = {
-  transitionDuration: 500,
+const breakpointColumns = {
+  default: 2,
+  700: 1,
 };
 
 const { title, filters, portfolios } = portfolioMasonary;
@@ -20,7 +21,7 @@ const PortfolioMasonary = () => {
   const currentPortfolio = getCurrent(current);
 
   return (
-    <section className="portfolio-masonary">
+    (<section className="portfolio-masonary">
       <div className="auto-container">
         <h3>{title}</h3>
         <hr />
@@ -39,14 +40,13 @@ const PortfolioMasonary = () => {
             ))}
           </ul>
 
-          <Link href="/portfolio">
-            <a className="portfolio-masonary__more">View All</a>
-          </Link>
+          <Link href="/portfolio" className="portfolio-masonary__more">View All</Link>
         </div>
 
         <Masonry
-          options={masonryOptions}
+          breakpointCols={breakpointColumns}
           className="row filter-layout dynamic-filter-count-layout masonary-layout position-relative"
+          columnClassName="masonry-grid_column"
         >
           {currentPortfolio.map(({ id, filter, image, tagline, title }) => (
             <Col
@@ -62,7 +62,7 @@ const PortfolioMasonary = () => {
                 <div className="portfolio-masonary__box-content">
                   <p>{tagline}</p>
                   <h4>
-                    <Link href="/portfolio-single">{title}</Link>
+                    <Link href="/portfolio-single" legacyBehavior>{title}</Link>
                   </h4>
                 </div>
               </div>
@@ -71,15 +71,13 @@ const PortfolioMasonary = () => {
         </Masonry>
 
         <div className="text-center">
-          <Link href="/about">
-            <a className="theme-btn btn-style-one">
-              <i className="btn-curve"></i>
-              <span className="btn-title">Discover More</span>
-            </a>
+          <Link href="/about" className="theme-btn btn-style-one" legacyBehavior>
+            <i className="btn-curve"></i>
+            <span className="btn-title">Discover More</span>
           </Link>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

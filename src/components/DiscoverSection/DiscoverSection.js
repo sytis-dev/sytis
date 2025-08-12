@@ -8,7 +8,7 @@ const { title, discovers } = discoverSection;
 
 const DiscoverSection = ({ ShowTitle = true }) => {
   return (
-    <section className="discover-section">
+    (<section className="discover-section">
       <div className="auto-container">
         {ShowTitle && (
           <div className="sec-title centered">
@@ -32,13 +32,11 @@ const DiscoverSection = ({ ShowTitle = true }) => {
                   <div className="cap-inner">
                     <h5 style={{ color: 'white' }}>{title}</h5>
                     <div className="more-link" style={{ color: "#4682B4" }}>
-                      <Link href={href}>
-                        <a>
-                          <span
-                            className="fa fa-angle-right"
-                            style={{ color: "white" }}
-                          ></span>
-                        </a>
+                      <Link href={href} legacyBehavior>
+                        <span
+                          className="fa fa-angle-right"
+                          style={{ color: "white" }}
+                        ></span>
                       </Link>
                     </div>
                   </div>
@@ -48,7 +46,7 @@ const DiscoverSection = ({ ShowTitle = true }) => {
           ))}
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

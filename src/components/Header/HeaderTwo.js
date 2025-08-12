@@ -13,7 +13,7 @@ const HeaderTwo = ({ headerStyle = "mainmenu-six", header = 6 }) => {
   const { toggleSearch, toggleMenu } = useRootContext();
 
   return (
-    <nav
+    (<nav
       className={`${headerStyle} main-header${
         scrollTop ? " fixed-header" : ""
       }`}
@@ -22,10 +22,8 @@ const HeaderTwo = ({ headerStyle = "mainmenu-six", header = 6 }) => {
         <div className={`${headerStyle}__inner nav-outer`}>
           {header === 7 && (
             <div className="mainmenu-seven__left">
-              <Link href="/index-main">
-                <a>
-                  <Image src={logo7.src} width={134} alt={title} />
-                </a>
+              <Link href="/index-main" legacyBehavior>
+                <Image src={logo7.src} width={134} alt={title} />
               </Link>
             </div>
           )}
@@ -52,10 +50,8 @@ const HeaderTwo = ({ headerStyle = "mainmenu-six", header = 6 }) => {
                   <span className="flaticon-magnifying-glass"></span>
                 </button>
               </div>
-              <Link href="/contact">
-                <a className="thm-btn__six mainmenu-six__btn">
-                  Get a Free Quote
-                </a>
+              <Link href="/contact" className="thm-btn__six mainmenu-six__btn">
+                Get a Free Quote
               </Link>
             </div>
           ) : (
@@ -83,7 +79,7 @@ const HeaderTwo = ({ headerStyle = "mainmenu-six", header = 6 }) => {
           )}
         </div>
       </div>
-    </nav>
+    </nav>)
   );
 };
 

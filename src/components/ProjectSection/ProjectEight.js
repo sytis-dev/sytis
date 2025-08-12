@@ -1,13 +1,15 @@
 import { projectEight } from "@/data/projectSection";
 import Link from "next/link";
 import React from "react";
-import { Image } from "react-bootstrap";
-import SwiperCore, { Autoplay } from "swiper";
+import { Col, Image } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
-SwiperCore.use([Autoplay]);
+// Import Swiper styles
+import "swiper/css";
 
 const options = {
+  modules: [Autoplay],
   spaceBetween: 30,
   slidesPerView: 2,
   autoplay: { delay: 5000 },
@@ -34,7 +36,7 @@ const { tagline, title, projects } = projectEight;
 
 const ProjectEight = () => {
   return (
-    <section className="project-eight">
+    (<section className="project-eight">
       <div className="auto-container">
         <div className="sec-title-eight text-center">
           <p className="sec-title-eight__text">{tagline}</p>
@@ -53,13 +55,11 @@ const ProjectEight = () => {
                     alt=""
                   />
                   <div className="project-eight__content">
-                    <Link href="/portfolio-single">
-                      <a className="project-eight__link">
-                        <i className="flaticon-right-arrow"></i>
-                      </a>
+                    <Link href="/portfolio-single" className="project-eight__link" legacyBehavior>
+                      <i className="flaticon-right-arrow"></i>
                     </Link>
                     <h3 className="project-eight__title">
-                      <Link href="/portfolio-single">{title}</Link>
+                      <Link href="/portfolio-single" legacyBehavior>{title}</Link>
                     </h3>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const ProjectEight = () => {
           </div>
         </Swiper>
       </div>
-    </section>
+    </section>)
   );
 };
 

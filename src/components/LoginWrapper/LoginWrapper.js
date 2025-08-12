@@ -21,7 +21,7 @@ const LoginWrapper = ({ register = false, forgot = false }) => {
   };
 
   return (
-    <section className="login-wrapper">
+    (<section className="login-wrapper">
       <div
         className="login-bg"
         style={{
@@ -36,17 +36,15 @@ const LoginWrapper = ({ register = false, forgot = false }) => {
         <div className="login-content__inner">
           <div className="logo-box">
             <div className="logo text-center">
-              <Link href="/">
-                <a title={logoTitle}>
-                  <Image
-                    src={logo.src}
-                    width={134}
-                    id="dLogo"
-                    className="main-logo"
-                    alt={logoTitle}
-                    title={logoTitle}
-                  />
-                </a>
+              <Link href="/" title={logoTitle} legacyBehavior>
+                <Image
+                  src={logo.src}
+                  width={134}
+                  id="dLogo"
+                  className="main-logo"
+                  alt={logoTitle}
+                  title={logoTitle}
+                />
               </Link>
             </div>
           </div>
@@ -96,7 +94,7 @@ const LoginWrapper = ({ register = false, forgot = false }) => {
           </p>
         </div>
       </div>
-    </section>
+    </section>)
   );
 };
 

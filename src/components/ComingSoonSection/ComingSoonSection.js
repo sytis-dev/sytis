@@ -16,7 +16,7 @@ const ComingSoonSection = () => {
   };
 
   return (
-    <section
+    (<section
       className="coming-soon"
       style={{ backgroundImage: `url(${bg.src})` }}
     >
@@ -25,17 +25,15 @@ const ComingSoonSection = () => {
           <Col lg={7}>
             <div className="logo-box">
               <div className="logo">
-                <Link href="/">
-                  <a title={logoTitle}>
-                    <Image
-                      src={logo.src}
-                      id="thm-logo"
-                      alt={logoTitle}
-                      width={134}
-                      height={34}
-                      title={logoTitle}
-                    />
-                  </a>
+                <Link href="/" title={logoTitle} legacyBehavior>
+                  <Image
+                    src={logo.src}
+                    id="thm-logo"
+                    alt={logoTitle}
+                    width={134}
+                    height={34}
+                    title={logoTitle}
+                  />
                 </Link>
               </div>
             </div>
@@ -77,7 +75,7 @@ const ComingSoonSection = () => {
           </Col>
         </Row>
       </div>
-    </section>
+    </section>)
   );
 };
 

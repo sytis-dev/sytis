@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { toast, Toaster } from "react-hot-toast";
 import GeneralToast from "@/components/Toasts/GeneralToast";
+import Head from "next/head";
 
 import ContextProvider from "@/context/ContextProvider";
 import "@/vendors/animate.css";
@@ -13,7 +14,7 @@ import "@/vendors/reey-font.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "node_modules/swiper/swiper-bundle.min.css";
 import "react-circular-progressbar/dist/styles.css";
-import "react-modal-video/css/modal-video.min.css";
+
 import "tiny-slider/dist/tiny-slider.css";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
@@ -192,6 +193,65 @@ const MyApp = ({ Component, pageProps }) => {
       }}
     >
       <ContextProvider>
+        {/* Global metadata and fonts */}
+        <Head>
+          <link
+            rel="shortcut icon"
+            href="/favicon.ico"
+            id="fav-shortcut"
+            type="image/x-icon"
+          />
+          <link
+            rel="icon"
+            href="/favicon.ico"
+            id="fav-icon"
+            type="image/x-icon"
+          />
+          <link rel="icon" href="/favicon.ico" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta property="og:image" content="/og-image.png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.sytis.com" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="Sytis | Real-Time Thermal Monitoring"
+          />
+          <meta
+            name="twitter:description"
+            content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring."
+          />
+          <meta name="twitter:image" content="/og-image.png" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Teko:wght@300;400;500;600;700&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;600;700;800;900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Shadows+Into+Light&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+
         {/* ✅ GTM Script */}
         <Script
           id="gtm-init"

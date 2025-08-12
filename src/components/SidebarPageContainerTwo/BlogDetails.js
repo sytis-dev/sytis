@@ -28,14 +28,12 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className="blog-details">
+    (<div className="blog-details">
       <div className="post-details">
         <div className="inner-box">
           <div className="image-box">
-            <Link href="/blog-single">
-              <a>
-                <Image src={image.src} alt="" />
-              </a>
+            <Link href="/blog-single" legacyBehavior>
+              <Image src={image.src} alt="" />
             </Link>
           </div>
           <div className="lower-box">
@@ -143,7 +141,7 @@ const BlogDetails = () => {
           </form>
         </div>
       </div>
-    </div>
+    </div>)
   );
 };
 

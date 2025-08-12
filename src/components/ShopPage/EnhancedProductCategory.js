@@ -183,7 +183,7 @@ const ProductCategory = ({ products, categoryName, categoryDescription }) => {
   }
 
   return (
-    <div className="product-category">
+    (<div className="product-category">
       <div className="auto-container">
         <Row>
           {/* Product Selection Sidebar */}
@@ -299,52 +299,48 @@ const ProductCategory = ({ products, categoryName, categoryDescription }) => {
                   <Link
                     href={`/products/${getProductSlug(selectedProduct)}`}
                     passHref
-                  >
-                    <a
-                      style={{
-                        flex: '1',
-                        display: 'block',
-                        textAlign: 'center',
-                        padding: '10px',
-                        backgroundColor: '#ff0000',
-                        color: 'white',
-                        textDecoration: 'none',
-                        borderRadius: '5px',
-                        fontSize: '12px',
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase',
-                        border: 'none',
-                        cursor: 'pointer',
-                        minWidth: '0'
-                      }}
-                    >
+                    style={{
+                      flex: '1',
+                      display: 'block',
+                      textAlign: 'center',
+                      padding: '10px',
+                      backgroundColor: '#ff0000',
+                      color: 'white',
+                      textDecoration: 'none',
+                      borderRadius: '5px',
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                      border: 'none',
+                      cursor: 'pointer',
+                      minWidth: '0'
+                    }}>
+                    
                       View Details
-                    </a>
+                    
                   </Link>
                   <Link
                     href="/contact"
                     passHref
-                  >
-                    <a
-                      style={{
-                        flex: '1',
-                        display: 'block',
-                        textAlign: 'center',
-                        padding: '10px',
-                        backgroundColor: 'white',
-                        color: '#ff0000',
-                        textDecoration: 'none',
-                        borderRadius: '5px',
-                        fontSize: '12px',
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase',
-                        border: '2px solid #ff0000',
-                        cursor: 'pointer',
-                        minWidth: '0'
-                      }}
-                    >
+                    style={{
+                      flex: '1',
+                      display: 'block',
+                      textAlign: 'center',
+                      padding: '10px',
+                      backgroundColor: 'white',
+                      color: '#ff0000',
+                      textDecoration: 'none',
+                      borderRadius: '5px',
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                      border: '2px solid #ff0000',
+                      cursor: 'pointer',
+                      minWidth: '0'
+                    }}>
+                    
                       Contact
-                    </a>
+                    
                   </Link>
                 </div>
               </div>
@@ -352,7 +348,7 @@ const ProductCategory = ({ products, categoryName, categoryDescription }) => {
           </Col>
         </Row>
       </div>
-    </div>
+    </div>)
   );
 };
 

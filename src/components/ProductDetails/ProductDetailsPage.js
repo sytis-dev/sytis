@@ -741,509 +741,498 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
     }
   };
 
-  return (
-    <>
-      <section className="product-details">
-        <div className="auto-container">
-          <Row>
-            {/* Image Gallery Section */}
-            <Col lg={12} xl={6}>
-              <div className="product-gallery">
-                {/* Thumbnails on the left */}
-                {allImages.length > 1 && (
-                  <div className="product-thumbnails">
-                    {allImages.map((img, index) => (
-                      <div
-                        key={img?.id || index}
-                        className={`thumbnail-item ${index === selectedImageIndex ? 'active' : ''}`}
-                        onClick={() => handleImageClick(index)}
-                        ref={el => thumbnailRefs.current[index] = el}
-                      >
-                        <Image 
-                          src={img?.url_thumbnail || img?.url_standard || img?.url || img?.src || img} 
-                          alt={img?.description || `Product image ${index + 1}`}
-                          fluid
-                          onError={(e) => {
-                            console.log('Thumbnail image failed to load:', e.target.src);
-                            e.target.src = '/product_images/uploaded_images/picture1.jpg';
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-                
-                {/* Main image on the right */}
-                <div className="product-main-image">
-                  <div className="main-image-container">
-                    <div 
-                      className="image-with-magnifier"
-                      // onMouseMove={handleMouseMove} // Commented out magnifier
-                      // onMouseLeave={handleMouseLeave} // Commented out magnifier
-                      ref={imageRef}
+  return (<>
+    <section className="product-details">
+      <div className="auto-container">
+        <Row>
+          {/* Image Gallery Section */}
+          <Col lg={12} xl={6}>
+            <div className="product-gallery">
+              {/* Thumbnails on the left */}
+              {allImages.length > 1 && (
+                <div className="product-thumbnails">
+                  {allImages.map((img, index) => (
+                    <div
+                      key={img?.id || index}
+                      className={`thumbnail-item ${index === selectedImageIndex ? 'active' : ''}`}
+                      onClick={() => handleImageClick(index)}
+                      ref={el => thumbnailRefs.current[index] = el}
                     >
                       <Image 
-                        src={productImage} 
-                        alt={selectedImage?.description || productTitle}
+                        src={img?.url_thumbnail || img?.url_standard || img?.url || img?.src || img} 
+                        alt={img?.description || `Product image ${index + 1}`}
                         fluid
                         onError={(e) => {
-                          console.log('Product image failed to load:', e.target.src);
+                          console.log('Thumbnail image failed to load:', e.target.src);
                           e.target.src = '/product_images/uploaded_images/picture1.jpg';
                         }}
                       />
-                       {/* {magnifier.show && ( // Commented out magnifier */}
-                       {/*   <div  // Commented out magnifier */}
-                       {/*     className="magnifier" // Commented out magnifier */}
-                       {/*     style={{ // Commented out magnifier */}
-                       {/*       left: `${magnifier.x}%`, // Commented out magnifier */}
-                       {/*       top: `${magnifier.y}%`, // Commented out magnifier */}
-                       {/*       transform: 'translate(-50%, -50%)', // Commented out magnifier */}
-                       {/*       position: 'absolute' // Commented out magnifier */}
-                       {/*     }} // Commented out magnifier */}
-                       {/*   > // Commented out magnifier */}
-                       {/*     <Image  // Commented out magnifier */}
-                       {/*       src={productImageZoom}  // Commented out magnifier */}
-                       {/*       alt={selectedImage?.description || productTitle} // Commented out magnifier */}
-                       {/*       style={{ // Commented out magnifier */}
-                       {/*         width: '400px', // Commented out magnifier */}
-                       {/*         height: '400px', // Commented out magnifier */}
-                       {/*         objectFit: 'cover', // Commented out magnifier */}
-                       {/*         objectPosition: `${magnifier.x}% ${magnifier.y}%`, // Commented out magnifier */}
-                       {/*         transform: 'scale(2)', // Commented out magnifier */}
-                       {/*         transformOrigin: 'center', // Commented out magnifier */}
-                       {/*         position: 'absolute', // Commented out magnifier */}
-                       {/*         left: `-${magnifier.x * 2}%`, // Commented out magnifier */}
-                       {/*         top: `-${magnifier.y * 2}%` // Commented out magnifier */}
-                       {/*       }} // Commented out magnifier */}
-                       {/*     /> // Commented out magnifier */}
-                       {/*   </div> // Commented out magnifier */}
-                       {/* )} // Commented out magnifier */}
                     </div>
-                    
-                    {/* Navigation Arrows */}
-                    {allImages.length > 1 && (
-                      <>
-                        <button 
-                          className="image-nav-button image-nav-prev"
-                          onClick={handlePreviousImage}
-                          title="Previous image"
-                        >
-                          <i className="fa fa-chevron-left"></i>
-                        </button>
-                        <button 
-                          className="image-nav-button image-nav-next"
-                          onClick={handleNextImage}
-                          title="Next image"
-                        >
-                          <i className="fa fa-chevron-right"></i>
-                        </button>
-                      </>
-                    )}
-                    
-                    {productImageZoom && (
-                      <button 
-                        className="zoom-button"
-                        onClick={handleZoomClick}
-                        title="Click to view full size"
-                      >
-                        <i className="fa fa-search-plus"></i>
-                      </button>
-                    )}
+                  ))}
+                </div>
+              )}
+              
+              {/* Main image on the right */}
+              <div className="product-main-image">
+                <div className="main-image-container">
+                  <div 
+                    className="image-with-magnifier"
+                    // onMouseMove={handleMouseMove} // Commented out magnifier
+                    // onMouseLeave={handleMouseLeave} // Commented out magnifier
+                    ref={imageRef}
+                  >
+                    <Image 
+                      src={productImage} 
+                      alt={selectedImage?.description || productTitle}
+                      fluid
+                      onError={(e) => {
+                        console.log('Product image failed to load:', e.target.src);
+                        e.target.src = '/product_images/uploaded_images/picture1.jpg';
+                      }}
+                    />
+                     {/* {magnifier.show && ( // Commented out magnifier */}
+                     {/*   <div  // Commented out magnifier */}
+                     {/*     className="magnifier" // Commented out magnifier */}
+                     {/*     style={{ // Commented out magnifier */}
+                     {/*       left: `${magnifier.x}%`, // Commented out magnifier */}
+                     {/*       top: `${magnifier.y}%`, // Commented out magnifier */}
+                     {/*       transform: 'translate(-50%, -50%)', // Commented out magnifier */}
+                     {/*       position: 'absolute' // Commented out magnifier */}
+                     {/*     }} // Commented out magnifier */}
+                     {/*   > // Commented out magnifier */}
+                     {/*     <Image  // Commented out magnifier */}
+                     {/*       src={productImageZoom}  // Commented out magnifier */}
+                     {/*       alt={selectedImage?.description || productTitle} // Commented out magnifier */}
+                     {/*       style={{ // Commented out magnifier */}
+                     {/*         width: '400px', // Commented out magnifier */}
+                     {/*         height: '400px', // Commented out magnifier */}
+                     {/*         objectFit: 'cover', // Commented out magnifier */}
+                     {/*         objectPosition: `${magnifier.x}% ${magnifier.y}%`, // Commented out magnifier */}
+                     {/*         transform: 'scale(2)', // Commented out magnifier */}
+                     {/*         transformOrigin: 'center', // Commented out magnifier */}
+                     {/*         position: 'absolute', // Commented out magnifier */}
+                     {/*         left: `-${magnifier.x * 2}%`, // Commented out magnifier */}
+                     {/*         top: `-${magnifier.y * 2}%` // Commented out magnifier */}
+                     {/*       }} // Commented out magnifier */}
+                     {/*     /> // Commented out magnifier */}
+                     {/*   </div> // Commented out magnifier */}
+                     {/* )} // Commented out magnifier */}
                   </div>
+                  
+                  {/* Navigation Arrows */}
+                  {allImages.length > 1 && (
+                    <>
+                      <button 
+                        className="image-nav-button image-nav-prev"
+                        onClick={handlePreviousImage}
+                        title="Previous image"
+                      >
+                        <i className="fa fa-chevron-left"></i>
+                      </button>
+                      <button 
+                        className="image-nav-button image-nav-next"
+                        onClick={handleNextImage}
+                        title="Next image"
+                      >
+                        <i className="fa fa-chevron-right"></i>
+                      </button>
+                    </>
+                  )}
+                  
+                  {productImageZoom && (
+                    <button 
+                      className="zoom-button"
+                      onClick={handleZoomClick}
+                      title="Click to view full size"
+                    >
+                      <i className="fa fa-search-plus"></i>
+                    </button>
+                  )}
                 </div>
               </div>
-            </Col>
+            </div>
+          </Col>
 
-            {/* Product Information Section */}
-            <Col lg={12} xl={6}>
-              <div className="product-details__top">
-                <h3 className="product-details__title">{productTitle}</h3>
-                {/* <p className="product-details__price">${productPrice}</p> */}
-              </div>
-              {/* <div className="product-details__reveiw">
-                {Array.from(Array(productStars)).map((_, i) => (
-                  <i key={i} className="fa fa-star"></i>
-                ))}
-                <span>{productCustomerReviews} Customer Reviews</span>
-              </div> */}
-              {/* <div className="product-details__content">
-                <p>{productText}</p>
-                <p>
-                  <TextSplit text={productText2} />
-                </p>
-              </div> */}
-              {/* <div className="inner">
-                  <div className="faq-box">
-                    <ul className="accordion-box clearfix">
-                      {faqs.map(({ id, title, text }) => (
-                        <li
-                          key={id}
-                          className={`accordion block${
-                            currentFaq === id ? " active-block" : ""
+          {/* Product Information Section */}
+          <Col lg={12} xl={6}>
+            <div className="product-details__top">
+              <h3 className="product-details__title">{productTitle}</h3>
+              {/* <p className="product-details__price">${productPrice}</p> */}
+            </div>
+            {/* <div className="product-details__reveiw">
+              {Array.from(Array(productStars)).map((_, i) => (
+                <i key={i} className="fa fa-star"></i>
+              ))}
+              <span>{productCustomerReviews} Customer Reviews</span>
+            </div> */}
+            {/* <div className="product-details__content">
+              <p>{productText}</p>
+              <p>
+                <TextSplit text={productText2} />
+              </p>
+            </div> */}
+            {/* <div className="inner">
+                <div className="faq-box">
+                  <ul className="accordion-box clearfix">
+                    {faqs.map(({ id, title, text }) => (
+                      <li
+                        key={id}
+                        className={`accordion block${
+                          currentFaq === id ? " active-block" : ""
+                        }`}
+                      >
+                        <div
+                          onClick={() => setCurrentFaq(id)}
+                          className={`acc-btn${
+                            currentFaq === id ? " active" : ""
                           }`}
                         >
-                          <div
-                            onClick={() => setCurrentFaq(id)}
-                            className={`acc-btn${
-                              currentFaq === id ? " active" : ""
-                            }`}
-                          >
-                            <span className="count">{id}.</span> {title}
+                          <span className="count">{id}.</span> {title}
+                        </div>
+                        <div
+                          className={`acc-content animated${
+                            currentFaq === id ? " current slideInUp" : ""
+                          }`}
+                        >
+                          <div className="content">
+                            <div className="text">{text}</div>
                           </div>
-                          <div
-                            className={`acc-content animated${
-                              currentFaq === id ? " current slideInUp" : ""
-                            }`}
-                          >
-                            <div className="content">
-                              <div className="text">{text}</div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div> */}
-
-              {/* <div className="product-details__quantity">
-                <h3 className="product-details__quantity-title">
-                  Choose quantity
-                </h3>
-                <div className="quantity-box">
-                  <button
-                    onClick={() =>
-                      setQuantity((preQuantity) =>
-                        preQuantity > 1 ? preQuantity - 1 : preQuantity
-                      )
-                    }
-                    type="button"
-                    className="sub"
-                  >
-                    <i className="fa fa-minus"></i>
-                  </button>
-                  <input
-                    onChange={(e) => setQuantity(+e.target.value)}
-                    type="number"
-                    id="1"
-                    value={quantity}
-                  />
-                  <button
-                    onClick={() => setQuantity((preQuantity) => preQuantity + 1)}
-                    type="button"
-                    className="add"
-                  >
-                    <i className="fa fa-plus"></i>
-                  </button>
-                </div>
-              </div> */}
-              {/* <div className="product-details__buttons">
-                <Link href="/cart">
-                  <a className="theme-btn btn-style-two">
-                    <i className="btn-curve"></i>
-                    <span className="btn-title">Add to wishlist</span>
-                  </a>
-                </Link>
-                <Link href="/cart">
-                  <a className="theme-btn btn-style-one">
-                    <i className="btn-curve"></i>
-                    <span className="btn-title">Add to cart</span>
-                  </a>
-                </Link>
-              </div> */}
-              <div className="product-details__social">
-                <span>Share</span>
-                {socials.map(({ id, icon, href }) => (
-                  <a key={id} href={href} className={icon}></a>
-                ))}
-              </div>
-              
-              {/* Product Meta Description */}
-              {(safeProduct?.meta_description || safeProduct?.description) && (
-                <div className="product-details__meta-description">
-                  <p>{safeProduct.meta_description || safeProduct.description}</p>
-                </div>
-              )}
-              
-              {/* Product Specifications */}
-              {productSpecs.length > 0 && (
-                <div className="product-specifications">
-                  <h4 className="product-specifications__title">Product Specifications</h4>
-                  <div className="product-specifications__grid">
-                    {productSpecs.map((spec, index) => (
-                      <div key={`spec-${index}`} className="spec-item">
-                        <span className="spec-label">{spec.label}:</span>
-                        <span className="spec-value">{spec.value}</span>
-                      </div>
+                        </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              )}
-              
-              <div className="contact-pricing-btn-wrapper">
-                <Link
-                  className="theme-btn btn-style-one demo-purchase-btn"
-                  href="/contact"
-                  passHref
+              </div> */}
+
+            {/* <div className="product-details__quantity">
+              <h3 className="product-details__quantity-title">
+                Choose quantity
+              </h3>
+              <div className="quantity-box">
+                <button
+                  onClick={() =>
+                    setQuantity((preQuantity) =>
+                      preQuantity > 1 ? preQuantity - 1 : preQuantity
+                    )
+                  }
+                  type="button"
+                  className="sub"
                 >
-                  <a
-                    className="theme-btn btn-style-one demo-purchase-btn contact-pricing-btn"
-                    style={{ color: "white !important" }}
-                  >
-                    <i className="btn-curve"></i>
-                    <span className="btn-title">Contact Us for pricing</span>
-                  </a>
-                </Link>
+                  <i className="fa fa-minus"></i>
+                </button>
+                <input
+                  onChange={(e) => setQuantity(+e.target.value)}
+                  type="number"
+                  id="1"
+                  value={quantity}
+                />
+                <button
+                  onClick={() => setQuantity((preQuantity) => preQuantity + 1)}
+                  type="button"
+                  className="add"
+                >
+                  <i className="fa fa-plus"></i>
+                </button>
               </div>
-            </Col>
-          </Row>
-        </div>
-      </section>
-
-      {/* Product Tabs Section */}
-      <section className="product-tabs-section">
-        <div className="auto-container">
-          <div className="work-tabs tabs-box">
-            {/* Tab Navigation */}
-            <ul className="tab-btns tab-buttons clearfix">
-              {tabs.map((tab) => {
-                const content = getTabContent(tab.key);
-                const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
-                const isClickable = hasContent;
-                
-                console.log(`Tab ${tab.key}:`, {
-                  hasContent: !!hasContent,
-                  isClickable,
-                  label: tab.label,
-                  contentType: typeof content,
-                  contentLength: typeof content === 'string' ? content.length : 'N/A'
-                });
-                
-                return (
-                  <li
-                    key={tab.key}
-                    onClick={isClickable ? () => setActiveTab(tab.key) : undefined}
-                    className={`tab-btn${activeTab === tab.key ? " active-btn" : ""}${!isClickable ? " disabled-tab" : ""}`}
-                    style={{ 
-                      cursor: isClickable ? 'pointer' : 'not-allowed',
-                      opacity: isClickable ? 1 : 0.6
-                    }}
-                  >
-                    <span>{tab.label}</span>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {/* Tab Content */}
-            <div className="tabs-content">
-              {tabs.map((tab) => {
-                const content = getTabContent(tab.key);
-                const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
-                
-                console.log(`Rendering tab ${tab.key}:`, {
-                  hasContent: !!hasContent,
-                  contentType: typeof content,
-                  contentLength: typeof content === 'string' ? content.length : 'N/A',
-                  isActive: activeTab === tab.key,
-                  tabValue: safeProduct?.tabs?.find(t => t?.key === tab.key)?.value
-                });
-                
-                return (
-                  <div
-                    key={tab.key}
-                    className={`tab animated${activeTab === tab.key ? " active-tab fadeInUp" : ""}`}
-                  >
-                    {hasContent ? (
-                      <div className="text-col">
-                        <div className="inner">
-                          {/* For description tab, don't show title since it's just HTML content */}
-                          {tab.key !== 'tab_description' && content.title && (
-                            <h3 className="product-tabs__panel-title">{content.title}</h3>
-                          )}
-                          {content.items && content.items.length > 0 ? (
-                            <ul className="product-tabs__panel-list">
-                              {content.items.map((item, index) => (
-                                <li key={index} className="product-tabs__panel-item">
-                                  <div 
-                                    dangerouslySetInnerHTML={{ __html: item }}
-                                  />
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div 
-                              className="product-tabs__panel-text"
-                              dangerouslySetInnerHTML={{ 
-                                __html: typeof content === 'string' ? content : 'Content available' 
-                              }}
-                              ref={tab.key === 'tab_description' ? descriptionRef : null}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-col">
-                        <div className="inner">
-                          <div className="product-tabs__coming-soon">
-                            <i className="fa fa-clock-o"></i>
-                            <h3>Coming Soon</h3>
-                            <p>This content will be available soon. Please check back later.</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+            </div> */}
+            {/* <div className="product-details__buttons">
+              <Link href="/cart">
+                <a className="theme-btn btn-style-two">
+                  <i className="btn-curve"></i>
+                  <span className="btn-title">Add to wishlist</span>
+                </a>
+              </Link>
+              <Link href="/cart">
+                <a className="theme-btn btn-style-one">
+                  <i className="btn-curve"></i>
+                  <span className="btn-title">Add to cart</span>
+                </a>
+              </Link>
+            </div> */}
+            <div className="product-details__social">
+              <span>Share</span>
+              {socials.map(({ id, icon, href }) => (
+                <a key={id} href={href} className={icon}></a>
+              ))}
             </div>
+            
+            {/* Product Meta Description */}
+            {(safeProduct?.meta_description || safeProduct?.description) && (
+              <div className="product-details__meta-description">
+                <p>{safeProduct.meta_description || safeProduct.description}</p>
+              </div>
+            )}
+            
+            {/* Product Specifications */}
+            {productSpecs.length > 0 && (
+              <div className="product-specifications">
+                <h4 className="product-specifications__title">Product Specifications</h4>
+                <div className="product-specifications__grid">
+                  {productSpecs.map((spec, index) => (
+                    <div key={`spec-${index}`} className="spec-item">
+                      <span className="spec-label">{spec.label}:</span>
+                      <span className="spec-value">{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div className="contact-pricing-btn-wrapper">
+              <Link
+                className="theme-btn btn-style-one demo-purchase-btn contact-pricing-btn"
+                href="/contact"
+                style={{ color: "white !important" }}
+                legacyBehavior>
+                <i className="btn-curve"></i>
+                <span className="btn-title">Contact Us for pricing</span>
+              </Link>
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </section>
+    {/* Product Tabs Section */}
+    <section className="product-tabs-section">
+      <div className="auto-container">
+        <div className="work-tabs tabs-box">
+          {/* Tab Navigation */}
+          <ul className="tab-btns tab-buttons clearfix">
+            {tabs.map((tab) => {
+              const content = getTabContent(tab.key);
+              const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
+              const isClickable = hasContent;
+              
+              console.log(`Tab ${tab.key}:`, {
+                hasContent: !!hasContent,
+                isClickable,
+                label: tab.label,
+                contentType: typeof content,
+                contentLength: typeof content === 'string' ? content.length : 'N/A'
+              });
+              
+              return (
+                <li
+                  key={tab.key}
+                  onClick={isClickable ? () => setActiveTab(tab.key) : undefined}
+                  className={`tab-btn${activeTab === tab.key ? " active-btn" : ""}${!isClickable ? " disabled-tab" : ""}`}
+                  style={{ 
+                    cursor: isClickable ? 'pointer' : 'not-allowed',
+                    opacity: isClickable ? 1 : 0.6
+                  }}
+                >
+                  <span>{tab.label}</span>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Tab Content */}
+          <div className="tabs-content">
+            {tabs.map((tab) => {
+              const content = getTabContent(tab.key);
+              const hasContent = tab.key === 'tab_description' ? (safeProduct?.description || content) : content;
+              
+              console.log(`Rendering tab ${tab.key}:`, {
+                hasContent: !!hasContent,
+                contentType: typeof content,
+                contentLength: typeof content === 'string' ? content.length : 'N/A',
+                isActive: activeTab === tab.key,
+                tabValue: safeProduct?.tabs?.find(t => t?.key === tab.key)?.value
+              });
+              
+              return (
+                <div
+                  key={tab.key}
+                  className={`tab animated${activeTab === tab.key ? " active-tab fadeInUp" : ""}`}
+                >
+                  {hasContent ? (
+                    <div className="text-col">
+                      <div className="inner">
+                        {/* For description tab, don't show title since it's just HTML content */}
+                        {tab.key !== 'tab_description' && content.title && (
+                          <h3 className="product-tabs__panel-title">{content.title}</h3>
+                        )}
+                        {content.items && content.items.length > 0 ? (
+                          <ul className="product-tabs__panel-list">
+                            {content.items.map((item, index) => (
+                              <li key={index} className="product-tabs__panel-item">
+                                <div 
+                                  dangerouslySetInnerHTML={{ __html: item }}
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <div 
+                            className="product-tabs__panel-text"
+                            dangerouslySetInnerHTML={{ 
+                              __html: typeof content === 'string' ? content : 'Content available' 
+                            }}
+                            ref={tab.key === 'tab_description' ? descriptionRef : null}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-col">
+                      <div className="inner">
+                        <div className="product-tabs__coming-soon">
+                          <i className="fa fa-clock-o"></i>
+                          <h3>Coming Soon</h3>
+                          <p>This content will be available soon. Please check back later.</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
-      </section>
-
-      {/* Zoom Modal */}
-      {showZoomModal && (
-        <div className="zoom-modal-overlay" onClick={handleModalClick}>
-          <div className="zoom-modal-content">
-            <button className="zoom-modal-close" onClick={handleCloseZoom}>
+      </div>
+    </section>
+    {/* Zoom Modal */}
+    {showZoomModal && (
+      <div className="zoom-modal-overlay" onClick={handleModalClick}>
+        <div className="zoom-modal-content">
+          <button className="zoom-modal-close" onClick={handleCloseZoom}>
+            <i className="fa fa-times"></i>
+          </button>
+          <div className="zoom-modal-image-container">
+            <Image 
+              src={productImageZoom} 
+              alt={selectedImage?.description || productTitle}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                display: 'block'
+              }}
+              onError={(e) => {
+                console.log('Zoom image failed to load:', e.target.src);
+                e.target.src = '/product_images/uploaded_images/picture1.jpg';
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    )}
+    {/* PDF Modal - Only show on desktop */}
+    {showPdfModal && isMobile === false && (
+      <div className="pdf-modal-overlay" onClick={handleClosePdfModal}>
+        <div className="pdf-modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="pdf-modal-header">
+            <h3 className="pdf-modal-title">
+              <i className="fa fa-file-pdf-o"></i>
+              {pdfFileName}
+            </h3>
+            <button className="pdf-modal-close" onClick={handleClosePdfModal}>
               <i className="fa fa-times"></i>
             </button>
-            <div className="zoom-modal-image-container">
-              <Image 
-                src={productImageZoom} 
-                alt={selectedImage?.description || productTitle}
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  width: 'auto',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  display: 'block'
-                }}
-                onError={(e) => {
-                  console.log('Zoom image failed to load:', e.target.src);
-                  e.target.src = '/product_images/uploaded_images/picture1.jpg';
-                }}
-              />
-            </div>
           </div>
-        </div>
-      )}
-
-            {/* PDF Modal - Only show on desktop */}
-      {showPdfModal && isMobile === false && (
-        <div className="pdf-modal-overlay" onClick={handleClosePdfModal}>
-          <div className="pdf-modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="pdf-modal-header">
-              <h3 className="pdf-modal-title">
-                <i className="fa fa-file-pdf-o"></i>
-                {pdfFileName}
-              </h3>
-              <button className="pdf-modal-close" onClick={handleClosePdfModal}>
-                <i className="fa fa-times"></i>
-              </button>
-            </div>
-            <div className="pdf-modal-body">
-              {/* Loading indicator */}
-              {!iframeLoaded && !iframeError && !iframeTimeout && (
-                <div className="pdf-loading">
-                  <div className="pdf-loading-spinner">
-                    <i className="fa fa-spinner fa-spin"></i>
-                  </div>
-                  <p>Loading PDF...</p>
-                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
-                    Trying to load: {pdfUrl}
-                  </p>
+          <div className="pdf-modal-body">
+            {/* Loading indicator */}
+            {!iframeLoaded && !iframeError && !iframeTimeout && (
+              <div className="pdf-loading">
+                <div className="pdf-loading-spinner">
+                  <i className="fa fa-spinner fa-spin"></i>
                 </div>
-              )}
-              
-              {/* Timeout message */}
-              {iframeTimeout && !iframeLoaded && !iframeError && (
-                <div className="pdf-timeout">
-                  <i className="fa fa-clock-o"></i>
-                  <p>PDF is taking longer than expected to load.</p>
-                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
-                    URL: {pdfUrl}
-                  </p>
-                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
-                    Open PDF in new tab
-                  </a>
-                </div>
-              )}
-              
-              {/* Primary PDF viewer using embed tag - most browser friendly */}
-              <embed
+                <p>Loading PDF...</p>
+                <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                  Trying to load: {pdfUrl}
+                </p>
+              </div>
+            )}
+            
+            {/* Timeout message */}
+            {iframeTimeout && !iframeLoaded && !iframeError && (
+              <div className="pdf-timeout">
+                <i className="fa fa-clock-o"></i>
+                <p>PDF is taking longer than expected to load.</p>
+                <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                  URL: {pdfUrl}
+                </p>
+                <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
+                  Open PDF in new tab
+                </a>
+              </div>
+            )}
+            
+            {/* Primary PDF viewer using embed tag - most browser friendly */}
+            <embed
+              src={`${pdfUrl}#view=FitH`}
+              type="application/pdf"
+              width="100%"
+              height="100%"
+              style={{ border: 'none', display: iframeError ? 'none' : 'block' }}
+              onLoad={() => {
+                console.log('PDF embed loaded successfully:', pdfUrl);
+                setIframeLoaded(true);
+                setIframeError(false);
+              }}
+              onError={(e) => {
+                console.log('PDF embed failed to load:', pdfUrl);
+                setIframeError(true);
+                setIframeLoaded(false);
+              }}
+            />
+            
+            {/* Fallback iframe if embed tag fails */}
+            {iframeError && (
+              <iframe
                 src={`${pdfUrl}#view=FitH`}
-                type="application/pdf"
+                title={pdfFileName}
                 width="100%"
                 height="100%"
-                style={{ border: 'none', display: iframeError ? 'none' : 'block' }}
+                style={{ border: 'none' }}
                 onLoad={() => {
-                  console.log('PDF embed loaded successfully:', pdfUrl);
+                  console.log('PDF iframe fallback loaded successfully:', pdfUrl);
                   setIframeLoaded(true);
                   setIframeError(false);
                 }}
                 onError={(e) => {
-                  console.log('PDF embed failed to load:', pdfUrl);
+                  console.log('PDF iframe fallback failed to load:', e.target.src);
                   setIframeError(true);
                   setIframeLoaded(false);
                 }}
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
+                allow="fullscreen"
+                referrerPolicy="no-referrer"
               />
-              
-              {/* Fallback iframe if embed tag fails */}
-              {iframeError && (
-                <iframe
-                  src={`${pdfUrl}#view=FitH`}
-                  title={pdfFileName}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 'none' }}
-                  onLoad={() => {
-                    console.log('PDF iframe fallback loaded successfully:', pdfUrl);
-                    setIframeLoaded(true);
-                    setIframeError(false);
-                  }}
-                  onError={(e) => {
-                    console.log('PDF iframe fallback failed to load:', e.target.src);
-                    setIframeError(true);
-                    setIframeLoaded(false);
-                  }}
-                  sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
-                  allow="fullscreen"
-                  referrerPolicy="no-referrer"
-                />
-              )}
-              
-              {/* Final fallback message */}
-              {iframeError && (
-                <div className="pdf-fallback" style={{ display: 'block' }}>
-                  <p>PDF failed to load in viewer.</p>
-                  <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
-                    URL: {pdfUrl}
-                  </p>
-                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
-                    Open PDF in new tab
-                  </a>
-                </div>
-              )}
-            </div>
-            <div className="pdf-modal-footer">
-              <button className="pdf-download-btn" onClick={handleDownloadPdf}>
-                <i className="fa fa-download"></i>
-                Download PDF
-              </button>
-              <button className="pdf-close-btn" onClick={handleClosePdfModal}>
-                <i className="fa fa-times"></i>
-                Close
-              </button>
-            </div>
+            )}
+            
+            {/* Final fallback message */}
+            {iframeError && (
+              <div className="pdf-fallback" style={{ display: 'block' }}>
+                <p>PDF failed to load in viewer.</p>
+                <p style={{ fontSize: '12px', color: '#999', marginTop: '10px' }}>
+                  URL: {pdfUrl}
+                </p>
+                <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="pdf-fallback-link">
+                  Open PDF in new tab
+                </a>
+              </div>
+            )}
+          </div>
+          <div className="pdf-modal-footer">
+            <button className="pdf-download-btn" onClick={handleDownloadPdf}>
+              <i className="fa fa-download"></i>
+              Download PDF
+            </button>
+            <button className="pdf-close-btn" onClick={handleClosePdfModal}>
+              <i className="fa fa-times"></i>
+              Close
+            </button>
           </div>
         </div>
-      )}
-
-      {/* Related Products Carousel */}
-      <RelatedProductsCarousel currentProduct={safeProduct} />
-    </>
-  );
+      </div>
+    )}
+    {/* Related Products Carousel */}
+    <RelatedProductsCarousel currentProduct={safeProduct} />
+  </>);
 };
 
 export default ProductDetailsPage;

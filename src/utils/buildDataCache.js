@@ -28,6 +28,23 @@ const DEV_CACHE_TTL = 10 * 60 * 1000; // 10 minutes in milliseconds
 // Helper to check if we're in development mode
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+// Helper to get the base URL for API calls
+const getApiBaseUrl = () => {
+  if (isDevelopment) {
+    // Try to use the current host from environment, fallback to localhost
+    // Check for common development ports
+    const devPort = process.env.PORT || process.env.NEXT_PUBLIC_PORT || 3000;
+    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+           process.env.HOSTNAME ? `http://${process.env.HOSTNAME}:${devPort}` :
+           `http://localhost:${devPort}`;
+    console.log(`🌐 Development mode detected, using API base URL: ${baseUrl}`);
+    return baseUrl;
+  }
+  const productionUrl = process.env.API_URL || '';
+  console.log(`🏭 Production mode detected, using API base URL: ${productionUrl || 'default'}`);
+  return productionUrl;
+};
+
 // File-based cache for development mode (persists between page compilations)
 const getDevCacheFile = (cacheKey) => {
   const cacheDir = path.join(os.tmpdir(), 'sytis-dev-cache');
@@ -123,28 +140,50 @@ export class BuildDataCache {
 
     console.log('🔄 Fetching solutions data for the first time...');
     
-    // Retry utility function
-    const fetchWithRetry = async (url, retries = 3, delay = 5000) => {
+    // Retry utility function with exponential backoff
+    const fetchWithRetry = async (url, retries = 3, baseDelay = 2000) => {
       for (let i = 0; i < retries; i++) {
         try {
+          console.log(`🔄 Attempt ${i + 1}/${retries} to fetch from ${url}`);
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
+          console.log(`✅ Successfully fetched data from ${url}`);
           return await response.json();
         } catch (error) {
-          console.error(`Attempt ${i + 1} failed:`, error);
+          console.error(`❌ Attempt ${i + 1} failed:`, error.message);
           if (i === retries - 1) throw error;
+          
+          // Exponential backoff: 2s, 4s, 8s
+          const delay = baseDelay * Math.pow(2, i);
+          console.log(`⏳ Waiting ${delay}ms before retry...`);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     };
 
     try {
+      // Use the helper function to get the appropriate API base URL
+      const apiUrl = getApiBaseUrl();
+      console.log(`🔗 Attempting to fetch solutions from: ${apiUrl}/api/solutions`);
+      
+      // Simple health check - try to fetch the API endpoint
+      try {
+        const healthCheck = await fetch(`${apiUrl}/api/solutions`);
+        if (!healthCheck.ok) {
+          console.log(`⚠️ API health check failed: ${healthCheck.status} ${healthCheck.statusText}`);
+        } else {
+          console.log(`✅ API health check passed`);
+        }
+      } catch (healthError) {
+        console.log(`⚠️ API health check error:`, healthError.message);
+      }
+      
       const json = await fetchWithRetry(
-        `${process.env.API_URL}/api/solutions`,
+        `${apiUrl}/api/solutions`,
         3,
-        5000
+        2000
       );
       
       const solutions = json.data || [];
@@ -162,6 +201,13 @@ export class BuildDataCache {
       return solutions;
     } catch (error) {
       console.error('❌ Failed to fetch solutions data:', error);
+      
+      // In development, if we can't reach the API, return empty array and log helpful message
+      if (isDevelopment && error.message.includes('fetch')) {
+        console.log(`💡 Development tip: Make sure your dev server is running (npm run dev)`);
+        console.log(`💡 The API routes need to be available during getStaticProps calls`);
+      }
+      
       return [];
     }
   }
@@ -192,28 +238,38 @@ export class BuildDataCache {
     console.log(`⏳ Applications: Waiting ${delay}ms to avoid rate limits...`);
     await new Promise(resolve => setTimeout(resolve, delay));
     
-    // Retry utility function
-    const fetchWithRetry = async (url, retries = 3, delay = 5000) => {
+    // Retry utility function with exponential backoff
+    const fetchWithRetry = async (url, retries = 3, baseDelay = 2000) => {
       for (let i = 0; i < retries; i++) {
         try {
+          console.log(`🔄 Attempt ${i + 1}/${retries} to fetch from ${url}`);
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
+          console.log(`✅ Successfully fetched data from ${url}`);
           return await response.json();
         } catch (error) {
-          console.error(`Attempt ${i + 1} failed:`, error);
+          console.error(`❌ Attempt ${i + 1} failed:`, error.message);
           if (i === retries - 1) throw error;
+          
+          // Exponential backoff: 2s, 4s, 8s
+          const delay = baseDelay * Math.pow(2, i);
+          console.log(`⏳ Waiting ${delay}ms before retry...`);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     };
 
     try {
+      // Use the helper function to get the appropriate API base URL
+      const apiUrl = getApiBaseUrl();
+      console.log(`🔗 Attempting to fetch applications from: ${apiUrl}/api/applications`);
+      
       const json = await fetchWithRetry(
-        `${process.env.API_URL}/api/applications`,
+        `${apiUrl}/api/applications`,
         3,
-        5000
+        2000
       );
       
       const applications = json.data || [];
@@ -261,28 +317,36 @@ export class BuildDataCache {
     console.log(`⏳ Blog Posts: Waiting ${delay}ms to avoid rate limits...`);
     await new Promise(resolve => setTimeout(resolve, delay));
     
-    // Retry utility function  
-    const fetchWithRetry = async (url, retries = 3, delay = 5000) => {
+    // Retry utility function with exponential backoff
+    const fetchWithRetry = async (url, retries = 3, baseDelay = 2000) => {
       for (let i = 0; i < retries; i++) {
         try {
+          console.log(`🔄 Attempt ${i + 1}/${retries} to fetch from ${url}`);
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
+          console.log(`✅ Successfully fetched data from ${url}`);
           return await response.json();
         } catch (error) {
-          console.error(`Attempt ${i + 1} failed:`, error);
+          console.error(`❌ Attempt ${i + 1} failed:`, error.message);
           if (i === retries - 1) throw error;
+          
+          // Exponential backoff: 2s, 4s, 8s
+          const delay = baseDelay * Math.pow(2, i);
+          console.log(`⏳ Waiting ${delay}ms before retry...`);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     };
 
     try {
+      // Use the helper function to get the appropriate API base URL
+      const apiUrl = getApiBaseUrl();
       const json = await fetchWithRetry(
-        `${process.env.API_URL}/api/blog-posts`,
+        `${apiUrl}/api/blog-posts`,
         3,
-        5000
+        2000
       );
       
       const blogPosts = json.data || [];
@@ -330,28 +394,36 @@ export class BuildDataCache {
     console.log(`⏳ Products: Waiting ${delay}ms to avoid rate limits...`);
     await new Promise(resolve => setTimeout(resolve, delay));
     
-    // Retry utility function  
-    const fetchWithRetry = async (url, retries = 3, delay = 5000) => {
+    // Retry utility function with exponential backoff
+    const fetchWithRetry = async (url, retries = 3, baseDelay = 2000) => {
       for (let i = 0; i < retries; i++) {
         try {
+          console.log(`🔄 Attempt ${i + 1}/${retries} to fetch from ${url}`);
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
+          console.log(`✅ Successfully fetched data from ${url}`);
           return await response.json();
         } catch (error) {
-          console.error(`Attempt ${i + 1} failed:`, error);
+          console.error(`❌ Attempt ${i + 1} failed:`, error.message);
           if (i === retries - 1) throw error;
+          
+          // Exponential backoff: 2s, 4s, 8s
+          const delay = baseDelay * Math.pow(2, i);
+          console.log(`⏳ Waiting ${delay}ms before retry...`);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     };
 
     try {
+      // Use the helper function to get the appropriate API base URL
+      const apiUrl = getApiBaseUrl();
       const json = await fetchWithRetry(
-        `${process.env.API_URL}/api/products`,
+        `${apiUrl}/api/products`,
         3,
-        5000
+        2000
       );
       
       const products = json.data || [];

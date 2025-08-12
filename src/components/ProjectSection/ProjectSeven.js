@@ -1,12 +1,15 @@
 import { projectSeven } from "@/data/projectSection";
+import Link from "next/link";
 import React from "react";
-import SwiperCore, { Autoplay } from "swiper";
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import SingleProject from "./SingleProject";
 
-SwiperCore.use([Autoplay]);
+// Import Swiper styles
+import "swiper/css";
 
 const options = {
+  modules: [Autoplay],
   spaceBetween: 30,
   slidesPerView: 2,
   autoplay: { delay: 5000 },

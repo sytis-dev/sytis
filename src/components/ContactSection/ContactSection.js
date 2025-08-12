@@ -14,7 +14,7 @@ const ContactSection = ({ className = "", map = false, form = false }) => {
   const ref = useActive("#contact");
 
   return (
-    <section ref={ref} className={`contact-section ${className}`} id="contact">
+    (<section ref={ref} className={`contact-section ${className}`} id="contact">
       <div className="auto-container">
         <div className="sec-title centered">
           {/* Title between the two sections */}
@@ -168,7 +168,7 @@ const ContactSection = ({ className = "", map = false, form = false }) => {
 
         {form && <FormBox inputs={inputs} />}
       </div>
-    </section>
+    </section>)
   );
 };
 
