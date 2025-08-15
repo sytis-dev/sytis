@@ -65,7 +65,7 @@ const resources = [
     title: "PTZ Cameras",
     links: [
       {
-        href: "/resources/MINI-PTZ-Datasheet-.pdf",
+        href: "/resources/Mini-PTZ-Datasheet-.pdf",
         text: "Bi-spectral Mini PTZ Camera 25mm/50mm (IIS-BPTM6451-F25/IIS-BPTM6451-F50)",
       },
       {
