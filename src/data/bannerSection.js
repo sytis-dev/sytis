@@ -38,7 +38,7 @@ export const bannerOne = {
     },
     {
       id: 3,
-      href: "https://www.linkedin.com/company",
+      href: "https://www.linkedin.com/company/sytis",
       title: "LinkedIn",
     },
   ],
