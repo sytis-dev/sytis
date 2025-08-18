@@ -52,7 +52,9 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
     // On mobile, just open PDF in new tab instead of modal
     if (isMobile === true) {
       console.log('Mobile device detected, opening PDF in new tab');
-      window.open(url, '_blank');
+      if (typeof window !== 'undefined') {
+        window.open(url, '_blank');
+      }
       return;
     }
     
@@ -94,7 +96,9 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
     const timeoutId2 = setTimeout(() => {
       if (!iframeLoaded && !iframeError) {
         console.log('PDF failed to load after 15 seconds, automatically opening in new tab');
-        window.open(url, '_blank');
+        if (typeof window !== 'undefined') {
+          window.open(url, '_blank');
+        }
         handleClosePdfModal();
       }
     }, 15000); // 15 second fallback
@@ -118,7 +122,7 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
 
   // Function to download PDF
   const handleDownloadPdf = () => {
-    if (pdfUrl) {
+    if (pdfUrl && typeof document !== 'undefined') {
       const link = document.createElement('a');
       link.href = pdfUrl;
       link.download = pdfFileName;
@@ -135,6 +139,11 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
     if (typeof htmlContent !== 'string' || !htmlContent.trim()) {
       console.log('processResourcesContent: htmlContent is not a string or is empty:', htmlContent);
       return '';
+    }
+    
+    // Check if we're on the client side
+    if (typeof document === 'undefined') {
+      return htmlContent; // Return original content on server side
     }
     
     console.log('processResourcesContent called with:', htmlContent.substring(0, 200) + '...');
@@ -185,6 +194,11 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
   // Function to refine HTML content
   const refineHtmlContent = (htmlContent) => {
     if (!htmlContent) return '';
+    
+    // Check if we're on the client side
+    if (typeof document === 'undefined') {
+      return htmlContent; // Return original content on server side
+    }
     
     console.log('refineHtmlContent called with:', htmlContent.substring(0, 200) + '...');
 
@@ -406,11 +420,16 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
     
     // Otherwise, look for the first available tab
     if (!safeProduct?.tabs || !Array.isArray(safeProduct.tabs) || safeProduct.tabs.length === 0) return 'tab_description';
-    for (const tab of tabs) {
-      if (getTabContent(tab.key)) {
-        return tab.key;
+    
+    // Only process tabs on client side to avoid SSR issues
+    if (typeof document !== 'undefined') {
+      for (const tab of tabs) {
+        if (getTabContent(tab.key)) {
+          return tab.key;
+        }
       }
     }
+    
     return 'tab_description'; // fallback
   };
 
@@ -429,6 +448,11 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
 
   // Detect mobile devices
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+    
     const checkMobile = () => {
       const userAgent = navigator.userAgent.toLowerCase();
       const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
@@ -462,9 +486,9 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
 
   // Use useEffect to attach event listeners to PDF links after HTML is rendered (desktop only)
   useEffect(() => {
-    // Skip on mobile devices
-    if (isMobile === true) {
-      console.log('Mobile device detected, skipping PDF modal event listeners');
+    // Skip on mobile devices or if not on client side
+    if (isMobile === true || typeof document === 'undefined') {
+      console.log('Mobile device detected or not on client side, skipping PDF modal event listeners');
       return;
     }
     
@@ -505,7 +529,7 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
 
   // Additional useEffect specifically for when description tab becomes active (desktop only)
   useEffect(() => {
-    if (activeTab === 'tab_description' && isMobile === false) {
+    if (activeTab === 'tab_description' && isMobile === false && typeof document !== 'undefined') {
       console.log('Description tab is now active on desktop, looking for PDF links...');
       const timer = setTimeout(() => {
         const pdfLinks = document.querySelectorAll('.pdf-link');
@@ -535,7 +559,7 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
 
   // Additional useEffect specifically for when resources tab becomes active
   useEffect(() => {
-    if (activeTab === 'tab_resources') {
+    if (activeTab === 'tab_resources' && typeof document !== 'undefined') {
       console.log('Resources tab is now active, looking for resource links...');
       const timer = setTimeout(() => {
         // Look for both PDF links and general resource links in the resources tab
@@ -581,7 +605,7 @@ const ProductDetailsPage = ({ product, applications, solutions }) => {
   useEffect(() => {
     // Get the Resources tab content
     const resourcesContent = getTabContent('tab_resources');
-    if (resourcesContent) {
+    if (resourcesContent && typeof document !== 'undefined') {
       console.log('Resources tab content changed, processing links...');
       const timer = setTimeout(() => {
         // Look for resource links in the entire document
