@@ -455,6 +455,59 @@ figure {
   transform: skewX(0deg);
 }
 
+/* Specific styling for Browse Applications buttons in slides */
+.banner-three .slide-item .link-box .btn-style-two {
+  background: #4682b4;
+}
+
+.banner-three .slide-item .link-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
+/* Specific styling for Contact Us button in call-to-action section */
+.call-to-section .link-box .btn-style-two {
+  background: #4682b4;
+}
+
+.call-to-section .link-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
+/* Specific styling for Contact Us button in call-to-action section two */
+.call-to-section-two .link-box .btn-style-two {
+  background: #4682b4;
+}
+
+.call-to-section-two .link-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
+/* Specific styling for Sign Up Now button in footer newsletter */
+.main-footer .newsletter-widget .link-box .btn-style-two {
+  background: #4682b4;
+}
+
+.main-footer .newsletter-widget .link-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
+/* Specific styling for Learn More and View Articles buttons on home page */
+.about-section-two .link-box .btn-style-two {
+  background: #4682b4;
+}
+
+.about-section-two .link-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
+.featured-section .features .inner-box .btn-style-two {
+  background: #4682b4;
+}
+
+.featured-section .features .inner-box .btn-style-two:hover {
+  background-color: #3a6b9a;
+}
+
 .btn-style-three {
   background-color: var(--thm-base);
   color: #fff;
@@ -2470,6 +2523,8 @@ img.lazy-image.loaded {
 .banner-section {
   position: relative;
   z-index: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .banner-section .bg-image {
@@ -2578,6 +2633,8 @@ img.lazy-image.loaded {
   background-color: var(--thm-black);
   color: #ffffff;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .banner-three .banner-carousel .slide-item {
@@ -2645,14 +2702,43 @@ img.lazy-image.loaded {
   right: 0;
   top: 0;
   width: 655px;
-  max-width: 100%;
+  max-width: 50%; /* Ensure it doesn't exceed half the container */
   height: 100%;
   background: url(../assets/images/main-slider/right-curved-bg.png) right bottom
     no-repeat;
+  background-size: cover; /* Cover the entire area to eliminate gaps */
+  background-position: right bottom; /* Anchor to the right bottom edge */
   z-index: 2;
   opacity: 0;
   -webkit-transform: translateX(700px);
   transform: translateX(700px);
+  /* Extend slightly beyond to ensure no gaps */
+  bottom: -2px;
+}
+
+/* Responsive positioning for the curved elements */
+@media (max-width: 1200px) {
+  .banner-carousel .slide-item .right-bottom-curve {
+    max-width: 60%;
+    width: 500px;
+  }
+  
+  .banner-carousel .slide-item .right-top-curve {
+    max-width: 30%;
+    width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-carousel .slide-item .right-bottom-curve {
+    max-width: 70%;
+    width: 400px;
+  }
+  
+  .banner-carousel .slide-item .right-top-curve {
+    max-width: 35%;
+    width: 100px;
+  }
 }
 
 .banner-carousel .tns-slide-active .right-bottom-curve {
@@ -2670,14 +2756,18 @@ img.lazy-image.loaded {
   right: 0;
   top: 0;
   width: 164px;
-  max-width: 100%;
+  max-width: 25%; /* Ensure it doesn't exceed quarter of the container */
   height: 100%;
   background: url(../assets/images/main-slider/right-white-curve.png) right top
     no-repeat;
+  background-size: cover; /* Cover the entire area to eliminate gaps */
+  background-position: right top; /* Anchor to the right top edge */
   z-index: 2;
   opacity: 0;
   -webkit-transform: translateX(200px);
   transform: translateX(200px);
+  /* Extend slightly beyond to ensure no gaps */
+  bottom: -2px;
 }
 
 .banner-carousel .tns-slide-active .right-top-curve {
@@ -2693,7 +2783,7 @@ img.lazy-image.loaded {
 .banner-carousel .slide-item .round-shape-1 {
   position: absolute;
   left: -500px;
-  bottom: -500px;
+  bottom: 500px;
   width: 1000px;
   height: 1000px;
   background: rgba(255, 255, 255, 0.2);
@@ -2891,7 +2981,7 @@ img.lazy-image.loaded {
   display: table;
   vertical-align: middle;
   width: 100%;
-  height: 950px;
+  min-height: 950px;
   padding: 0 0px;
   z-index: 11;
 }
