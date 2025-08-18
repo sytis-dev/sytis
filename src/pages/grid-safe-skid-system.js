@@ -40,7 +40,7 @@ const About2 = () => {
     };
   }, []);
   return (
-    <Layout pageTitle="Grid Safe Skid System">
+    <Layout pageTitle="Grid Safe Skid System" showPreloader={true}>
       <Style />
       <HeaderOne />
       <MobileMenu />

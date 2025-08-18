@@ -1,35 +1,32 @@
-import Preloader from "@/components/Preloader/Preloader";
 import useScroll from "@/hooks/useScroll";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
+import Preloader from "../Preloader/Preloader";
 
 const Layout = ({
   children,
   pageTitle,
-  preloader,
   mainClass,
-  preloaderClass,
-  noIndex, // Add noIndex prop
+  noIndex,
+  showPreloader = false, // New prop to control preloader
 }) => {
-  const [loading, setLoading] = useState(true);
   const { scrollTop } = useScroll(100);
+  const [loading, setLoading] = useState(showPreloader);
 
   useEffect(() => {
-    let timeoutId;
-    
-    if (pageTitle === "Solution inquiry" || pageTitle === "Newsletter Signup") {
-      timeoutId = setTimeout(() => {
+    if (showPreloader) {
+      // Show preloader for longer on pages with external forms
+      const timer = setTimeout(() => {
         setLoading(false);
-      }, 1200);
+      }, 1200); // 1200ms for external form pages
+      
+      return () => clearTimeout(timer);
     } else {
-      timeoutId = setTimeout(() => {
-        setLoading(false);
-      }, 400);
+      // No preloader for regular pages
+      setLoading(false);
     }
-
-    return () => clearTimeout(timeoutId);
-  }, [pageTitle]);
+  }, [showPreloader]);
 
   return (
     <>
@@ -38,10 +35,9 @@ const Layout = ({
           <meta name="robots" content="noindex, nofollow" />
         </Head>
       )}
-      <Preloader className={preloaderClass} loading={loading} bg={preloader} />
+      <Preloader loading={loading} />
       <main
         id="wrapper"
-        style={{ opacity: loading ? 0 : 1 }}
         className={`page-wrapper ${mainClass}`}
       >
         {children}
@@ -53,9 +49,9 @@ const Layout = ({
           duration={500}
           id="backToTop"
           style={{ cursor: "pointer" }}
-          className="scroll-to-target scroll-to-top d-inline-block fadeIn animated"
+          className="scroll-to-target scroll-to-top d-block"
         >
-          <i className="fa fa-angle-up"></i>
+          <i className="icon"></i>
         </ScrollLink>
       )}
     </>

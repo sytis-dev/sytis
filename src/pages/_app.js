@@ -31,13 +31,14 @@ import "@/styles/product-category-specs.css";
 const GTM_ID = "GTM-WL832HQN";
 
 const MyApp = ({ Component, pageProps }) => {
-  const [disableBlocking, setDisableBlocking] = useState(true);
-  const [loadingGeo, setLoadingGeo] = useState(true);
+  const [disableBlocking, setDisableBlocking] = useState(true); // Default to true for better performance
+  const [loadingGeo, setLoadingGeo] = useState(false); // Changed to false to not block rendering
   const router = useRouter();
 
   useEffect(() => {
     const checkRegion = async () => {
       try {
+        setLoadingGeo(true);
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
         const isEU =
@@ -62,6 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
       }
     };
 
+    // Run geolocation check in background without blocking render
     checkRegion();
   }, []);
 
@@ -106,7 +108,8 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, [router.asPath]);
 
-  if (loadingGeo) return null;
+  // Remove the blocking return statement to allow immediate rendering
+  // if (loadingGeo) return null;
 
   return (
     <CookieManager

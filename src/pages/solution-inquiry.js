@@ -37,7 +37,7 @@ const SolutionInquiry = () => {
   }, []);
 
   return (
-    <Layout pageTitle="Solution inquiry">
+    <Layout pageTitle="Solution inquiry" showPreloader={true}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SYTIS | Solution Inquiry</title>
