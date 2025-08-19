@@ -632,6 +632,26 @@ img {
   color: #ffffff;
 }
 
+/* Ensure the icon is visible */
+.scroll-to-top i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.scroll-to-top .fa-chevron-up {
+  margin-top: -2px;
+}
+
+/* Ensure the button is visible when it should be */
+.scroll-to-top.d-block {
+  display: block !important;
+}
+
 /***
 
 ====================================================================

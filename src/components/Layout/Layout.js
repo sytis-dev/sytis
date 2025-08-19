@@ -51,7 +51,7 @@ const Layout = ({
           style={{ cursor: "pointer" }}
           className="scroll-to-target scroll-to-top d-block"
         >
-          <i className="icon"></i>
+          <i className="fa fa-chevron-up"></i>
         </ScrollLink>
       )}
     </>

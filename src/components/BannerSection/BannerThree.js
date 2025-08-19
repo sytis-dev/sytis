@@ -30,10 +30,13 @@ const BannerThree = () => {
   const listRef = useRef(null);
 
   return (
-    <section
-      style={{ paddingTop: "60px" }}
-      className="relative banner-section banner-three"
-    >
+          <section
+        style={{
+          paddingTop: "60px",
+          minHeight: "950px" // Reserve space for slider to prevent layout shift
+        }}
+        className="relative banner-section banner-three"
+      >
       {/* Operating hours and social links */}
       <div className="left-based-text">
         <div className="base-inner">
