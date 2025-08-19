@@ -172,6 +172,9 @@
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .related-products__carousel {
@@ -182,6 +185,23 @@
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   padding: 20px 0;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+}
+
+/* Center items when there are fewer than 3 products */
+.related-products__carousel:not([style*="overflow-x: scroll"]) {
+  justify-content: center;
+}
+
+/* Ensure proper spacing and centering for different product counts */
+.related-products__carousel:has(.related-product-card:nth-child(1):last-child) {
+  justify-content: center;
+}
+
+.related-products__carousel:has(.related-product-card:nth-child(2):last-child) {
+  justify-content: center;
 }
 
 .related-products__carousel::-webkit-scrollbar {
@@ -300,6 +320,20 @@
 
 .carousel-arrow--right {
   right: -25px;
+}
+
+/* Ensure the carousel container is properly centered */
+.related-products-section .auto-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.related-products__header {
+  text-align: center;
+  margin-bottom: 50px;
+  width: 100%;
 }
 
 /* Loading State */

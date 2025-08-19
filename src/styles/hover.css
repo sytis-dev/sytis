@@ -4941,3 +4941,12 @@
   width: 25px;
   height: 25px;
 }
+
+/* Simple CLS Prevention for Banner */
+.banner-section.banner-three {
+  min-height: 950px;
+}
+
+.banner-carousel {
+  min-height: 850px;
+}
