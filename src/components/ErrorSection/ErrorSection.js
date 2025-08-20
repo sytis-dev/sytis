@@ -35,7 +35,7 @@ const ErrorSection = () => {
                   placeholder="Search here"
                   required
                 />
-                <button type="submit" className="theme-btn">
+                <button type="submit" className="theme-btn" aria-label="Go back home">
                   <span className="flaticon-search"></span>
                 </button>
               </div>

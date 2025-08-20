@@ -61,7 +61,7 @@ const ComingSoonSection = () => {
                 required
                 name="email"
               />
-              <button type="submit">
+              <button type="submit" aria-label="Subscribe to newsletter">
                 <span className="fa fa-envelope"></span>
               </button>
             </form>

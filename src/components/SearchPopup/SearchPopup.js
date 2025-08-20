@@ -27,7 +27,7 @@ const SearchPopup = () => {
             name="search"
             placeholder="Type here to Search...."
           />
-          <button type="submit">
+                      <button type="submit" aria-label="Search">
             <i className="fa fa-search"></i>
           </button>
         </form>

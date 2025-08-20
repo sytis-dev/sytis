@@ -217,7 +217,7 @@ const MyApp = ({ Component, pageProps }) => {
         />
 
         <Component {...pageProps} />
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
 
         <Toaster position="bottom-right" containerStyle={{ margin: "1rem" }} />
       </ContextProvider>

@@ -39,12 +39,14 @@ class MyDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
 
+          <meta property="og:title" content="Sytis | Real-Time Thermal Monitoring" />
+          <meta property="og:description" content="Sytis is revolutionizing safety with wireless thermal imaging and real-time alerts. Predict, prevent, and protect with condition-based monitoring." />
+          <meta property="og:site_name" content="Sytis" />
           <meta property="og:image" content="/og-image.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://www.sytis.com" />{" "}
-          {/* Update with your real domain */}
+          <meta property="og:url" content="https://www.sytis.com" />
           {/* Twitter Card */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta

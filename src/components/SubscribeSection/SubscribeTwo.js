@@ -27,7 +27,7 @@ const SubscribeTwo = () => {
                 name="email"
                 required
               />
-              <button type="submit">
+              <button type="submit" aria-label="Subscribe to newsletter">
                 <i className="flaticon-right-arrow"></i>
               </button>
             </form>

@@ -15,7 +15,7 @@ const SubscribeOne = () => {
           <Col md={12} lg={6}>
             <form className="subscribe-one__form">
               <input type="text" placeholder="Enter your email" />
-              <button type="submit">
+              <button type="submit" aria-label="Subscribe to newsletter">
                 <i className="far fa-paper-plane"></i>
               </button>
             </form>
