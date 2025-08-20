@@ -33,7 +33,7 @@ const DiscoverSection = ({ ShowTitle = true }) => {
                     <h5 style={{ color: 'white' }}>{title}</h5>
                     <div className="more-link" style={{ color: "#4682B4" }}>
                       <Link href={href}>
-                        <a>
+                        <a aria-label={`Discover more about ${title}`}>
                           <span
                             className="fa fa-angle-right"
                             style={{ color: "white" }}

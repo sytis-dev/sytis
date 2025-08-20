@@ -27,8 +27,9 @@ const MobileMenu = ({ onePage = false }) => {
             href=""
             onClick={toggleMenu}
             className="side-menu__toggler side-menu__close-btn"
+            aria-label="Close mobile menu"
           >
-            <Image src={icon.src} alt="" />
+            <Image src={icon.src} alt="Close menu" />
           </a>
         </div>
 
@@ -54,7 +55,7 @@ const MobileMenu = ({ onePage = false }) => {
           </p>
           <div className="side-menu__social">
             {socials.map(({ id, icon, href }) => (
-              <a key={id} href={href}>
+              <a key={id} href={href} aria-label={`Visit our ${icon.replace('fab fa-', '').replace('fa-', '')} page`}>
                 <i className={icon}></i>
               </a>
             ))}

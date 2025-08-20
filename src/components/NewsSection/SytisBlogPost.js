@@ -37,7 +37,7 @@ const SYTISBlogPost = ({ post = {} }) => {
           {/* <div className="summary">{summary}</div> */}
           <div className="link-box">
             <Link href={`${href}`}>
-              <a className="theme-btn">
+              <a className="theme-btn" aria-label="Read more about this blog post">
                 <span className="flaticon-next-1"></span>
               </a>
             </Link>

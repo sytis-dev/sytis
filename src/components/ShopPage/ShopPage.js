@@ -42,7 +42,7 @@ const ShopPage = ({ products = shopPage.products }) => {
               <div className="shop-search shop-sidebar__single">
                 <form onSubmit={handleSearch}>
                   <input type="text" placeholder="Search" name="search" />
-                  <button type="submit">
+                  <button type="submit" aria-label="Search products">
                     <i className="flaticon-magnifying-glass"></i>
                   </button>
                 </form>

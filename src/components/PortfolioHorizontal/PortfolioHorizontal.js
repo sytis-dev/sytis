@@ -75,10 +75,10 @@ const PortfolioHorizontal = () => {
             ))}
           </TinySlider>
           <div className="tns-controls">
-            <button className="tns-prev">
+            <button className="tns-prev" aria-label="Previous portfolio item">
               <span className="icon nav-button-left"></span>
             </button>
-            <button className="tns-next">
+            <button className="tns-next" aria-label="Next portfolio item">
               <span className="icon nav-button-right"></span>
             </button>
           </div>

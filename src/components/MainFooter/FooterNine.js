@@ -29,7 +29,7 @@ const FooterNine = () => {
                     placeholder="Email Address"
                     required
                   />
-                  <button type="submit" className="footer-nine__subscribe__btn">
+                  <button type="submit" className="footer-nine__subscribe__btn" aria-label="Subscribe to newsletter">
                     <span className="fa fa-check"></span>
                   </button>
                 </form>
