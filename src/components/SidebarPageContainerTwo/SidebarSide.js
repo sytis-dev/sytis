@@ -25,7 +25,7 @@ const SidebarSide = () => {
                 placeholder="Search"
                 required
               />
-              <button type="submit">
+              <button type="submit" aria-label="Search">
                 <span className="icon flaticon-magnifying-glass-1"></span>
               </button>
             </div>

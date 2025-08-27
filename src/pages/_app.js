@@ -20,21 +20,36 @@ import Script from "next/script";
 import { CookieManager } from "react-cookie-manager";
 import "react-cookie-manager/style.css";
 
+// Analytics configuration
+import { 
+  BLOCKED_IPS, 
+  IP_CHECK_CONFIG, 
+  ANALYTICS_FILTERS,
+  isIPBlocked,
+  isUserAgentBlocked,
+  isURLBlocked
+} from "../config/analytics";
+
 // extra css
 import "@/styles/style.css";
 import "@/styles/hover.css";
 import "@/styles/responsive.css";
+import "@/styles/product-category.css";
+import "@/styles/enhanced-product-category.css";
+import "@/styles/product-category-specs.css";
 
 const GTM_ID = "GTM-WL832HQN";
 
 const MyApp = ({ Component, pageProps }) => {
-  const [disableBlocking, setDisableBlocking] = useState(true);
-  const [loadingGeo, setLoadingGeo] = useState(true);
+  const [disableBlocking, setDisableBlocking] = useState(true); // Default to true for better performance
+  const [loadingGeo, setLoadingGeo] = useState(false); // Changed to false to not block rendering
+  const [userIP, setUserIP] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const checkRegion = async () => {
       try {
+        setLoadingGeo(true);
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
         const isEU =
@@ -59,14 +74,87 @@ const MyApp = ({ Component, pageProps }) => {
       }
     };
 
+    // Run geolocation check in background without blocking render
     checkRegion();
   }, []);
 
-  // Show WombatToast on every page after 5 seconds
+  // Fetch user IP address
+  useEffect(() => {
+    const fetchUserIP = async () => {
+      try {
+        const response = await fetch(IP_CHECK_CONFIG.primaryService, {
+          signal: AbortSignal.timeout(IP_CHECK_CONFIG.timeout)
+        });
+        const data = await response.json();
+        setUserIP(data.ip);
+        if (IP_CHECK_CONFIG.enableLogging) {
+          console.log("User IP detected:", data.ip);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user IP:", error);
+        // Fallback to ipapi.co if primary service fails
+        try {
+          const res = await fetch(IP_CHECK_CONFIG.fallbackService, {
+            signal: AbortSignal.timeout(IP_CHECK_CONFIG.timeout)
+          });
+          const data = await res.json();
+          setUserIP(data.ip);
+          if (IP_CHECK_CONFIG.enableLogging) {
+            console.log("User IP detected (fallback):", data.ip);
+          }
+        } catch (fallbackError) {
+          console.error("Failed to fetch user IP (fallback):", fallbackError);
+        }
+      }
+    };
+
+    fetchUserIP();
+  }, []);
+
+  // beforeSend function for Analytics
+  const handleBeforeSend = (event) => {
+    // Check if user IP is blocked
+    if (userIP && isIPBlocked(userIP)) {
+      // Always log when analytics is blocked for user's IP (for easy verification)
+      console.log(`🚫 Analytics BLOCKED for IP: ${userIP}`);
+      console.log(`📊 This page view/event will NOT be sent to Vercel Analytics`);
+      return null; // Return null to disable analytics for this event
+    }
+    
+    // Check if URL should be blocked
+    if (event.url && isURLBlocked(event.url)) {
+      if (ANALYTICS_FILTERS.debug) {
+        console.log('Analytics disabled for blocked URL:', event.url);
+      }
+      return null;
+    }
+    
+    // Check if user agent should be blocked
+    if (event.userAgent && isUserAgentBlocked(event.userAgent)) {
+      if (ANALYTICS_FILTERS.debug) {
+        console.log('Analytics disabled for blocked user agent:', event.userAgent);
+      }
+      return null;
+    }
+    
+    // Allow analytics for all other cases
+    return event;
+  };
+
+  // Show WombatToast on specific pages after 5 seconds
   useEffect(() => {
     const hasShownToast = sessionStorage.getItem("wombatToastShown");
+    
+    // Define pages where wombat toast should appear
+    const allowedPages = [
+      //'/',              
+      //'/solutions',     
+      //'/services',      
+    ];
+    
+    const shouldShowToast = allowedPages.includes(router.asPath);
 
-    if (!hasShownToast) {
+    if (!hasShownToast && shouldShowToast) {
       const timer = setTimeout(() => {
         toast.custom(
           (t) => (
@@ -94,7 +182,8 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, [router.asPath]);
 
-  if (loadingGeo) return null;
+  // Remove the blocking return statement to allow immediate rendering
+  // if (loadingGeo) return null;
 
   return (
     <CookieManager
@@ -202,7 +291,7 @@ const MyApp = ({ Component, pageProps }) => {
         />
 
         <Component {...pageProps} />
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics beforeSend={handleBeforeSend} />}
 
         <Toaster position="bottom-right" containerStyle={{ margin: "1rem" }} />
       </ContextProvider>

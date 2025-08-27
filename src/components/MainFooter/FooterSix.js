@@ -68,7 +68,7 @@ const FooterSix = () => {
                     required
                     placeholder="Email address"
                   />
-                  <button type="submit">
+                  <button type="submit" aria-label="Subscribe to newsletter">
                     <i className="fa fa-paper-plane"></i>
                   </button>
                   <p>

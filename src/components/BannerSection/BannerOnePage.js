@@ -89,10 +89,10 @@ const BannerOnePage = () => {
             ))}
           </TinySlider>
           <div className="tns-controls">
-            <button className="tns-prev">
+            <button className="tns-prev" aria-label="Previous slide">
               <span className="icon fa fa-angle-left"></span>
             </button>
-            <button className="tns-next">
+            <button className="tns-next" aria-label="Next slide">
               <span className="icon fa fa-angle-right"></span>
             </button>
           </div>

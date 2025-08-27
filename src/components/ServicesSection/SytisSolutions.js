@@ -7,80 +7,35 @@ import Image from "next/image";
 const STORAGE_KEY = "solutions_data"; // Key to store in localStorage
 const CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours expiration
 
-const SYTISSolutions = () => {
-  const [solutions, setSolutions] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [hasError, setHasError] = useState(false);
+const SYTISSolutions = ({ solutions: rawSolutions = [] }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  useEffect(() => {
-    const loadSolutions = async () => {
-      setIsFetching(true);
+  // Format the solutions data (moved from useEffect to direct processing)
+  const solutions = rawSolutions.map((sol) => ({
+    id:
+      sol.category_id.toString() +
+      "-" +
+      slugify(sol.name, { lower: true }),
+    href: `/solutions/${slugify(sol.name, { lower: true })}`,
+    image: sol.image_url,
+    title: sol.name,
+    icon: sol.iconUrl || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
+    description:
+      sol.description ||
+      "Lorem ipsum is simply free sed qui magni dolores eos qui voptam.",
+  }));
 
-      try {
-        // Check localStorage for cached data
-        const cachedData = localStorage.getItem(STORAGE_KEY);
-        if (cachedData) {
-          const { data, timestamp } = JSON.parse(cachedData);
-
-          // If cache is still valid, use it
-          if (Date.now() - timestamp < CACHE_EXPIRATION_MS) {
-            console.log("Using cached solutions");
-            setSolutions(data);
-            setIsFetching(false);
-            return;
-          }
-        }
-
-        console.log("Fetching solutions from API");
-        const response = await fetch("/api/solutions");
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch solutions");
-        }
-
-        const { data } = await response.json();
-
-        if (!data) {
-          throw new Error("Invalid data format");
-        }
-
-        const formattedData = data.map((sol) => ({
-          id:
-            sol.category_id.toString() +
-            "-" +
-            slugify(sol.name, { lower: true }),
-          href: `/solutions/${slugify(sol.name, { lower: true })}`,
-          image: sol.image_url,
-          title: sol.name,
-          icon: sol.iconUrl || "flaticon-computer", // Ensure iconUrl is always a valid PNG URL
-          description:
-            sol.description ||
-            "Lorem ipsum is simply free sed qui magni dolores eos qui voptam.",
-        }));
-
-        console.log(formattedData);
-
-        // Store in localStorage with timestamp
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify({ data: formattedData, timestamp: Date.now() })
-        );
-
-        setSolutions(formattedData);
-      } catch (error) {
-        console.error("Error loading solutions:", error);
-        setHasError(true);
-      } finally {
-        setIsFetching(false);
-      }
-    };
-
-    loadSolutions();
-  }, []);
-
-  if (hasError) {
-    return <div>Sorry, there was an error loading the solutions.</div>;
+  // If no solutions, show a message
+  if (!solutions.length) {
+    return (
+      <section className="service-nine">
+        <div className="auto-container">
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <p>Solutions will be available soon.</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   // Split solutions into two arrays of two
@@ -95,8 +50,9 @@ const SYTISSolutions = () => {
             const globalIdx = idx;
             return (
               <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href} style={{ textDecoration: 'none' }}>
-                  <div
+                <Link href={href}>
+                  <a style={{ textDecoration: 'none' }}>
+                    <div
                     className="service-nine__card"
                     style={{
                       border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
@@ -140,10 +96,12 @@ const SYTISSolutions = () => {
                             color: 'var(--thm-base)',
                           }}
                         >
-                          <img
+                          <Image
                             src={icon}
                             alt={title}
-                            style={{ width: "200px", height: "200px", objectFit: "contain" }}
+                            width={200}
+                            height={200}
+                            style={{ objectFit: "contain" }}
                           />
                         </div>
                         <h4 style={{ marginTop: "1rem", textAlign: 'center', color: 'var(--thm-black)' }}>
@@ -152,6 +110,7 @@ const SYTISSolutions = () => {
                       </div>
                     </div>
                   </div>
+                </a>
                 </Link>
               </Col>
             );
@@ -162,8 +121,9 @@ const SYTISSolutions = () => {
             const globalIdx = idx + solutions1.length;
             return (
               <Col key={id} md={6} lg={4} style={{ marginBottom: '32px' }}>
-                <Link href={href} style={{ textDecoration: 'none' }}>
-                  <div
+                <Link href={href}>
+                  <a style={{ textDecoration: 'none' }}>
+                    <div
                     className="service-nine__card"
                     style={{
                       border: `2px solid ${hoveredIndex === globalIdx ? '#d00' : '#e9ebee'}`,
@@ -207,10 +167,12 @@ const SYTISSolutions = () => {
                             color: 'var(--thm-base)',
                           }}
                         >
-                          <img
+                          <Image
                             src={icon}
                             alt={title}
-                            style={{ width: "200px", height: "200px", objectFit: "contain" }}
+                            width={200}
+                            height={200}
+                            style={{ objectFit: "contain" }}
                           />
                         </div>
                         <h4 style={{ marginTop: "1rem", textAlign: 'center', color: 'var(--thm-black)' }}>
@@ -219,6 +181,7 @@ const SYTISSolutions = () => {
                       </div>
                     </div>
                   </div>
+                </a>
                 </Link>
               </Col>
             );

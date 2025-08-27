@@ -234,6 +234,7 @@
 
   .work-tabs .tab-buttons .tab-btn {
     font-size: 26px;
+    padding: 25px 10px;
   }
 
   .work-tabs .text-col .inner,
@@ -578,6 +579,7 @@
 
   .work-tabs .tab-buttons .tab-btn {
     font-size: 22px;
+    padding: 20px 8px;
   }
 
   .testimonials-section-two .carousel-box {
@@ -710,13 +712,9 @@
   }
 
   .banner-three .banner-carousel .content-box {
-    min-height: 300px !important;
-    height: auto !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
+    padding-top: 120px;
+    padding-bottom: 80px;
+    text-align: center;
   }
 
   .banner-carousel .content-box h1 {
@@ -724,62 +722,71 @@
   }
 
   .banner-carousel .content-box {
-    height: 600px;
-    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 80px;
   }
 
   .banner-carousel .slide-item .left-top-line,
-  .banner-carousel .slide-item .right-bottom-curve,
-  .banner-carousel .slide-item .right-top-curve {
+  .banner-carousel .slide-item .right-top-line {
     display: none;
   }
 
   .banner-three .banner-carousel .content-box h1 {
     font-size: 60px;
-    line-height: 1em;
   }
 
   .sec-title h2 {
     font-size: 42px;
-    line-height: 1.15em;
   }
 
   .live-section .main-image-box .vid-link {
     position: relative;
     left: 0;
+    right: 0;
     top: 0;
-    margin: 0 auto 50px;
+    margin: 0 auto 30px;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 30px;
   }
 
   .live-section .main-image-box .round-box {
-    height: auto;
-    width: 100%;
+    position: relative;
+    left: 0;
     right: 0;
-    padding: 20px 20px;
+    top: 0;
+    margin: 0 auto 30px;
+    width: 200px;
+    height: 200px;
   }
 
   .live-section .main-image-box .round-inner {
     position: relative;
-    display: block;
-    padding: 70px 30px 50px;
-    text-align: center;
-    height: auto;
-    width: 100%;
-    border-radius: 10px;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
   }
 
   .live-section .main-image-box .round-box:before {
-    left: -5px;
-    top: -5px;
-    right: -5px;
-    bottom: -5px;
-    width: auto;
-    height: auto;
-    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
   }
 
   .live-section .main-image-box .more-link {
-    text-align: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
   }
 
   .sec-title h2 br {
@@ -787,12 +794,15 @@
   }
 
   .fact-counter .column .inner .count-outer {
-    font-size: 64px;
-    line-height: 1em;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto 30px;
   }
 
   .team-section {
-    padding-bottom: 50px;
+    padding-top: 80px;
   }
 
   .team-section .team-carousel .tns-nav {
@@ -804,16 +814,16 @@
   }
 
   .sponsors-outer {
-    text-align: center;
+    margin: 0 15px;
   }
 
   .call-to-section h2,
   .call-to-section-two h2 {
-    font-size: 36px;
+    font-size: 42px;
   }
 
   .why-us-section {
-    padding-top: 60px;
+    padding-top: 80px;
   }
 
   .active-tab .tns-outer .tns-outer .tns-nav {
@@ -821,18 +831,19 @@
   }
 
   .features-section {
-    text-align: center;
+    padding-top: 80px;
   }
 
   .features-section .feature-block {
-    width: 100%;
-    margin: 0 0 50px;
+    margin-bottom: 40px;
   }
 
   .features-section .feature-block .inner {
-    padding: 0 0;
-    margin: 0 0;
-    text-align: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
   }
 
   .features-section .feature-block .inner:before {
@@ -844,16 +855,16 @@
   }
 
   .work-tabs .tab-buttons .tab-btn {
-    width: 100%;
-    padding: 20px 15px;
+    font-size: 20px;
+    padding: 15px 10px;
   }
 
   .testi-block-two .text {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .testimonials-section-two .carousel-box {
-    padding-right: 0;
+    margin: 0 15px;
   }
 
   .testimonials-section-two .tns-controls {
@@ -861,31 +872,32 @@
   }
 
   .testi-block-two .info {
-    margin-top: 30px;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
   }
 
   .testi-block-two .info .name {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .error-section .big-text {
-    font-size: 180px;
+    font-size: 120px;
   }
 
   .error-section h2,
-  .news-block-two .lower-box h4,
-  .news-block-three .inner-box h4,
-  .post-details .lower-box h4,
-  .comments-title h3 {
-    font-size: 32px;
+  .error-section h3 {
+    font-size: 42px;
   }
 
   .page-banner h1 {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .demo-features__wrapper {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .main-footer__three .bottom-footer .auto-container {
@@ -900,27 +912,51 @@
   }
 
   .login-wrapper .login-content__inner {
-    max-width: 430px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 40px 20px;
+    margin: 20px;
+    border-radius: 20px;
   }
 
   .login-wrapper .logo {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 
   .login-wrapper {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .login-wrapper .login-bg {
-    width: 100%;
+    position: relative;
+    left: 0;
+    right: 0;
     top: 0;
-    min-height: 100vh;
-    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Mobile header optimizations */
+  .main-header .header-upper .logo-box {
+    padding: 20px 0px;
+  }
+
+  .main-header .header-upper .logo-box .logo img {
+    max-height: 28px;
+  }
+
+  .main-header .header-upper .inner-container {
+    padding: 0px 20px;
+  }
+
+  .main-header .other-links .search-btn {
+    padding: 20px 0px;
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+
+  .main-header .other-links .link-box {
+    padding: 20px 0px;
   }
 }
 

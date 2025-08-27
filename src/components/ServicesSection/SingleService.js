@@ -72,7 +72,7 @@ const SingleService = ({ service = {} }) => {
             textAlign: "center",
           }}
         >
-          <a href={href}>
+          <a href={href} aria-label={`Learn more about ${title}`}>
             <span
               className="fa fa-angle-right"
               style={{

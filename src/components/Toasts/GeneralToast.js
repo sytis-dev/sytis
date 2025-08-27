@@ -15,13 +15,13 @@ const GeneralToast = ({
         background: "white",
         borderRadius: "7px",
         boxShadow: "0px 0px 40px 5px rgba(0, 0, 0, 0.05)",
-        padding: "1.5rem",
-        maxWidth: "350px",
+        padding: "1.5rem", // Back to original size
+        maxWidth: "350px", // Back to original size
         position: "relative",
         fontFamily: "'Rubik', sans-serif",
         color: "#686a6f",
         zIndex: 1000,
-        border: `1px solid ${color}20`, // 20 = ~12% opacity
+        border: `1.5px solid ${color}`, // 50% thinner than 3px (1.5px)
       }}
     >
       {/* Close button */}
@@ -42,7 +42,9 @@ const GeneralToast = ({
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
-          transition: "all 0.3s ease",
+          transition: "none", // Removed transition for immediate response
+          userSelect: "none", // Prevent text selection
+          WebkitTapHighlightColor: "transparent", // Remove tap highlight on mobile
         }}
         onMouseEnter={(e) => {
           e.target.style.background = color;

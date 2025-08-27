@@ -62,10 +62,10 @@ const TestimonialsSectionTwo = () => {
               ))}
             </TinySlider>
             <div className="tns-controls">
-              <button className="tns-prev">
+              <button className="tns-prev" aria-label="Previous testimonial">
                 <span className="icon fa fa-angle-left"></span>
               </button>
-              <button className="tns-next">
+              <button className="tns-next" aria-label="Next testimonial">
                 <span className="icon fa fa-angle-right"></span>
               </button>
             </div>

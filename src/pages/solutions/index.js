@@ -9,7 +9,26 @@ import SYTISSolutions from "@/components/ServicesSection/SytisSolutions";
 import React from "react";
 import Head from "next/head";
 
-const Solutions = () => {
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+export async function getStaticProps() {
+  try {
+    // Use shared cache to fetch solutions data
+    const solutions = await BuildDataCache.getSolutions();
+
+    return {
+      props: { solutions },
+      // No revalidate property = static build at build time
+    };
+  } catch (error) {
+    console.error("Error fetching solutions:", error);
+    return {
+      props: { solutions: [] },
+    };
+  }
+}
+
+const Solutions = ({ solutions = [] }) => {
   return (
     <Layout pageTitle="Solutions">
       <Head>
@@ -30,7 +49,7 @@ const Solutions = () => {
       <MobileMenu />
       <SearchPopup />
       <PageBanner title="Solutions" />
-      <SYTISSolutions />
+      <SYTISSolutions solutions={solutions} />
       <MainFooter />
     </Layout>
   );

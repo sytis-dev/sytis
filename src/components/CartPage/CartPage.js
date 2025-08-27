@@ -87,7 +87,7 @@ const CartPage = () => {
                 className="cart-cupon__input"
                 name="couponCode"
               />
-              <button className="theme-btn btn-style-one" type="submit">
+              <button className="theme-btn btn-style-one" type="submit" aria-label="Update cart">
                 <i className="btn-curve"></i>
                 <span className="btn-title">Apply coupon</span>
               </button>

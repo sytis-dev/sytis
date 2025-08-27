@@ -9,7 +9,26 @@ import SytisApplications from "@/components/ServicesSection//SytisApplications";
 import React from "react";
 import Head from "next/head";
 
-const Applications = () => {
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+export async function getStaticProps() {
+  try {
+    // Use shared cache to fetch applications data
+    const applications = await BuildDataCache.getApplications();
+
+    return {
+      props: { applications },
+      // No revalidate property = static build at build time
+    };
+  } catch (error) {
+    console.error("Error fetching applications:", error);
+    return {
+      props: { applications: [] },
+    };
+  }
+}
+
+const Applications = ({ applications = [] }) => {
   return (
     <Layout pageTitle="Applications">
       <Head>
@@ -30,7 +49,7 @@ const Applications = () => {
       <MobileMenu />
       <SearchPopup />
       <PageBanner title="Applications" />
-      <SytisApplications />
+      <SytisApplications applications={applications} />
       <MainFooter />
     </Layout>
   );

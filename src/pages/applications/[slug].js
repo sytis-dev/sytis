@@ -33,54 +33,48 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let applications = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 10
-    ); // Retries 5 times with 10-second delay
-    applications = json.data;
-    console.log(applications);
+    // Use cached data from applications index page - no additional API call needed!
+    applications = await BuildDataCache.getApplications();
   } catch (error) {
     console.error("Error fetching applications:", error);
     return {
       paths: [],
-      fallback: "blocking",
+      fallback: false, // Return 404 for missing pages instead of trying to generate at runtime
     };
   }
 
-  const paths = applications.map((app) => ({
-    params: {
-      slug: app.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim(),
-    },
-  }));
+  const validApplications = applications.filter((application) => application && application.name);
+  
+  const paths = validApplications.map((application) => {
+    const slug = application.name
+      .toLowerCase()
+      .replace(/&/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .trim();
+    return { params: { slug } };
+  });
 
   return {
     paths,
-    fallback: "blocking", // Blocking mode to wait for static page build
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
   let applications = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/applications`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    applications = json.data;
+    // Use cached data from applications index page - no additional API call needed!
+    applications = await BuildDataCache.getApplications();
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(applications)) {
@@ -92,7 +86,7 @@ export async function getStaticProps({ params }) {
   }
 
   const application = applications.find(
-    (a) =>
+    (a) => a && a.name && 
       a.name
         .toLowerCase()
         .replace(/&/g, "")
@@ -107,7 +101,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { application },
-    revalidate: 60 * 60, // Revalidates every 60 minutes
+    // No revalidate property = static build at build time
   };
 }
 

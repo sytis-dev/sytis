@@ -74,7 +74,7 @@ const LoginWrapper = ({ register = false, forgot = false }) => {
                 )}
               </p>
             )}
-            <button type="submit" className="theme-btn btn-style-one">
+            <button type="submit" className="theme-btn btn-style-one" aria-label="Login">
               <i className="btn-curve"></i>
               <span className="btn-title">
                 {register

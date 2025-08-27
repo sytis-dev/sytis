@@ -1,5 +1,51 @@
+import rateLimiter from "../../utils/bigcommerceRateLimiter.js";
+
 const cache = new Map();
 const CACHE_TTL = 2 * 60 * 1000; // 2 minutes in milliseconds
+
+// Helper function to parse tab content from bullet point format
+const parseTabContent = (value) => {
+  if (!value || typeof value !== 'string') {
+    return null;
+  }
+
+  try {
+    // Try to parse as JSON first
+    return JSON.parse(value);
+  } catch (e) {
+    // If not JSON, parse bullet point format
+    const lines = value.split('\n').filter(line => line.trim());
+    
+    if (lines.length === 0) {
+      return null;
+    }
+
+    // Check if it starts with a title (like "Features:" or "Applications:")
+    const firstLine = lines[0].trim();
+    if (firstLine.endsWith(':')) {
+      const title = firstLine.slice(0, -1); // Remove the colon
+      const items = lines.slice(1)
+        .map(line => line.trim())
+        .filter(line => line.startsWith('-'))
+        .map(line => line.substring(1).trim())
+        .filter(line => line.length > 0);
+      
+      return {
+        title,
+        items
+      };
+    } else {
+      // If no title, just return as items
+      const items = lines
+        .map(line => line.trim())
+        .filter(line => line.startsWith('-'))
+        .map(line => line.substring(1).trim())
+        .filter(line => line.length > 0);
+      
+      return items.length > 0 ? { items } : null;
+    }
+  }
+};
 
 export default async function handler(req, res) {
   const storeHash = process.env.BIGCOMMERCE_STORE_HASH;
@@ -14,7 +60,7 @@ export default async function handler(req, res) {
     let categoriesData = getCache(cacheKeyCategories);
 
     if (!categoriesData) {
-      const categoriesResponse = await fetch(
+      const categoriesResponse = await rateLimiter.fetchWithRateLimit(
         `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/trees/categories`,
         {
           method: "GET",
@@ -45,7 +91,7 @@ export default async function handler(req, res) {
         let metafieldsData = getCache(cacheKeyMeta);
 
         if (!metafieldsData) {
-          const metafieldsResponse = await fetch(
+          const metafieldsResponse = await rateLimiter.fetchWithRateLimit(
             `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/categories/${category.category_id}/metafields`,
             {
               method: "GET",
@@ -82,7 +128,7 @@ export default async function handler(req, res) {
         var productsData = getCache(cacheKeyProducts);
 
         if (!productsData) {
-          const productsResponse = await fetch(
+          const productsResponse = await rateLimiter.fetchWithRateLimit(
             `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products?categories:in=${category.category_id}`,
             {
               method: "GET",
@@ -123,7 +169,7 @@ export default async function handler(req, res) {
             let imagesData = getCache(cacheKeyImages);
 
             if (!imagesData) {
-              const imagesResponse = await fetch(
+              const imagesResponse = await rateLimiter.fetchWithRateLimit(
                 `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/images`,
                 {
                   method: "GET",
@@ -144,6 +190,46 @@ export default async function handler(req, res) {
               setCache(cacheKeyImages, imagesData);
             }
 
+            // Fetch metafields for tabs
+            let tabs = [];
+            try {
+              const metafieldsResponse = await rateLimiter.fetchWithRateLimit(
+                `https://api.bigcommerce.com/stores/${storeHash}/v3/catalog/products/${product.id}/metafields`,
+                {
+                  method: "GET",
+                  headers: {
+                    "X-Auth-Token": accessToken,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+
+              if (metafieldsResponse.ok) {
+                const metafieldsData = await metafieldsResponse.json();
+                
+                // Define the tab keys we're looking for
+                // Note: tab_specifications is optional and will be filtered out if not present
+                const tabKeys = ['tab_features', 'tab_applications', 'tab_description', 'tab_resources', 'tab_specifications'];
+                
+                tabs = tabKeys
+                  .map(key => {
+                    const metafield = metafieldsData.data.find(meta => meta.key === key);
+                    if (metafield) {
+                      const parsedValue = parseTabContent(metafield.value);
+                      return {
+                        key,
+                        value: parsedValue
+                      };
+                    }
+                    return null;
+                  })
+                  .filter(tab => tab !== null && tab.value !== null);
+              }
+            } catch (error) {
+              console.warn(`Failed to fetch metafields for product ${product.id}:`, error.message);
+              // Continue without metafields if there's an error
+            }
+
             return trimStrings({
               id: product.id,
               name: product.name,
@@ -156,19 +242,22 @@ export default async function handler(req, res) {
               categories: product.categories,
               is_price_hidden: product.is_price_hidden,
               all_images:
-                imagesData.data.map((image) =>
-                  trimStrings({
-                    id: image.id,
-                    is_thumbnail: image.is_thumbnail,
-                    sort_order: image.sort_order,
-                    description: image.description,
-                    url_zoom: image.url_zoom,
-                    url_standard: image.url_standard,
-                    url_thumbnail: image.url_thumbnail,
-                    url_tiny: image.url_tiny,
-                    date_modified: image.date_modified,
-                  })
-                ) || [],
+                imagesData.data
+                  .map((image) =>
+                    trimStrings({
+                      id: image.id,
+                      is_thumbnail: image.is_thumbnail,
+                      sort_order: image.sort_order,
+                      description: image.description,
+                      url_zoom: image.url_zoom,
+                      url_standard: image.url_standard,
+                      url_thumbnail: image.url_thumbnail,
+                      url_tiny: image.url_tiny,
+                      date_modified: image.date_modified,
+                    })
+                  )
+                  .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0)) || [],
+              tabs: tabs,
             });
           })
         );

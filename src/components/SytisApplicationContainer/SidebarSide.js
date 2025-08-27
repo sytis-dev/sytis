@@ -2,6 +2,7 @@ import { sidebar } from "@/data/sidebarPageContainer";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import Image from "next/image";
 
 const { title, title2, text, phone, navItems } = sidebar;
 
@@ -33,7 +34,7 @@ const SidebarSide = () => {
           <div className="text">{text}</div>
           <div className="phone">
             <a href={`tel:${phone.split(" ").join("")}`}>
-              <img src="/phone-icon.png" alt="Phone Icon" style={{ width: 24, height: 24 }} />
+              <Image src="/phone-icon.png" alt="Phone Icon" width={24} height={24} />
               <span style={{ marginLeft: 8 }}>{phone}</span>
             </a>
           </div>

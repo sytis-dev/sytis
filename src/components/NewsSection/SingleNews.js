@@ -38,7 +38,7 @@ const SingleNews = ({ news = {} }) => {
           <div className="text">{text}</div>
           <div className="link-box">
             <Link href="/blog-single">
-              <a className="theme-btn">
+              <a className="theme-btn" aria-label={`Read more about ${title}`}>
                 <span className="flaticon-next-1"></span>
               </a>
             </Link>

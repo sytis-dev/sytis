@@ -48,7 +48,7 @@ const ReviewForm = () => {
               </div>
             </Col>
             <Col lg={12}>
-              <button className="theme-btn btn-style-one" type="submit">
+              <button className="theme-btn btn-style-one" type="submit" aria-label="Submit review">
                 <i className="btn-curve"></i>
                 <span className="btn-title">Submit Review</span>
               </button>

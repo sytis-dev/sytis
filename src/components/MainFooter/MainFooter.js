@@ -116,18 +116,29 @@ const MainFooter = ({ normalPadding = true }) => {
             <Col xl={3} lg={6} md={6} sm={12} className="column">
               <div className="footer-widget newsletter-widget">
                 <div className="widget-content">
-                  <h6>Newsletter</h6>
+                  <h6 style={{ marginBottom: "20px" }}>Newsletter</h6>
+                  <div className="text" style={{ marginBottom: "25px" }}>{textBottom}</div>
                   <div className="newsletter-form">
-                    <div className="link-box">
+                    <div className="link-box" style={{ marginBottom: "15px" }}>
                       <Link href="/newsletter">
                         <a className="theme-btn btn-style-two">
                           <i className="btn-curve"></i>
-                          <span className="btn-title">Sign Up Now!</span>
+                          <span className="btn-title">Sign Up Now</span>
+                        </a>
+                      </Link>
+                    </div>
+                    <div className="privacy-notice" style={{ 
+                      fontSize: "12px", 
+                      color: "#999b9f", 
+                      lineHeight: "1.4" 
+                    }}>
+                      <Link href="/privacy-policy">
+                        <a style={{ color: "#999b9f", textDecoration: "underline" }}>
+                          We do not sell or share your personal information.
                         </a>
                       </Link>
                     </div>
                   </div>
-                  <div className="text">{textBottom}</div>
                 </div>
               </div>
             </Col>

@@ -78,8 +78,8 @@ export const mainFooter = {
     },
     {
       id: 4,
-      href: "/blog",
-      title: "Blog",
+      href: "/articles",
+      title: "Articles",
     },
     {
       id: 5,
@@ -87,14 +87,9 @@ export const mainFooter = {
       title: "FAQ",
     },
     {
-      id: 6,
-      href: "/solution-inquiry",
-      title: "Solution Inquiry",
-    },
-    {
       id: 10,
       href: "/events",
-      title: "Event Calendar",
+      title: "Events",
     },
     {
       id: 7,
@@ -108,6 +103,11 @@ export const mainFooter = {
     },
     {
       id: 9,
+      href: "/cookie-policy",
+      title: "Cookie Policy",
+    },
+    {
+      id: 10,
       href: "/terms-of-use",
       title: "Terms of Use ",
     },

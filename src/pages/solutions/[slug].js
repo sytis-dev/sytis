@@ -10,7 +10,7 @@ import SidebarPageContainer from "@/components/SidebarPageContainer/SidebarPageC
 import SYTISApplicationContainer from "@/components/SytisApplicationContainer/SytisApplicationContainer";
 import { webDevelopment } from "@/data/sidebarPageContainer";
 import React from "react";
-import ShopPage from "@/components/ShopPage/ShopPage";
+import ProductCategory from "@/components/ShopPage/ProductCategory";
 import Head from "next/head";
 
 // Helper function for retry logic
@@ -34,57 +34,68 @@ const fetchWithRetry = async (url, retries = 5, delay = 1000 * 60) => {
   }
 };
 
-// getStaticPaths with retry logic
+import BuildDataCache from "../../utils/buildDataCache.js";
+
+// getStaticPaths with cached data
 export async function getStaticPaths() {
   let solutions = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 30
-    ); // Retries 5 times with 30-second delay
-    solutions = json.data;
-    console.log(solutions);
+    // Use cached data from solutions index page - no additional API call needed!
+    solutions = await BuildDataCache.getSolutions();
+    console.log(`🔍 Solutions getStaticPaths: Found ${solutions.length} solutions`);
+    
+    // Debug: Log solution data structure
+    solutions.forEach((solution, index) => {
+      console.log(`🔍 Solution ${index + 1}:`, {
+        name: solution.name,
+        custom_url: solution.custom_url,
+        generated_slug: solution.custom_url?.url?.replace(/\//g, "")
+      });
+    });
   } catch (error) {
     console.error("Error fetching solutions:", error);
     return {
       paths: [],
-      fallback: "blocking",
+      fallback: "blocking", // fallback blocking if fetching fails
     };
   }
 
-  const paths = solutions.map((app) => ({
-    params: {
-      slug: app.name
-        .toLowerCase()
-        .replace(/&/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim(),
-    },
-  }));
+  // Since solutions don't have custom_url, use name-based slugs instead
+  const paths = solutions
+    .filter((solution) => solution && solution.name) // Filter out items without name
+    .map((solution) => ({
+      params: { 
+        slug: solution.name
+          .toLowerCase()
+          .replace(/&/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .trim()
+      },
+    }));
+
+  console.log(`🔍 Solutions getStaticPaths: Generated ${paths.length} paths:`, paths.map(p => p.params.slug));
 
   return {
     paths,
-    fallback: "blocking", // Blocking mode to wait for static page build
+    fallback: false, // All valid pages must be generated at build time
   };
 }
 
-// getStaticProps with retry logic
+// getStaticProps with cached data
 export async function getStaticProps({ params }) {
+  console.log(`🔍 Solutions getStaticProps: Looking for slug "${params.slug}"`);
   let solutions = [];
 
   try {
-    const json = await fetchWithRetry(
-      `${process.env.API_URL}/api/solutions`,
-      5,
-      1000 * 60
-    ); // Retries 5 times with 60-second delay
-    solutions = json.data;
+    // Use cached data from solutions index page - no additional API call needed!
+    solutions = await BuildDataCache.getSolutions();
+    console.log(`🔍 Solutions getStaticProps: Found ${solutions.length} solutions to search`);
 
     // Check if json.data is defined and is an array
     if (!Array.isArray(solutions)) {
+      console.log("❌ Solutions getStaticProps: solutions is not an array");
       return { notFound: true };
     }
   } catch (error) {
@@ -92,9 +103,16 @@ export async function getStaticProps({ params }) {
     return { notFound: true };
   }
 
+  // Debug: Log all available slugs
+  const availableSlugs = solutions
+    .filter(s => s && s.name)
+    .map(s => s.name.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim());
+  console.log(`🔍 Solutions getStaticProps: Available slugs:`, availableSlugs);
+
+  // Find solution by matching the name-based slug generation logic
   const solution = solutions.find(
-    (a) =>
-      a.name
+    (s) => s && s.name &&
+      s.name
         .toLowerCase()
         .replace(/&/g, "")
         .replace(/\s+/g, "-")
@@ -103,45 +121,58 @@ export async function getStaticProps({ params }) {
   );
 
   if (!solution) {
+    console.log(`❌ Solutions getStaticProps: No solution found for slug "${params.slug}"`);
+    console.log(`❌ Available solutions:`, solutions.map(s => ({
+      name: s.name,
+      generated_slug: s.name?.toLowerCase().replace(/&/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim()
+    })));
     return { notFound: true };
   }
 
+  console.log(`✅ Solutions getStaticProps: Found solution "${solution.name}" for slug "${params.slug}"`);
+  
+
   return {
     props: { solution },
-    revalidate: 60 * 60, // Revalidates every 60 minutes
+    // No revalidate property = static build at build time
   };
 }
 
 const Solution = ({ solution }) => {
+  // Safe fallbacks for solution data
+  const safeSolution = solution || {};
+  const safeName = safeSolution.name || 'Solution';
+  const safeMetaDescription = safeSolution.meta_description || safeSolution.description || `Learn more about ${safeName} and how it supports your operations.`;
+  const safeProducts = Array.isArray(safeSolution.products) ? safeSolution.products : [];
+  const safeDescription = safeSolution.description || '';
+
   return (
-    <Layout pageTitle={solution.name}>
+    <Layout pageTitle={safeName}>
       <Head>
         <meta
           name="description"
-          content={
-            solution.meta_description ||
-            `Learn more about ${solution.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
         <meta
           name="og:description"
-          content={
-            solution.meta_description ||
-            `Learn more about ${solution.name} and how it supports your operations.`
-          }
+          content={safeMetaDescription}
         />
-        <meta property="og:title" content={`Sytis | ${solution.name}`} />
+        <meta property="og:title" content={`Sytis | ${safeName}`} />
       </Head>
       <Style />
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
       <PageBanner
-        title={solution.name}
+        title={safeName}
         parent="Solutions"
         parentHref="/solutions"
       />
-      <ShopPage products={solution.products} />
+      <ProductCategory 
+        products={safeProducts} 
+        categoryName={safeName} 
+        categoryDescription={safeDescription} 
+      />
       <CallToSectionTwo className="alternate" />
       <MainFooter />
     </Layout>
