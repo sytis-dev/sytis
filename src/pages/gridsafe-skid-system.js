@@ -45,7 +45,7 @@ const About2 = () => {
       <HeaderOne />
       <MobileMenu />
       <SearchPopup />
-      <PageBanner title="Grid Safe Skid System" page="Grid Safe Skid System" />
+      <PageBanner title="GridSafe™ Skid System" page="GridSafe™ Skid System" />
       <GridSafeSkidFeaturedSection className="featured-section__about-two" />
       <SponsorsSection className="sponsors-section__about-two" />
       <div
