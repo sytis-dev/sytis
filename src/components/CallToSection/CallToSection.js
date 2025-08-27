@@ -9,7 +9,7 @@ const CallToSection = ({ className = "", container = true }) => {
           <div className="shape-1 animated slideInRight"></div>
           <div className="shape-2 animated fadeInDown"></div>
           <div className={container ? "" : "auto-container clearfix"}>
-            <h2 style={{ color: "white" }}>
+            <h2 style={{ color: "white", fontSize: "2.5rem"}} >
               Let&apos;s discuss how we can {container ? <br /> : ""}
               help!
             </h2>

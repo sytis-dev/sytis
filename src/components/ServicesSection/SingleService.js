@@ -53,6 +53,11 @@ const SingleService = ({ service = {} }) => {
             marginBottom: "10px",
             color: isHovered ? "white" : "black",
             transition: "color 0.3s ease",
+            fontSize: "1.05em",
+            lineHeight: "1.3",
+            maxWidth: "100%",
+            overflow: "hidden",
+            padding: "0 4px",
           }}
         >
           <a

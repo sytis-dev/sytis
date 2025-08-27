@@ -29,9 +29,9 @@ const SYTISBlogPost = ({ post = {} }) => {
               </li>
             </ul>
           </div>
-          <h5>
-            <Link href={`${href}`} style={{ fontSize: "30%" }}>
-              {title}
+          <h5 style={{ fontSize: "1.4rem" }}>
+            <Link href={`${href}`}>
+              {title} 
             </Link>{" "}
           </h5>
           {/* <div className="summary">{summary}</div> */}

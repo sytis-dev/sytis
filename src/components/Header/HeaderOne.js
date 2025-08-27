@@ -172,8 +172,8 @@ const HeaderOne = ({
             </div>
 
             {links && (
-              <div className="other-links clearfix">
-                <div className="login-btn" style={{ marginRight: "30px" }}>
+              <div className="other-links clearfix" style={{ marginTop: "-6px" }}>
+                <div className="login-btn" style={{ marginRight: "10px" }}>
                   <Link href="/login">
                     <a className="theme-btn login-toggler">
                       <NextImage src="/user-icon.svg" alt="User Icon" width={24} height={24} />
@@ -189,7 +189,7 @@ const HeaderOne = ({
                     <NextImage src="/search-icon.svg" alt="Search Icon" width={24} height={24} />
                   </button>
                 </div>
-                <div className="link-box">
+                <div className="link-box" style={{ marginBottom: "-10px" }}>
                   <div>
                     <Link
                       className="theme-btn btn-style-one demo-purchase-btn"
