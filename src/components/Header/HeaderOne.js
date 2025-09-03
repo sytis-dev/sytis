@@ -23,12 +23,12 @@ const {
   socials,
 } = headerData;
 
-// ✅ Custom hook to detect mobile
-const useIsMobile = (breakpoint = 768) => {
+// ✅ Custom hook to detect mobile/tablet (matches CSS breakpoint)
+const useIsMobile = (breakpoint = 1199) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    const checkMobile = () => setIsMobile(window.innerWidth <= breakpoint);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -72,7 +72,7 @@ const HeaderOne = ({
 
   return (
     <header
-      className={`main-header${scrollTop ? " fixed-header" : ""} ${headerStyle}`}
+      className={`main-header${scrollTop ? " fixed-header" : ""} ${headerStyle}`} 
     >
       {topBar && (
         <div
@@ -116,11 +116,19 @@ const HeaderOne = ({
       )}
       <div
         className="header-upper"
-        style={{ paddingTop: topBar ? "60px" : "0" }}
+        style={{ 
+          paddingTop: topBar ? "60px" : "0",
+          minHeight: isMobile ? "auto" : "120px",
+          display: "flex",
+          alignItems: "center"
+        }}
       >
         <div
           style={{
             marginTop: topBar && isMobile ? "60px" : "0",
+            width: "100%",
+            display: "flex",
+            alignItems: "center"
           }}
           className={autoContainer ? "inner-container clearfix" : ""}
         >
@@ -128,52 +136,60 @@ const HeaderOne = ({
             className={
               autoContainer ? "auto-container" : "inner-container clearfix"
             }
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}
           >
-            <div className="logo-box">
-              <div className="logo">
-                <Link href="/">
-                  <a title={title}>
-                    <Image
-                      id="thm-logo"
-                      src={Logo.src}
-                      alt={title}
-                      title={title}
-                    />
-                  </a>
-                </Link>
-              </div>
-            </div>
-            <div className="nav-outer clearfix">
-              <div onClick={toggleMenu} className="mobile-nav-toggler">
-                <span className="icon flaticon-menu-2"></span>
-                <span className="txt">Menu</span>
-              </div>
-
-              <nav className="main-menu navbar-expand-md navbar-light">
-                <div
-                  className={
-                    autoContainer
-                      ? ""
-                      : "collapse navbar-collapse show clearfix"
-                  }
-                  id={autoContainer ? "" : "navbarSupportedContent"}
-                >
-                  <ul className="navigation clearfix">
-                    {newNavItemsSYTIS.map((navItem) => (
-                      <NavItem
-                        navItem={navItem}
-                        key={navItem.id}
-                        onePage={onePage}
+            <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+              <div className="logo-box">
+                <div className="logo">
+                  <Link href="/">
+                    <a title={title}>
+                      <Image
+                        id="thm-logo"
+                        src={Logo.src}
+                        alt={title}
+                        title={title}
                       />
-                    ))}
-                  </ul>
+                    </a>
+                  </Link>
                 </div>
-              </nav>
+              </div>
+              <div className="nav-outer clearfix" style={{ marginLeft: "-2px" }}>
+                <div onClick={toggleMenu} className="mobile-nav-toggler">
+                  <span className="icon flaticon-menu-2"></span>
+                  <span className="txt">Menu</span>
+                </div>
+
+                <nav className="main-menu navbar-expand-md navbar-light">
+                  <div
+                    className={
+                      autoContainer
+                        ? ""
+                        : "collapse navbar-collapse show clearfix"
+                    }
+                    id={autoContainer ? "" : "navbarSupportedContent"}
+                  >
+                    <ul className="navigation clearfix">
+                      {newNavItemsSYTIS.map((navItem) => (
+                        <NavItem
+                          navItem={navItem}
+                          key={navItem.id}
+                          onePage={onePage}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
             </div>
 
-            {links && (
-              <div className="other-links clearfix" style={{ marginTop: "-6px" }}>
-                <div className="login-btn" style={{ marginRight: "10px" }}>
+            {links && !isMobile && (
+              <div className="other-links clearfix" style={{ marginTop: "-6px", display: "flex", alignItems: "center", gap: "10px" }}>
+                <div className="login-btn">
                   <Link href="/login">
                     <a className="theme-btn login-toggler">
                       <NextImage src="/user-icon.svg" alt="User Icon" width={24} height={24} />
@@ -189,6 +205,14 @@ const HeaderOne = ({
                     <NextImage src="/search-icon.svg" alt="Search Icon" width={24} height={24} />
                   </button>
                 </div>
+                <div 
+                  style={{ 
+                    width: "1px", 
+                    height: "100%", 
+                    backgroundColor: "#ff0000",
+                    margin: "0 5px"
+                  }}
+                ></div>
                 <div className="link-box" style={{ marginBottom: "-10px" }}>
                   <div>
                     <Link
@@ -197,7 +221,7 @@ const HeaderOne = ({
                     >
                       <a
                         className="theme-btn btn-style-one demo-purchase-btn"
-                        style={{ color: "white !important" }}
+                        style={{ color: "white", fontSize: "10px" }}
                       >
                         <i className="btn-curve"></i>
                         <span className="btn-title">Contact Us</span>

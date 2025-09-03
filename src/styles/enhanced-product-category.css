@@ -543,6 +543,7 @@ div.product-category .product-specs-grid {
   width: 100%;
   display: inline-flex;
   align-items: center;
+  font-family: var(--thm-button-font);
   justify-content: center;
   padding: 15px 20px;
   border-radius: 5px;

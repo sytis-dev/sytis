@@ -92,7 +92,7 @@ const GeneralToast = ({
           padding: "0.75rem 1.5rem",
           borderRadius: "5px",
           textDecoration: "none",
-          fontFamily: "'Novecento Sans Wide', sans-serif",
+          fontFamily: "'Roboto', sans-serif",
           fontSize: "16px",
           fontWeight: "400",
           textTransform: "uppercase",

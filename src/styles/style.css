@@ -97,6 +97,7 @@
 :root {
   --thm-font: 'Novecento Sans Wide', sans-serif;
   --thm-b-font: "Rubik", sans-serif;
+  --thm-button-font: "Roboto", sans-serif;
   --thm-base: #ffaa17;
   --thm-base-rgb: 255, 170, 23;
   --thm-black: #222429;
@@ -186,7 +187,7 @@ h6 {
 input,
 select,
 button {
-  font-family: var(--thm-font);
+  font-family: var(--thm-button-font);
 }
 
 textarea {
@@ -291,6 +292,7 @@ figure {
   display: inline-block;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  font-family: var(--thm-button-font);
 }
 
 .theme-btn i {
@@ -315,7 +317,7 @@ figure {
   color: white;
   border-radius: 5px;
   overflow: hidden;
-  font-family: var(--thm-font);
+  font-family: var(--thm-button-font);
   transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
@@ -376,7 +378,7 @@ figure {
   color: #ffffff;
   border-radius: 5px;
   overflow: hidden;
-  font-family: var(--thm-font);
+  font-family: var(--thm-button-font);
   transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
@@ -394,7 +396,7 @@ figure {
   color: #ffffff;
   border-radius: 5px;
   overflow: hidden;
-  font-family: var(--thm-font);
+  font-family: var(--thm-button-font);
   transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
@@ -850,7 +852,6 @@ img {
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: 2px solid var(--thm-base);
   border-radius: 50%;
   background: transparent;
   transition: all 300ms ease;
@@ -858,11 +859,7 @@ img {
   margin: 0;
 }
 
-.main-header .other-links .login-btn .theme-btn:hover,
-.main-header .other-links .search-btn .theme-btn:hover {
-  background: var(--thm-base);
-  transform: scale(1.1);
-}
+
 
 .main-header .other-links .login-btn .theme-btn img,
 .main-header .other-links .search-btn .theme-btn img {
@@ -881,13 +878,13 @@ img {
 /* Remove default padding from icon containers */
 .main-header .other-links .search-btn {
   padding: 0;
-  margin: 0 15px;
+
   border: none;
 }
 
 .main-header .other-links .login-btn {
   padding: 0;
-  margin: 0 15px;
+
 }
 
 .main-header .nav-outer {
@@ -2485,6 +2482,7 @@ img.lazy-image.loaded {
 .contact-form .form-group input[type="submit"],
 .contact-form .form-group button {
   display: inline-block;
+  font-family: var(--thm-button-font);
 }
 
 .default-form .form-group input[type="text"]:focus,
@@ -2642,9 +2640,9 @@ img.lazy-image.loaded {
 .banner-section .left-based-text .base-inner {
   position: absolute;
   left: 0;
-  bottom: 250px;
   width: 730px;
-  height: 24px;
+  height: 22.8px; /* reduced by 5% from 24px */
+  font-size: 18px; /* reduced by 5% from 16px, if inherited */
   -webkit-transform-origin: left bottom;
   transform-origin: left bottom;
   -webkit-transform: rotate(-90deg);
@@ -3076,7 +3074,7 @@ img.lazy-image.loaded {
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  padding: 150px 0px 50px;
+  padding: 50px 0px 50px;
 }
 
 .banner-carousel .content-box .inner {
@@ -26548,10 +26546,10 @@ img.lazy-image.loaded {
   padding: 12px 25px !important;
   border-radius: 6px !important;
   text-decoration: none !important;
+  font-family: var(--thm-button-font) !important;
   font-weight: 600 !important;
   font-size: 16px !important;
   transition: all 0.3s ease !important;
-  font-family: var(--thm-font) !important;
   display: inline-block !important;
   text-align: center !important;
 }
