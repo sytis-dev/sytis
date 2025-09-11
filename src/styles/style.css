@@ -274,6 +274,62 @@ li {
   margin: 0px;
 }
 
+/* Restore bullet points for article content */
+.blog-details .text ul,
+.blog-details .text ol {
+  list-style: initial;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.blog-details .text ul li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+
+.blog-details .text ol li {
+  list-style-type: decimal;
+  margin-bottom: 5px;
+}
+
+/* Restore bullet points for product descriptions and other content areas */
+.product-description__text ul,
+.product-description__text ol,
+.product-tabs__panel-text ul,
+.product-tabs__panel-text ol,
+.product-tabs__panel-list ul,
+.product-tabs__panel-list ol,
+.lower-text ul,
+.lower-text ol,
+.section-content ul,
+.section-content ol,
+.conclusion-content ul,
+.conclusion-content ol {
+  list-style: initial;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.product-description__text ul li,
+.product-tabs__panel-text ul li,
+.product-tabs__panel-list ul li,
+.lower-text ul li,
+.section-content ul li,
+.conclusion-content ul li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+
+.product-description__text ol li,
+.product-tabs__panel-text ol li,
+.product-tabs__panel-list ol li,
+.lower-text ol li,
+.section-content ol li,
+.conclusion-content ol li {
+  list-style-type: decimal;
+  margin-bottom: 5px;
+}
+
 figure {
   margin-bottom: 0;
 }
