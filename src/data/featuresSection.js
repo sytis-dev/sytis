@@ -33,7 +33,7 @@ export const featuresSectionTwo = {
   title: "INTRODUCING THE SYTIS TC-90™",
   altText: "TC90™ Bi-spectral Panel Camera",
   title2: "SYTIS TC-90™",
-  link: "/products/tc-90-bi-spectral-card-camera",
+  link: "https://tc90.sytis.com",
   features: [
     {
       id: 1,
