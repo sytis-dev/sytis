@@ -46,7 +46,7 @@ export const bannerOne = {
   bannersTwo: [
     {
       id: 1,
-      bg: "sytis-green-cross-award.jpg",
+      bg: "sytis-green-cross-winner.jpg",
       title: "SAfETY. INNOVATION.\nRECOGNITION.",
       text: "Congratulations to Ryan Severe, for winning the National Safety Council’s Green Cross Award for Safety Innovation through pioneering the use of our TC-90™ system at the PSE wind farm to revolutionize safety protocols. ",
       button_text: "Read the Case Study ",
