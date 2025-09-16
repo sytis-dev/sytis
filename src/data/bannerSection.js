@@ -48,7 +48,7 @@ export const bannerOne = {
       id: 1,
       bg: "sytis-green-cross-award.jpg",
       title: "SAfETY. INNOVATION.\nRECOGNITION.",
-      text: "Congratulations to Ryan Severe, for earning the National Safety Council's Green Cross Award for Safety Innovation through pioneering the use of our TC-90™ system at the PSE wind farm to revolutionize safety protocols. ",
+      text: "Congratulations to Ryan Severe, for winning the National Safety Council’s Green Cross Award for Safety Innovation through pioneering the use of our TC-90™ system at the PSE wind farm to revolutionize safety protocols. ",
       button_text: "Read the Case Study ",
       button_link: "/articles/case-study-applying-continuous-infrared-camera-technology-and-software-at-puget-sound-energy",
     },

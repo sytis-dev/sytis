@@ -35,6 +35,16 @@ const nextConfig = {
   },
   // Ignore demo pages in production builds
   excludeFiles: isProd ? ignoreDemoPages : () => [],
+  // 301 redirects
+  async redirects() {
+    return [
+      {
+        source: '/blog/recognition-nsc-green-cross-for-safety-innovation-award-names-ryan-severe-a-finalist-',
+        destination: '/blog/recognition-ryan-severe-wins-nsc-green-cross-for-safety-innovation-award',
+        permanent: true, // This creates a 301 redirect
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
