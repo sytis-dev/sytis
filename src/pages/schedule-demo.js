@@ -138,7 +138,7 @@ const ScheduleDemo = () => {
               maxWidth: "800px",
               margin: "0 auto 30px"
             }}>
-              At SYTIS, we help you make the invisible visible. From turbines and substations to BESS and transformers, our technology uncovers hidden information in unreachable assets. With actionable intelligence, helping you cut costs, save time and keep your people out of harm's way.
+              At SYTIS, we help you make the invisible visible. From turbines and substations to BESS and transformers, our technology uncovers hidden information in unreachable assets. With actionable intelligence, helping you cut costs, save time and keep your people out of harm&apos;s way.
             </p>
             <div className="link-box">
               <a className="theme-btn btn-style-two" href="#" style={{ backgroundColor: "#4682b4" }}>
@@ -260,7 +260,7 @@ const ScheduleDemo = () => {
                     lineHeight: "1.5",
                     textAlign: "left"
                   }}>
-                    Knowing what's going on inside your nacelle has never been this easy.
+                    Knowing what&apos;s going on inside your nacelle has never been this easy.
                   </p>
                 </div>
               </div>
