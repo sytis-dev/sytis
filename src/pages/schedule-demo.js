@@ -10,6 +10,7 @@ import SponsorsSectionTwo from "@/components/SponsorsSection/SponsorsSectionTwo"
 import CallToSection from "@/components/CallToSection/CallToSection";
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { Col, Row, Container } from "react-bootstrap";
 
 const ScheduleDemo = () => {
@@ -64,18 +65,20 @@ const ScheduleDemo = () => {
         <div className="auto-container">
           <Row className="clearfix">
             {/* 25% Content Column */}
-            <Col lg={3} md={12} className="content-col">
+            <Col lg={6} md={12} className="content-col">
               <div className="content-block" style={{ 
-                paddingRight: "0px",
-                paddingLeft: "0px",
-                marginLeft: "-20px"
+                paddingRight: "15px",
+                paddingLeft: "15px",
+                marginLeft: "0px"
               }}>
                 <h2 style={{ 
-                  fontSize: "40px", 
+                  fontSize: "48px", 
                   color: "#333", 
                   marginBottom: "20px",
-                  lineHeight: "1.2",
-                  textAlign: "left"
+                  textAlign: "left",
+                  paddingLeft: "0px",
+                  paddingRight: "15px",
+                  wordBreak: "break-word"
                 }}>
                   REVOLUTIONIZE CONDITION-BASED MAINTENANCE
                   THROUGH SYNERGISTIC REMOTE THERMOGRAPHY.
@@ -84,7 +87,7 @@ const ScheduleDemo = () => {
             </Col>
 
             {/* 75% HubSpot Form Column */}
-            <Col lg={9} md={12} className="form-col">
+            <Col lg={6} md={12} className="form-col">
               <div className="form-container">
                 {/* HubSpot Form Embed */}
                 <div className="hs-form-frame"></div>
@@ -119,7 +122,7 @@ const ScheduleDemo = () => {
         <div className="auto-container" style={{ position: "relative", zIndex: "2" }}>
           <div className="text-center" style={{ marginBottom: "50px" }}>
             <h2 style={{ 
-              fontSize: "52px", 
+              fontSize: "100px", 
               marginBottom: "20px",
               lineHeight: "1.2",
               display: "flex",
@@ -141,15 +144,17 @@ const ScheduleDemo = () => {
               At SYTIS, we help you make the invisible visible. From turbines and substations to BESS and transformers, our technology uncovers hidden information in unreachable assets. With actionable intelligence, helping you cut costs, save time and keep your people out of harm&apos;s way.
             </p>
             <div className="link-box">
-              <a className="theme-btn btn-style-two" href="#" style={{ backgroundColor: "#4682b4" }}>
-                <i className="btn-curve"></i>
-                <span className="btn-title">DISCOVER MORE</span>
-              </a>
+              <Link href="/applications" passHref legacyBehavior>
+                <a className="theme-btn btn-style-two" style={{ backgroundColor: "#4682b4" }}>
+                  <i className="btn-curve"></i>
+                  <span className="btn-title">DISCOVER MORE</span>
+                </a>
+              </Link>
             </div>
           </div>
           
-          <Row className="clearfix">
-            <Col lg={4} md={6} sm={12} className="feature-box">
+          <Row className="clearfix" style={{ margin: "0 -15px" }}>
+            <Col lg={4} md={6} sm={12} className="feature-box" style={{ padding: "0 15px 30px 15px" }}>
               <div style={{ 
                 backgroundColor: "white", 
                 padding: "30px", 
@@ -159,13 +164,20 @@ const ScheduleDemo = () => {
                 position: "relative"
               }}>
                 <div style={{ 
-                  fontSize: "24px", 
                   marginBottom: "20px",
-                  color: "#d32f2f",
                   position: "absolute",
                   top: "20px",
                   left: "20px"
-                }}>⚙️</div>
+                }}>
+                  <img 
+                    src="/icons/predictive-maintenance.png" 
+                    alt="Predictive Maintenance" 
+                    style={{ 
+                      width: "40px", 
+                      height: "40px" 
+                    }} 
+                  />
+                </div>
                 <div style={{ paddingTop: "40px" }}>
                   <h4 style={{ 
                     fontSize: "18px", 
@@ -188,7 +200,7 @@ const ScheduleDemo = () => {
               </div>
             </Col>
             
-            <Col lg={4} md={6} sm={12} className="feature-box">
+            <Col lg={4} md={6} sm={12} className="feature-box" style={{ padding: "0 15px 30px 15px" }}>
               <div style={{ 
                 backgroundColor: "white", 
                 padding: "30px", 
@@ -198,13 +210,20 @@ const ScheduleDemo = () => {
                 position: "relative"
               }}>
                 <div style={{ 
-                  fontSize: "24px", 
                   marginBottom: "20px",
-                  color: "#d32f2f",
                   position: "absolute",
                   top: "20px",
                   left: "20px"
-                }}>🛡️</div>
+                }}>
+                  <img 
+                    src="/icons/protect-investment.png" 
+                    alt="Protect Investment" 
+                    style={{ 
+                      width: "40px", 
+                      height: "40px" 
+                    }} 
+                  />
+                </div>
                 <div style={{ paddingTop: "40px" }}>
                   <h4 style={{ 
                     fontSize: "18px", 
@@ -227,7 +246,7 @@ const ScheduleDemo = () => {
               </div>
             </Col>
             
-            <Col lg={4} md={6} sm={12} className="feature-box">
+            <Col lg={4} md={6} sm={12} className="feature-box" style={{ padding: "0 15px 30px 15px" }}>
               <div style={{ 
                 backgroundColor: "white", 
                 padding: "30px", 
@@ -237,13 +256,20 @@ const ScheduleDemo = () => {
                 position: "relative"
               }}>
                 <div style={{ 
-                  fontSize: "24px", 
                   marginBottom: "20px",
-                  color: "#d32f2f",
                   position: "absolute",
                   top: "20px",
                   left: "20px"
-                }}>🕐</div>
+                }}>
+                  <img 
+                    src="/icons/247-monitoring.png" 
+                    alt="24/7 Monitoring" 
+                    style={{ 
+                      width: "40px", 
+                      height: "40px" 
+                    }} 
+                  />
+                </div>
                 <div style={{ paddingTop: "40px" }}>
                   <h4 style={{ 
                     fontSize: "18px", 

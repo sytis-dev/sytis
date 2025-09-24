@@ -30,7 +30,7 @@ const DiscoverSection = ({ ShowTitle = true }) => {
                 </div>
                 <div className="cap-box animated fadeInUp">
                   <div className="cap-inner">
-                    <h5 style={{ color: 'white' }}>{title}</h5>
+                    <h5 style={{ color: 'white', fontSize: '1.6em' }}>{title}</h5>
                     <div className="more-link" style={{ color: "#4682B4" }}>
                       <Link href={href}>
                         <a aria-label={`Discover more about ${title}`}>

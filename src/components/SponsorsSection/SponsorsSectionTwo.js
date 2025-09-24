@@ -18,7 +18,7 @@ const SponsorsSectionTwo = () => {
           </Col>
 
           <Col xl={7} lg={12} md={12} className="logo-col">
-            <Row className="clearfix">
+            <Row className="clearfix justify-content-center justify-content-md-start">
               {sponsors.map((image, i) => (
                 <Col
                   key={i}
@@ -27,9 +27,9 @@ const SponsorsSectionTwo = () => {
                   md={4}
                   sm={6}
                   xs={12}
-                  className="logo-block"
+                  className="logo-block d-flex justify-content-center justify-content-md-start"
                 >
-                  <div className="image-box">
+                  <div className="image-box text-center text-md-left">
                     <Image
                       src={require(`@/images/clients/${image}`).default.src}
                       alt=""
