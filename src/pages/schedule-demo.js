@@ -15,27 +15,19 @@ import { Col, Row, Container } from "react-bootstrap";
 
 const ScheduleDemo = () => {
   useEffect(() => {
-    const loadHubSpotForm = () => {
-      if (window.hbspt && !document.querySelector(".hs-form-frame iframe")) {
-        window.hbspt.forms.create({
-          region: "na2",
-          portalId: "47869494",
-          formId: "95bd44b8-db7c-4201-9cc0-9cc6270b0966",
-          target: ".hs-form-frame",
-        });
-      }
+    const loadHubSpotCalendar = () => {
+      // Load the HubSpot Meetings Embed script
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+      script.async = true;
+      document.body.appendChild(script);
     };
 
-    // Wait for the HubSpot script to load before running form creation
-    const script = document.createElement("script");
-    script.src = "https://js-na2.hsforms.net/forms/embed/v2.js";
-    script.async = true;
-    script.onload = loadHubSpotForm;
-    document.body.appendChild(script);
+    loadHubSpotCalendar();
 
     return () => {
-      // Cleanup: Prevent multiple script insertions
-      script.onload = null;
+      // Cleanup if needed
     };
   }, []);
 
@@ -60,12 +52,12 @@ const ScheduleDemo = () => {
       <SearchPopup />
       <PageBanner title="Schedule Demo" page="Schedule Demo" />
       
-      {/* Main Content Section with 25% content / 75% HubSpot form */}
+      {/* Main Content Section with 30% content / 70% HubSpot calendar */}
       <section className="schedule-demo-section" style={{ padding: "80px 0", backgroundColor: "#fff" }}>
         <div className="auto-container">
           <Row className="clearfix">
-            {/* 25% Content Column */}
-            <Col lg={6} md={12} className="content-col">
+            {/* 30% Content Column */}
+            <Col lg={4} md={12} className="content-col">
               <div className="content-block" style={{ 
                 paddingRight: "15px",
                 paddingLeft: "15px",
@@ -86,11 +78,15 @@ const ScheduleDemo = () => {
               </div>
             </Col>
 
-            {/* 75% HubSpot Form Column */}
-            <Col lg={6} md={12} className="form-col">
-              <div className="form-container">
-                {/* HubSpot Form Embed */}
-                <div className="hs-form-frame"></div>
+            {/* 70% HubSpot Calendar Column */}
+            <Col lg={8} md={12} className="form-col">
+              <div className="form-container" style={{ width: "100%" }}>
+                {/* HubSpot Calendar Embed */}
+                <div 
+                  className="meetings-iframe-container" 
+                  data-src="https://meetings-na2.hubspot.com/jessica-frantzides?embed=true"
+                  style={{ width: "100%", minHeight: "600px" }}
+                ></div>
               </div>
             </Col>
           </Row>

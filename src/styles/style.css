@@ -25792,7 +25792,7 @@ img.lazy-image.loaded {
 .product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a,
 .resource-link,
 .datasheet-link {
-  display: inline-flex;
+  display: block;
   align-items: center;
   padding: 12px 20px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -25809,6 +25809,8 @@ img.lazy-image.loaded {
   cursor: pointer;
   pointer-events: auto;
   z-index: 1;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .product-tabs__panel[data-tab="tab_resources"] .product-tabs__panel-text a:before,
@@ -26819,9 +26821,11 @@ img.lazy-image.loaded {
   color: var(--thm-base);
   text-decoration: none;
   transition: all 0.3s ease;
-  display: inline-block;
+  display: block;
   padding: 8px 0;
   position: relative;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .resource-link:hover {
