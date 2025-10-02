@@ -56,7 +56,7 @@ const resources = [
     links: [
       {
         href: "/resources/TC-90-Datasheet-2025.pdf",
-        text: "Thermal Card Camera (TC-90™) Datasheet",
+        text: "Bi-spectral Card Camera (TC-90™) Datasheet",
       },
       {
         href: "/resources/TC-90-QuickStartGuide-2025.pdf",
