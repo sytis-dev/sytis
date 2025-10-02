@@ -25,6 +25,11 @@ const FormSection = ({ className = "" }) => {
           marginTop: "30px",
         }}
       >
+        <div className="sec-title centered">
+          <h2 style={{ textAlign: "center", color: "#000" }}>
+            Connect With Us
+          </h2>
+        </div>
         <div
           style={{
             width: "72%",

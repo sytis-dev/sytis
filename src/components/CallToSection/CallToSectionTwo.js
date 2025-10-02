@@ -14,7 +14,7 @@ const CallToSectionTwo = ({
             help
           </h2>
           <div className="link-box">
-            <Link href="/solution-inquiry">
+            <Link href="/contact">
               <a className={`theme-btn ${btnClassName}`}>
                 <i className="btn-curve"></i>
                 <span className="btn-title">Contact us</span>

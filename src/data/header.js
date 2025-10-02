@@ -209,7 +209,6 @@ const navItemsSYTIS = [
     name: "Resources",
     href: "",
     subNavItems: [
-      { id: 1, name: "Solution Inquiry", href: "/solution-inquiry" },
       { id: 2, name: "FAQ", href: "/faq" },
       // { id: 3, name: "Careers", href: "/careers" },
       { id: 5, name: "Product Resources", href: "/product-resources" },

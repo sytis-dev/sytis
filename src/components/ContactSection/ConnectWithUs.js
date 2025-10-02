@@ -11,11 +11,7 @@ const ConnectWithUs = ({ className = "" }) => {
   return (
     <section ref={ref} className={`contact-section ${className}`} id="connect-with-us" style={{ marginBottom: "-20px" }}>
       <div className="auto-container">
-        <div className="sec-title centered">
-          <h2 style={{ textAlign: "center", color: "#000" }}>
-            Connect With Us
-          </h2>
-        </div>
+
 
         <div className="upper-info">
           <div style={{ paddingBottom: "20px" }}>

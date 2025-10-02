@@ -71,7 +71,6 @@ module.exports = {
     '/cookie-policy',
     '/shipping',
     '/product-resources',
-    '/solution-inquiry',
     '/newsletter',
     '/grid-safe-skid-system',
     '/history',

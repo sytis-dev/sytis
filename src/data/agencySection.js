@@ -13,15 +13,11 @@ const agencySection = {
       id: "tab-2",
       text: "Events",
     },
-    {
-      id: "tab-3",
-      text: "Solution Inquiry",
-    },
   ],
   tabContents: [
     {
       id: "tab-1",
-      text: "Explore common questions and if you can’t find your answer, feel free to reach out.",
+      text: "Explore common questions and if you can't find your answer, feel free to reach out.",
       ctaText: "View FAQ",
       ctaLink: "/faq",
     },
@@ -30,12 +26,6 @@ const agencySection = {
       text: "Learn about what events we are attending and come visit us.",
       ctaText: "View Events",
       ctaLink: "/events",
-    },
-    {
-      id: "tab-3",
-      text: "Want to get  in touch with our experts and receive a quote? Fill out this form and we’ll get back to you shortly. ",
-      ctaText: "Submit Inquiry",
-      ctaLink: "/solution-inquiry",
     },
   ],
   textList: [
