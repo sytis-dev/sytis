@@ -13,7 +13,7 @@ const SYTISBlogPost = ({ post = {} }) => {
           <Link href={`${href}`}>
             <a>
               {image && (
-                <Image width={500} height={500} src={image} alt={title} />
+                <Image width={500} height={375} src={image} alt={title} className="article-image" />
               )}
             </a>
           </Link>
