@@ -76,7 +76,7 @@ Colors used for various UI elements and accents:
 - `#dc3545` - Bootstrap Danger Red
 
 ### Yellows & Warnings
-- `#ffaa16` - Alternative Orange/Yellow (variant of primary)
+- `#ffaa16` - Alternative Orange/Yellow (very close variant to primary `#ffaa17`, differs by 1 in blue channel)
 - `#ffc107` - Bootstrap Warning Yellow
 
 ---
@@ -360,4 +360,4 @@ When adding new colors:
 
 ---
 
-*Last updated: December 2024*
+*Last updated: December 10, 2024*
