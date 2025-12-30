@@ -12,6 +12,13 @@ import renewableUk from "@/images/update-09-06-2021/events/renewable_uk.png";
 import windeurope from "@/images/update-09-06-2021/events/windeurope.png";
 import neca2025 from "@/images/update-09-06-2021/events/neca-2025.png";
 import nsc2025 from "@/images/update-09-06-2021/events/nsc-2025.png";
+import powergen2025 from "@/images/update-09-06-2021/events/powergen-2025.png";
+import distributech2026 from "@/images/update-09-06-2021/events/DistribuTECH-2026.jpg";
+import nreca2026 from "@/images/update-09-06-2021/events/nreca-2026.png";
+import windEurope2026 from "@/images/update-09-06-2021/events/wind-europe-2026.png";
+import eei2026 from "@/images/update-09-06-2021/events/eei-2026.png";
+import nfpa2026 from "@/images/update-09-06-2021/events/nfpa-2026.jpg";
+import nsc2026 from "@/images/update-09-06-2021/events/nsc-2026.png";
 
 // Image mapping object
 const eventImages = {
@@ -24,6 +31,13 @@ const eventImages = {
   "windeurope.png": windeurope,
   "neca-2025.png": neca2025,
   "nsc-2025.png": nsc2025,
+  "powergen-2025.png": powergen2025,
+  "DistribuTECH-2026.jpg": distributech2026,
+  "nreca-2026.png": nreca2026,
+  "wind-europe-2026.png": windEurope2026,
+  "eei-2026.png": eei2026,
+  "nfpa-2026.jpg": nfpa2026,
+  "nsc-2026.png": nsc2026,
 };
 
 const SingleEventsOne = ({ event = {}, isPast = false }) => {
@@ -34,7 +48,7 @@ const SingleEventsOne = ({ event = {}, isPast = false }) => {
   const eventImage = eventImages[image];
   
   // Check if this is a wide logo that needs special handling
-  const isWideLogo = image === "nsc-2025.png" || image === "neca-2025.png";
+  const isWideLogo = image === "nsc-2025.png" || image === "neca-2025.png" || image === "powergen-2025.png" || image === "DistribuTECH-2026.jpg" || image === "nreca-2026.png" || image === "wind-europe-2026.png" || image === "eei-2026.png" || image === "nfpa-2026.jpg" || image === "nsc-2026.png";
 
   // Apply past event styling
   const pastEventClass = isPast ? 'past-event' : '';

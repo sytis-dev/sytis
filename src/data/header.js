@@ -226,7 +226,6 @@ const navItems = [
       { id: 1, name: "About Two", href: "/about-2" },
       { id: 2, name: "About Me", href: "/about-me" },
       { id: 3, name: "Our Mission", href: "/mission" },
-      { id: 4, name: "Our History", href: "/history" },
       {
         id: 5,
         name: "Our Team",
