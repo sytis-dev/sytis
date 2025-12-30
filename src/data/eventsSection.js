@@ -55,7 +55,7 @@ export const eventsOne = [
     month: "Jun",
     date: "02 Jun 2026",
     endDate: "04 Jun 2026",
-    image: "eei-2026.png",
+    image: "eei.png",
     title: "EEI 2026",
     time: "12:00pm / 05:00pm",
     address: "Las Vegas, NV",
