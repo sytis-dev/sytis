@@ -199,7 +199,6 @@ const navItemsSYTIS = [
     name: "About SYTIS",
     href: "/about",
     subNavItems: [
-      { id: 2, name: "History (coming soon)", href: "" },
       { id: 4, name: "Event Calendar", href: "/events" },
     ],
   },

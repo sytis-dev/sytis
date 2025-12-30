@@ -11,7 +11,7 @@ export const weWorkSection = {
     },
     {
       id: "tab-3",
-      title: "History",
+      title: "Value Proposition",
     },
   ],
   tabsContents: [
@@ -19,7 +19,7 @@ export const weWorkSection = {
       id: "tab-1",
       image: "sytis-mission.jpg",
       text1:
-        "To safely monitor, predict and prevent mission-critical electrical assets continuously and remotely.           ",
+        "By harnessing advanced AI and continuous thermal imaging, SYTIS empowers industries and communities with intelligent insights to enhance reliability, preserve critical infrastructure and safeguard people.",
       text2: "",
       lists: [],
     },
@@ -27,14 +27,14 @@ export const weWorkSection = {
       id: "tab-2",
       image: "sytis-vision.jpg",
       text1:
-        "To set the global standard in predictive maintenance and safety through AI-driven thermal monitoring, enabling industries worldwide to operate more safely, sustainably, and efficiently.",
+        "A world where intelligent technology safeguards people, infrastructure and the environment from preventable harm.",
       text2: "",
       lists: [],
     },
     {
       id: "tab-3",
       image: "sytis-history.jpg",
-      text1: "Coming Soon!",
+      text1: "Our intelligent thermal imaging and continuous remote monitoring solutions deliver real-time analytics to detect and prevent failures and fires before they occur; avoiding operational disruptions and protecting people and mission-critical assets.",
       text2: "",
       lists: [],
     },

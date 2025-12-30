@@ -15,17 +15,39 @@ import { Col, Row, Container } from "react-bootstrap";
 
 const ScheduleDemo = () => {
   useEffect(() => {
-    const loadHubSpotCalendar = () => {
-      // Load the HubSpot Meetings Embed script
+    const loadHubSpotForm = () => {
+      // Check if script is already loaded
+      if (window.hbspt) {
+        createForm();
+        return;
+      }
+
+      // Load the HubSpot Forms Embed script
       const script = document.createElement("script");
+      script.charset = "utf-8";
       script.type = "text/javascript";
-      script.src =
-        "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+      script.src = "//js-na2.hsforms.net/forms/embed/v2.js";
       script.async = true;
+      
+      script.onload = () => {
+        createForm();
+      };
+      
       document.body.appendChild(script);
     };
 
-    loadHubSpotCalendar();
+    const createForm = () => {
+      if (window.hbspt && window.hbspt.forms) {
+        window.hbspt.forms.create({
+          region: "na2",
+          portalId: "47869494",
+          formId: "95bd44b8-db7c-4201-9cc0-9cc6270b0966",
+          target: "#hubspot-form-container"
+        });
+      }
+    };
+
+    loadHubSpotForm();
 
     return () => {
       // Cleanup if needed
@@ -87,13 +109,12 @@ const ScheduleDemo = () => {
               </div>
             </Col>
 
-            {/* 70% HubSpot Calendar Column */}
+            {/* 70% HubSpot Form Column */}
             <Col lg={8} md={12} className="form-col">
               <div className="form-container" style={{ width: "100%" }}>
-                {/* HubSpot Calendar Embed */}
+                {/* HubSpot Form Container */}
                 <div
-                  className="meetings-iframe-container"
-                  data-src="https://meetings-na2.hubspot.com/jessica-frantzides?embed=true"
+                  id="hubspot-form-container"
                   style={{ width: "100%", minHeight: "600px" }}
                 ></div>
               </div>
